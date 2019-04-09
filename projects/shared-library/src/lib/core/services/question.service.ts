@@ -103,20 +103,38 @@ export class QuestionService {
 
   saveQuestion(question: Question) {
     const dbQuestion = Object.assign({}, question); // object to be saved
+    delete dbQuestion.originalImageUrl;
+    delete dbQuestion.croppedImageUrl;
 
     if (!question.id || question.id === '') {
       dbQuestion['source'] = 'question';
       this.dbService.createDoc('unpublished_questions', dbQuestion).then(ref => {
-        this.store.dispatch(this.questionActions.addQuestionSuccess());
+        this.uploadQuestionImage(dbQuestion, question);
       });
     } else {
       this.dbService.setDoc('unpublished_questions', dbQuestion.id, dbQuestion).then(ref => {
-        this.store.dispatch(this.questionActions.addQuestionSuccess());
+        this.uploadQuestionImage(dbQuestion, question);
       });
     }
 
   }
 
+  uploadQuestionImage(dbQuestion, question) {
+    if (dbQuestion.questionImage) {
+      this.saveQuestionImage(question, dbQuestion.id).subscribe(res => {
+        this.store.dispatch(this.questionActions.addQuestionSuccess());
+      });
+    } else {
+      this.store.dispatch(this.questionActions.addQuestionSuccess());
+    }
+  }
+
+
+
+  saveQuestionImage(question: Question, questionId: string) {
+    const url = `${CONFIG.functionsUrl}/app/question/uploadImage/${questionId}`;
+    return this.http.post<any>(url, {questionImage: question});
+  }
   saveBulkQuestions(bulkUpload: BulkUpload) {
     const dbQuestions: Array<any> = [];
     const bulkUploadFileInfo = bulkUpload.bulkUploadFileInfo;

@@ -36,6 +36,44 @@
       <div class="enterquestion secondbg">
         <div class="optionbox">
           <h2><span>Enter Your Question:</span></h2>
+
+          
+        <!-- Upload question image -->
+        <div class="row">
+          <div class="col-sm-12 col-xs-12">
+            <label for="file-upload">
+              <img [src]="questionImage.image ?  questionImage.image : '/assets/images/uploadImage.png'" [width]="questionImage.image?cropperSettings.croppedWidth:48" [height]="questionImage.image? cropperSettings.croppedHeight:48"
+              alt="Avatar" />
+            </label>
+            <div style="margin-top:12px; margin-bottom: 12px;">
+              <button *ngIf="questionImageFile && !questionImageValidation" class="btn custom-img-upload-btn"
+                (click)="saveQuestionImage()"><img src="/assets/images/accept.png" alt="save" /></button>
+
+              <button *ngIf="questionImageFile && !questionImageValidation" class="btn custom-img-upload-btn reject-btn"
+                (click)="removeQuestionImage()"><img src="/assets/images/reject.png" alt="discard" /></button>
+            </div>
+          </div>
+          <div class="col-sm-12 col-xs-12 avatarinput">
+            <div>
+              <input id="file-upload" #fileUpload name='upload_cont_img' type="file" (change)="onFileChange($event)" class="hide"
+                aria-label="file">
+            </div>
+            <P *ngIf="questionImageValidation" class="error">
+              {{questionImageValidation}}
+            </P>
+            <p *ngIf="!questionImageFile || questionImageValidation">Once Uploaded, You can adjust the cropped image
+              Recommend
+              an image 263 px or larger. Allowed formats: jpeg, gif and png</p>
+            <div>
+              <div class="file-upload">
+              </div>
+              <img-cropper *ngIf="questionImageFile && !questionImageValidation" #cropper [image]="questionImage"
+                [settings]="cropperSettings"></img-cropper>
+              <br>
+            </div>
+          </div>
+        </div>
+
           <textarea class="qinput" placeholder="Enter Your Question" formControlName="questionText" class="required"
             aria-label="question-area"></textarea>
           <div *ngIf="!questionForm.controls.questionText.valid && questionForm.controls.questionText.touched && questionForm.controls.questionText.errors">

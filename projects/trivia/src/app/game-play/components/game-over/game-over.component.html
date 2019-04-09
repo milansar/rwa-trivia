@@ -132,6 +132,7 @@
               <li class="question-section" *ngFor="let row  of questionsArray;let i=index;">
                 <div class="row fullWidth">
                   <div class="li-section1">
+                    <question-image *ngIf="row.questionImage" [question]="row" ></question-image>
                     <p class="dark text-style">Q{{i+1}}. {{row.questionText}}</p>
                     <div class="answer-text">
                       <span *ngFor="let answer of row.answers">

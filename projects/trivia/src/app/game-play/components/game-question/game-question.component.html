@@ -47,7 +47,9 @@
 
     <ng-container>
       <div class="row secondbg">
-        <h2>{{questionIndex}}. {{question.questionText}}</h2>
+        <h2>{{questionIndex}}.</h2>
+        <question-image *ngIf="question.questionImage" [question]="question" ></question-image> 
+          <h2>{{question.questionText}}</h2>
         <ul>
           <li *ngFor="let answer of question.answers; let i=index" (click)="answerButtonClicked(answer, i)"
             [class.question-answered]="answeredIndex >= 0 || continueNext" [class.players-answer]="answeredIndex === i"

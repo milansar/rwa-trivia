@@ -243,7 +243,9 @@ export enum ResponseMessagesConstants {
     LIVES_ADDED = 'Lives added successfully !!',
     CHECK_FIRESTORE_DB_FOR_MIGRATION_DETAILS = 'Check firestore db for migration details',
     ADDED_GAME_OVER__FIELDS = 'added gameOverAt fields',
-
+    QUESTION_ID_NOT_FOUND = 'questionId is not added in request',
+    QUESTION_IMAGE_SAVED = 'question image is saved',
+    QUESTION_IMAGE_NAME_NOT_FOUND = 'question image name is not added in request'
 }
 
 export enum FriendConstants {
@@ -265,6 +267,7 @@ export enum HeaderConstants {
     CONTENT_DASH_DISPOSITION = 'content-disposition',
     ATTACHMENT_SEMI_COLON_FILE_NAME_EQUAL_TO_SOCIAL_UNDER_SCORE_IMAGE_DOT_PNG = 'attachment; filename=social_image.png',
     ATTACHMENT_SEMI_COLON_FILE_NAME_EQUAL_TO_PROFILE_UNDER_SCORE_IMAGE_DOT_PNG = 'attachment; filename=profile_image.png',
+    ATTACHMENT_SEMI_COLON_FILE_NAME_EQUAL_TO_QUESTION_UNDER_SCORE_IMAGE_DOT_PNG = 'attachment; filename=question_image.png',
     IMAGE_FORWARD_SLASH_PNG = 'image/png',
     TEXT_FORWARD_SLASH_PLAIN = 'text/plain',
     IMAGE_FORWARD_SLASH_JPEG = 'image/jpeg',
@@ -327,4 +330,5 @@ export enum RoutesConstants {
     HEIGHT = 'height',
     COUNT = 'count',
     GAMEOVERAT= 'gameoverat',
+    UPLOAD_IMAGE = 'uploadImage'
 }

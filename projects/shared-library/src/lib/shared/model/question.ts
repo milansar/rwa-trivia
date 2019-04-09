@@ -26,6 +26,12 @@ export class Question {
   totalQALength?: number;
   serverTimeQCreated?: number;
 
+  questionImageUrl?: string;
+  questionImage?: string;
+  croppedImageUrl: any;
+  originalImageUrl: any;
+  imageType: any;
+
 
 
   static getViewModelFromDb(db: any): Question {
@@ -45,6 +51,7 @@ export class Question {
     question.bulkUploadId = db.bulkUploadId ? db.bulkUploadId : '';
     question.reason = db.reason ? db.reason : '';
     question.createdOn = db.createdOn ? db.createdOn : new Date();
+    question.questionImage = db.questionImage ? db.questionImage : '';
     question.totalQALength = this.countQALength(db);
     return question;
   }

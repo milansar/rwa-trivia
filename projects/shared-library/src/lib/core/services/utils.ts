@@ -1,7 +1,7 @@
 import { Injectable, PLATFORM_ID, APP_ID, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CONFIG } from '../../environments/environment';
-import { User, Answer } from '../../shared/model';
+import { User, Answer, Question } from '../../shared/model';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 
 @Injectable()
@@ -46,6 +46,19 @@ export class Utils {
         return `~/assets/images/avatar-${size}.png`;
       } else {
         return `assets/images/avatar-${size}.png`;
+      }
+    }
+  }
+
+
+  getQuetionImageUrl(question: Question) {
+    if (question && question.created_uid && question.questionImage !== '') {
+      return `${CONFIG.functionsUrl}/app/question/image/${question.created_uid}/${question.id}/${question.questionImage}`;
+    } else {
+      if (isPlatformBrowser(this.platformId) === false && isPlatformServer(this.platformId) === false) {
+        return `~/assets/images/question-default-image.png`;
+      } else {
+        return `assets/images/question-default-image.png`;
       }
     }
   }

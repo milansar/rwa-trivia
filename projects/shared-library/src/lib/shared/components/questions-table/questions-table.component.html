@@ -37,6 +37,7 @@
         <div class="col-sm-12 col-xs-12 question-section" [ngClass]="row.validationErrorMessages?.length > 0?'error-que':''">
           <div class="date">{{ ( (row.createdOn) ? (row.createdOn.seconds * 1000) : row.createdOn) | date:'dd MMM yyyy'
             }}</div>
+          <question-image *ngIf="row.questionImage" [question]="row" ></question-image>
           <p class="dark">{{row.questionText}}</p>
           <ul class="currentans">
             <li>

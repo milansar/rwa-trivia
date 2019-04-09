@@ -1,5 +1,6 @@
 <mat-card class="flex-item" class="game-question-continue">
     <mat-card-title fxLayout="row">
+      <question-image *ngIf="question.questionImage" [question]="question" ></question-image>
       <div >{{question.questionText}}</div>
       <div fxFlex></div>
       <div></div>

@@ -10,7 +10,7 @@
                             <div class="sprite cancelicon col-sm-1" (click)="closeModel()"></div>
                         </div>
                     </div>
-
+                    <question-image *ngIf="question.questionImage" [question]="question" ></question-image>
                     <label class="dark question-text question">{{question.questionText}}</label>
                     <div>
                         <div class="question-text">Correct answer :</div>

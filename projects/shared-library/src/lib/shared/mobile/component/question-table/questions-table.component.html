@@ -6,7 +6,7 @@
 
                     <Label text="{{ question.createdOn | date:'dd MMM yyyy' }}" textWrap="true" class="label Roboto-Regular" fontSize="12"
                         color="#616161" marginTop="5"></Label>
-
+                    <question-image *ngIf="question.questionImage" [question]="question" ></question-image>
                     <Label [text]="question.questionText" textWrap="true" class="label Roboto-Medium" fontSize="16" fontWeight="bold"></Label>
 
                     <StackLayout fontSize="12">

@@ -10,7 +10,7 @@ import { ShareButtonModule } from '@ngx-share/button';
 
 import {
   QuestionsComponent, QuestionsSearchComponent, QuestionsTableComponent,
-  QuestionFormComponent, RejectedQuestionContentComponent, SocialPaletteComponent, AuthorComponent
+  QuestionFormComponent, RejectedQuestionContentComponent, SocialPaletteComponent, AuthorComponent, QuestionImageComponent
 } from './components';
 import { ShowHintWhenFocusOutDirective } from './directive';
 
@@ -23,7 +23,8 @@ import { ShowHintWhenFocusOutDirective } from './directive';
     RejectedQuestionContentComponent,
     SocialPaletteComponent,
     AuthorComponent,
-    ShowHintWhenFocusOutDirective
+    ShowHintWhenFocusOutDirective,
+    QuestionImageComponent
   ],
   imports: [
     CommonModule,
@@ -47,7 +48,7 @@ import { ShowHintWhenFocusOutDirective } from './directive';
     CommonModule, HttpClientModule, ReactiveFormsModule,
     FlexLayoutModule, QuestionFormComponent,
     SharedMaterialModule, CdkTableModule, RejectedQuestionContentComponent,
-    HttpClientModule, ShareButtonModule, SocialPaletteComponent, AuthorComponent, ShowHintWhenFocusOutDirective
+    HttpClientModule, ShareButtonModule, SocialPaletteComponent, AuthorComponent, ShowHintWhenFocusOutDirective, QuestionImageComponent
   ]
 })
 export class SharedModule { }

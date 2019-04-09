@@ -1,12 +1,13 @@
 import { ESUtils } from '../utils/ESUtils';
 import {
     SearchCriteria, Game, PlayerQnA, Question,
-    PlayerMode, QuestionStatus, interceptorConstants, ResponseMessagesConstants, CollectionConstants, QuestionsConstants
+    PlayerMode, QuestionStatus, interceptorConstants, ResponseMessagesConstants, CollectionConstants, QuestionsConstants, HeaderConstants
 } from '../../projects/shared-library/src/lib/shared/model';
 import { GameMechanics } from '../utils/game-mechanics';
 import { Utils } from '../utils/utils';
 import { QuestionService } from '../services/question.service';
 import { GameService } from '../services/game.service';
+import { QuestionBifurcation } from '../utils/question-bifurcation';
 
 export class QuestionController {
 
@@ -160,6 +161,67 @@ export class QuestionController {
             }
             await Promise.all(questionUpdatePromises);
             Utils.sendResponse(res, interceptorConstants.SUCCESS, ResponseMessagesConstants.UNPUBLISHED_STATUS_CHANGED);
+        } catch (error) {
+            Utils.sendError(res, error);
+        }
+    }
+
+
+    /**
+     * getUserImages
+     * return user
+     */
+    static async getQuestionImages(req, res) {
+        const questionId = req.params.questionId;
+        const userId = req.params.userId;
+        const questionImage = req.params.imageName;
+        if (!userId) {
+            // userId is not available
+            Utils.sendResponse(res, interceptorConstants.BAD_REQUEST, ResponseMessagesConstants.USER_ID_NOT_FOUND);
+        }
+        if (!questionId) {
+            // questionId is not available
+            Utils.sendResponse(res, interceptorConstants.BAD_REQUEST, ResponseMessagesConstants.QUESTION_ID_NOT_FOUND);
+        }
+
+        if (!questionImage) {
+            // questionImage is not available
+            Utils.sendResponse(res, interceptorConstants.BAD_REQUEST, ResponseMessagesConstants.QUESTION_IMAGE_NAME_NOT_FOUND);
+        }
+
+        try {
+            const stream = await QuestionService.generateQuestionImage(userId, questionImage, questionId);
+            res.setHeader(HeaderConstants.CONTENT_DASH_DISPOSITION,
+                HeaderConstants.ATTACHMENT_SEMI_COLON_FILE_NAME_EQUAL_TO_QUESTION_UNDER_SCORE_IMAGE_DOT_PNG);
+            res.setHeader(HeaderConstants.CONTENT_DASH_TYPE, HeaderConstants.IMAGE_FORWARD_SLASH_JPEG);
+            Utils.sendResponse(res, interceptorConstants.SUCCESS, stream);
+        } catch (error) {
+            Utils.sendError(res, error);
+        }
+
+    }
+
+        /**
+     * generateUserProfileImage
+     * return status
+     */
+    static async uploadQuestionImage(req, res) {
+        if (req.body.questionImage.created_uid !== req.user.uid) {
+            Utils.sendResponse(res, interceptorConstants.UNAUTHORIZED, ResponseMessagesConstants.UNAUTHORIZED);
+        }
+
+        let question = req.body.questionImage;
+        question.userId = req.user.uid;
+        question.id = req.params.questionId;
+        try {
+            if (question.questionImage && question.croppedImageUrl && question.originalImageUrl) {
+
+                question = await QuestionBifurcation.uploadQuestionImage(question);
+
+            }
+
+            Utils.sendResponse(res, interceptorConstants.SUCCESS, { 'status': ResponseMessagesConstants.QUESTION_IMAGE_SAVED });
+
         } catch (error) {
             Utils.sendError(res, error);
         }
