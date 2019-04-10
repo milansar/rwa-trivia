@@ -41,6 +41,11 @@
             <CardView iosOverflowSafeArea="false" margin="5 10 5 10" backgroundColor="white">
                 <StackLayout>
                     <StackLayout borderBottomWidth="1" borderColor="#e5e5e5" padding="10">
+                        <StackLayout (tap)="onSelecTap($event)" horizontalAlignment="left" margin="10 0 10 0" verticalAlignment="center" class="image-layout">
+                                <Image *ngIf="question.questionImage" [width]="question.questionImage ? '100%':'28'" [height]="question.questionImage?'150':'28'" [src]="question.questionImage ?  question.croppedImageUrl : '~/assets/images/uploadImage.png'" stretch="aspectFill" ></Image>
+                                <Image horizontalAlignment="left" *ngIf="!question.questionImage" width="48" height="48" [src]="'~/assets/images/uploadImage.png'" stretch="aspectFill" ></Image>
+                                <Label textWrap="true" *ngIf="!question.questionImage" text="Once Uploaded, You can adjust the cropped image Recommend an image 263 px or larger. Allowed formats: jpeg, gif and png"></Label>
+                        </StackLayout>
                         <TextView  #textField  hint="Enter Your Question" formControlName="questionText" class="input" height="150"
                             borderWidth="1" borderRadius="3" borderColor="#a3a3a3" padding="10"></TextView>
                         <StackLayout *ngIf="!questionForm.controls.questionText.pristine && questionForm.controls.questionText.errors">

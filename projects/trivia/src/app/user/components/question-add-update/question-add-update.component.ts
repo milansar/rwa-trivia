@@ -91,7 +91,6 @@ export class QuestionAddUpdateComponent extends QuestionAddUpdate implements OnD
     this.questionImage.image = '';
     this.questionImageValidation = '';
     this.questionImageFile = undefined;
-    console.log(this.questionImageFile, '');
     this.fileUpload.nativeElement.value = '';
   }
   onFileChange($event) {
