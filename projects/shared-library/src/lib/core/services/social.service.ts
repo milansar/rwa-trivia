@@ -5,7 +5,6 @@ import { finalize, catchError, take, map } from 'rxjs/operators';
 import { CONFIG } from '../../environments/environment';
 import { Subscription, Subscribers, SocialGameScoreShare, Blog } from '../../shared/model';
 import { UserService } from './user.service';
-import { debug } from 'util';
 import { DbService } from './../db-service';
 
 
@@ -70,14 +69,14 @@ export class SocialService {
     loadBlogs(): Observable<Blog[]> {
         const queryParams = {
             condition: [],
-            orderBy: [{ name: "id", value: 'desc' }],
+            orderBy: [{ name: 'id', value: 'desc' }],
             limit: 3
         };
 
         return this.dbService.valueChanges('blogs', '', queryParams).pipe(catchError(error => {
             console.log(error);
             return of(null);
-        }))
+        }));
 
     }
 }

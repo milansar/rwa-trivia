@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
 import { BulkUploadFileInfo, User } from '../../shared/model';
 import { DbService } from './../db-service';
 
@@ -9,14 +8,13 @@ import { DbService } from './../db-service';
 export class BulkService {
 
   constructor(
-    private http: HttpClient,
     private dbService: DbService) {
   }
 
   // get All Bulk Upload
   getBulkUpload(user: User, archive: boolean): Observable<BulkUploadFileInfo[]> {
     if (!archive) {
-      const queryParams = { condition: [{ name: "isAdminArchived", comparator: "==", value: archive }] };
+      const queryParams = { condition: [{ name: 'isAdminArchived', comparator: '==', value: archive }] };
 
       return this.dbService.valueChanges('bulk_uploads', '', queryParams)
         .pipe(catchError(error => {
@@ -43,28 +41,28 @@ export class BulkService {
     if (!archive) {
       if (user.roles.admin && user.roles.bulkuploader) {
         queryParams = {
-          condition: [{ name: "created_uid", comparator: "==", value: user.userId },
-          { name: userArchive, comparator: "==", value: archive },
-          { name: adminArchive, comparator: "==", value: archive }
+          condition: [{ name: 'created_uid', comparator: '==', value: user.userId },
+          { name: userArchive, comparator: '==', value: archive },
+          { name: adminArchive, comparator: '==', value: archive }
           ]
         };
       } else if (user.roles.admin) {
         queryParams = {
-          condition: [{ name: "created_uid", comparator: "==", value: user.userId },
-          { name: adminArchive, comparator: "==", value: archive }
+          condition: [{ name: 'created_uid', comparator: '==', value: user.userId },
+          { name: adminArchive, comparator: '==', value: archive }
           ]
         };
       } else {
         queryParams = {
-          condition: [{ name: "created_uid", comparator: "==", value: user.userId },
-          { name: userArchive, comparator: "==", value: archive }
+          condition: [{ name: 'created_uid', comparator: '==', value: user.userId },
+          { name: userArchive, comparator: '==', value: archive }
           ]
         };
       }
 
     } else {
       queryParams = {
-        condition: [{ name: "created_uid", comparator: "==", value: user.userId }]
+        condition: [{ name: 'created_uid', comparator: '==', value: user.userId }]
       };
     }
 
@@ -100,7 +98,6 @@ export class BulkService {
   }
 
   archiveBulkUpload(archiveArray: BulkUploadFileInfo[], user: User) {
-    const isAdmin = user.roles.admin;
     let obj = {};
     if (user.roles.admin && user.roles.bulkuploader) {
       obj = { 'isUserArchived': true, 'isAdminArchived': true };

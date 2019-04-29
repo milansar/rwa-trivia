@@ -1,4 +1,4 @@
-import { Injectable, PLATFORM_ID, APP_ID, Inject } from '@angular/core';
+import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CONFIG } from '../../environments/environment';
 import { User, Answer } from '../../shared/model';

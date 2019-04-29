@@ -1,14 +1,13 @@
-import { Injectable, Inject, NgZone } from '@angular/core';
-
+import { Injectable, NgZone } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
-import { User } from './../../shared/model';
 import { UserActions } from '../../core/store/actions';
+import { User } from './../../shared/model';
 
 export interface IFirebaseLoginTypes {
     google: any;
     facebook: any;
 }
+
 @Injectable()
 export class FirebaseService {
     public loginTypes: IFirebaseLoginTypes;

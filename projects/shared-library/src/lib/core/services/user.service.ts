@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, forkJoin, combineLatest, of } from 'rxjs';
+import { Observable, combineLatest, of } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 import {
     User, Invitation, Friends, QueryParams, QueryParam, friendInvitationConstants, Game,
