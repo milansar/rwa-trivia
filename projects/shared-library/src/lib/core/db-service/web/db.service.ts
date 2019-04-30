@@ -34,7 +34,7 @@ export class WebDbService extends DbService {
     }
 
     public updateDoc(collectionName: string, docId: any, document: any) {
-        return this._afStore.doc(`/${collectionName}/${docId}`).update(document);
+        return this._afStore.doc(`/${collectionName}/${docId}`).set(document, { merge: true });
     }
 
 
