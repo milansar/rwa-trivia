@@ -1,4 +1,7 @@
-import { Component, OnInit, Inject, NgZone, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component, OnInit, Inject, NgZone, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy,
+  ViewChildren, QueryList, ElementRef, AfterViewInit
+} from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { PLATFORM_ID } from '@angular/core';
 import { QuestionActions, GameActions, UserActions } from 'shared-library/core/store/actions';
@@ -10,6 +13,8 @@ import { RouterExtensions } from 'nativescript-angular/router';
 import { User, Game } from 'shared-library/shared/model';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { Page } from 'tns-core-modules/ui/page/page';
+import { Label } from 'tns-core-modules/ui/label';
+import { AnimationCurve } from 'tns-core-modules/ui/enums';
 
 @Component({
   selector: 'dashboard',
@@ -19,13 +24,19 @@ import { Page } from 'tns-core-modules/ui/page/page';
 })
 
 @AutoUnsubscribe({ 'arrayName': 'subscriptions' })
-export class DashboardComponent extends Dashboard implements OnInit, OnDestroy {
+export class DashboardComponent extends Dashboard implements OnInit, OnDestroy, AfterViewInit {
+
+  @ViewChildren('poinTableValue') poinTableValue: QueryList<ElementRef>;
 
   gameStatus: any;
   subscriptions = [];
   // This is magic variable
   // it delay complex UI show Router navigation can finish first to have smooth transition
   renderView = false;
+
+  userBits: Label;
+  userBytes: Label;
+  userLives: Label;
 
 
   constructor(public store: Store<AppState>,
@@ -49,7 +60,6 @@ export class DashboardComponent extends Dashboard implements OnInit, OnDestroy {
       utils,
       cd);
     this.gameStatus = GameStatus;
-
   }
 
   ngOnInit() {
@@ -63,6 +73,42 @@ export class DashboardComponent extends Dashboard implements OnInit, OnDestroy {
     }
     ));
   }
+  ngAfterViewInit() {
+
+    console.log('ngAfterViewInit called');
+
+    this.poinTableValue.changes.subscribe(res => {
+
+      this.userBits = <Label>this.page.getViewById('userBits');
+      this.userBytes = <Label>this.page.getViewById('userBytes');
+      this.userLives = <Label>this.page.getViewById('userLives');
+
+      this.userBits.animate({
+        duration: 3000,
+        curve: AnimationCurve.easeInOut,
+        rotate: 360
+      }).then(() => {
+        this.userBits.rotate = 0;
+      });
+
+      this.userBytes.animate({
+        duration: 3000,
+        curve: AnimationCurve.easeInOut,
+        rotate: 360
+      }).then(() => {
+        this.userBytes.rotate = 0;
+      });
+
+      this.userLives.animate({
+        duration: 3000,
+        curve: AnimationCurve.easeInOut,
+        rotate: 360
+      }).then(() => {
+        this.userLives.rotate = 0;
+      });
+
+    });
+  }
 
   startNewGame() {
     if (this.applicationSettings && this.applicationSettings.lives.enable) {
@@ -72,7 +118,6 @@ export class DashboardComponent extends Dashboard implements OnInit, OnDestroy {
     } else {
       this.routerExtension.navigate(['/game-play'], { clearHistory: true });
     }
-
   }
 
   filterGame(game: Game): boolean {
