@@ -1,6 +1,5 @@
 import {
-  Component, OnInit, Inject, NgZone, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy,
-  ViewChildren, QueryList, ElementRef, AfterViewInit
+  Component, OnInit, Inject, NgZone, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy
 } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { PLATFORM_ID } from '@angular/core';
@@ -15,6 +14,8 @@ import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { Page } from 'tns-core-modules/ui/page/page';
 import { Label } from 'tns-core-modules/ui/label';
 import { AnimationCurve } from 'tns-core-modules/ui/enums';
+import { Animation, AnimationDefinition } from 'tns-core-modules/ui/animation';
+import { StackLayout } from 'tns-core-modules/ui/layouts/stack-layout';
 
 @Component({
   selector: 'dashboard',
@@ -24,9 +25,7 @@ import { AnimationCurve } from 'tns-core-modules/ui/enums';
 })
 
 @AutoUnsubscribe({ 'arrayName': 'subscriptions' })
-export class DashboardComponent extends Dashboard implements OnInit, OnDestroy, AfterViewInit {
-
-  @ViewChildren('poinTableValue') poinTableValue: QueryList<ElementRef>;
+export class DashboardComponent extends Dashboard implements OnInit, OnDestroy {
 
   gameStatus: any;
   subscriptions = [];
@@ -37,6 +36,7 @@ export class DashboardComponent extends Dashboard implements OnInit, OnDestroy, 
   userBits: Label;
   userBytes: Label;
   userLives: Label;
+  dashboardAnimation: StackLayout;
 
 
   constructor(public store: Store<AppState>,
@@ -70,44 +70,61 @@ export class DashboardComponent extends Dashboard implements OnInit, OnDestroy, 
     this.page.on('loaded', () => this.ngZone.run(() => {
       this.renderView = true;
       this.cd.markForCheck();
+      setTimeout(() => {
+        this.animation();
+      }, 800);
     }
     ));
   }
-  ngAfterViewInit() {
 
-    console.log('ngAfterViewInit called');
+  async animation() {
 
-    this.poinTableValue.changes.subscribe(res => {
+    this.userBits = <Label>this.page.getViewById('userBits');
+    this.userBytes = <Label>this.page.getViewById('userBytes');
+    this.userLives = <Label>this.page.getViewById('userLives');
+    this.dashboardAnimation = <StackLayout>this.page.getViewById('dashboard-animation');
 
-      this.userBits = <Label>this.page.getViewById('userBits');
-      this.userBytes = <Label>this.page.getViewById('userBytes');
-      this.userLives = <Label>this.page.getViewById('userLives');
+    const definitions = new Array<AnimationDefinition>();
 
-      this.userBits.animate({
-        duration: 3000,
-        curve: AnimationCurve.easeInOut,
-        rotate: 360
-      }).then(() => {
-        this.userBits.rotate = 0;
-      });
+    const bits: AnimationDefinition = {
+      target: this.userBits,
+      duration: 3000,
+      curve: AnimationCurve.easeInOut,
+      rotate: 360
+    };
+    definitions.push(bits);
 
-      this.userBytes.animate({
-        duration: 3000,
-        curve: AnimationCurve.easeInOut,
-        rotate: 360
-      }).then(() => {
-        this.userBytes.rotate = 0;
-      });
+    const bytes: AnimationDefinition = {
+      target: this.userBytes,
+      duration: 3000,
+      curve: AnimationCurve.easeInOut,
+      rotate: 360
+    };
+    definitions.push(bytes);
 
-      this.userLives.animate({
-        duration: 3000,
-        curve: AnimationCurve.easeInOut,
-        rotate: 360
-      }).then(() => {
-        this.userLives.rotate = 0;
-      });
+    const lives: AnimationDefinition = {
+      target: this.userLives,
+      duration: 3000,
+      curve: AnimationCurve.easeInOut,
+      rotate: 360
+    };
+    definitions.push(lives);
 
-    });
+    const first: AnimationDefinition = {
+      target: this.dashboardAnimation,
+      translate: { x: 0, y: -100 },
+      duration: 3000
+    };
+    definitions.push(first);
+
+    const animationSet = new Animation(definitions);
+
+    try {
+      await animationSet.play();
+    } catch (error) {
+      console.log(error);
+    }
+
   }
 
   startNewGame() {
