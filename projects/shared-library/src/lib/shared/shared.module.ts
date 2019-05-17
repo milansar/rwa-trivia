@@ -7,6 +7,7 @@ import { SharedMaterialModule } from './shared-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { ShareButtonModule } from '@ngx-share/button';
+import { DeviceDetectorModule } from 'ngx-device-detector';
 
 import {
   QuestionsComponent, QuestionsSearchComponent, QuestionsTableComponent,
@@ -42,14 +43,15 @@ import { ShowHintWhenFocusOutDirective, OpenUserProfileDirective } from './direc
     RouterModule,
 
     HttpClientModule,       // for share counts
-    ShareButtonModule
+    ShareButtonModule,
+    DeviceDetectorModule
   ],
   exports: [QuestionsComponent, QuestionsSearchComponent, QuestionsTableComponent,
     CommonModule, HttpClientModule, ReactiveFormsModule,
     FlexLayoutModule, QuestionFormComponent,
     SharedMaterialModule, CdkTableModule, RejectedQuestionContentComponent,
     HttpClientModule, ShareButtonModule, SocialPaletteComponent, AuthorComponent, ShowHintWhenFocusOutDirective,
-    OpenUserProfileDirective
+    OpenUserProfileDirective, DeviceDetectorModule
   ]
 })
 export class SharedModule { }

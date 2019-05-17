@@ -5,6 +5,8 @@ import { QuestionActions, GameActions, UserActions } from 'shared-library/core/s
 import { Utils, WindowRef } from 'shared-library/core/services';
 import { AppState } from '../../../store';
 import { Dashboard } from './dashboard';
+import { DeviceDetectorService } from 'ngx-device-detector';
+import { CONFIG } from '../../../../../../shared-library/src/lib/environments/environment';
 
 @Component({
   selector: 'dashboard',
@@ -13,6 +15,11 @@ import { Dashboard } from './dashboard';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent extends Dashboard implements OnInit {
+
+  deviceInfo: any;
+  isMobile = false;
+  appUrl: string;
+
   constructor(store: Store<AppState>,
     questionActions: QuestionActions,
     gameActions: GameActions,
@@ -20,8 +27,9 @@ export class DashboardComponent extends Dashboard implements OnInit {
     @Inject(PLATFORM_ID) platformId: Object,
     utils: Utils,
     ngZone: NgZone,
-    cd: ChangeDetectorRef
-    ) {
+    cd: ChangeDetectorRef,
+    private deviceService: DeviceDetectorService
+  ) {
     super(store,
       questionActions,
       gameActions,
@@ -34,6 +42,16 @@ export class DashboardComponent extends Dashboard implements OnInit {
 
 
   ngOnInit() {
+
+    this.isMobile = this.deviceService.isMobile();
+    this.deviceInfo = this.deviceService.getDeviceInfo();
+
+    if (this.isMobile && this.deviceInfo && this.deviceInfo.device && this.deviceInfo.device.toLowerCase() === 'android') {
+      this.appUrl = CONFIG.firebaseConfig.googlePlayUrl;
+    } else if (this.isMobile && this.deviceInfo && this.deviceInfo.device && this.deviceInfo.device.toLowerCase() === 'iphone') {
+      this.appUrl = CONFIG.firebaseConfig.iTunesUrl;
+    }
+
     this.now = new Date();
     const hourOfDay = this.now.getHours();
     if (hourOfDay < 12) {
@@ -81,6 +99,11 @@ export class DashboardComponent extends Dashboard implements OnInit {
       }
     }
   }
+
+  closeAppSection() {
+    this.isMobile = false;
+  }
+
 }
 
 

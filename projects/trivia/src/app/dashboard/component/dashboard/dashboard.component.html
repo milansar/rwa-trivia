@@ -1,22 +1,53 @@
 <div class="pageinner">
+  <div *ngIf="isMobile && deviceInfo && deviceInfo.device && (deviceInfo.device.toLowerCase() === 'android' || deviceInfo.device.toLowerCase() === 'iphone')"
+    class="row app-section">
+    <div class="col-xs-10">
+      <div class="app-section-first">
+        <div class="cross-icons">
+          <img (click)="closeAppSection()" src="/assets/images/cross.png" />
+        </div>
+        <div class="app-icon">
+          <img src="/assets/icons/icon-72x72.png" />
+        </div>
+        <div class="app-store" *ngIf="deviceInfo">
+          <div class="app-store-title">
+            <h5 *ngIf="deviceInfo.device.toLowerCase() === 'iphone'">App Store Connect</h5>
+            <h5 *ngIf="deviceInfo.device.toLowerCase() === 'android'">Goole Play Store</h5>
+          </div>
+          <div class="app-store-text">
+            <span *ngIf="deviceInfo.device.toLowerCase() === 'iphone'">Apple</span>
+            <span *ngIf="deviceInfo.device.toLowerCase() === 'android'">Google</span>
+          </div>
+          <div class="app-store-text">
+            <span>INSTALLED</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-2" class="app-section-second">
+      <h2><a [href]="appUrl" target="_blank">OPEN</a></h2>
+    </div>
+  </div>
   <div class="row">
     <div class="pageheading col-md-6 col-xs-12">
       <span class="hidden-xs pull-left">Dashboard</span>
 
-      <div *ngIf="applicationSettings?.tokens?.enable && user && account" class="points pull-left m-l-20"> 
-       <div class="p-t-10"> Bits  </div>
+      <div *ngIf="applicationSettings?.tokens?.enable && user && account" class="points pull-left m-l-20">
+        <div class="p-t-10"> Bits </div>
         <label class="points-count" [ngClass]="{'points-count-f-12': account.bits > 9999 }"> {{account.bits || 0 }}</label>
-       </div>
-   
-       <div *ngIf="applicationSettings?.tokens?.enable && user && account" class="points bytes pull-left m-l-20"> 
-          <div class="p-t-10"> Bytes  </div>
-           <label class="points-count" [ngClass]="{'points-count-f-12': account.bytes > 9999 }" > {{account?.bytes || 0}}</label>
+      </div>
+
+      <div *ngIf="applicationSettings?.tokens?.enable && user && account" class="points bytes pull-left m-l-20">
+        <div class="p-t-10"> Bytes </div>
+        <label class="points-count" [ngClass]="{'points-count-f-12': account.bytes > 9999 }"> {{account?.bytes || 0}}</label>
       </div>
 
     </div>
     <div class="col-md-6 col-xs-12 align-right">
-      <button [disabled] = "gamePlayBtnDisabled" [ngClass]="{'min-startgame': timeoutLive && isLivesEnable}" class="startgame" [routerLink]="['/game-play']"> {{ gameStart }} </button>
-      <div class="lives" *ngIf="user && account && account.lives >=0 && isLivesEnable" > <span class="lives-text">{{account.lives}}</span> </div>
+      <button [disabled]="gamePlayBtnDisabled" [ngClass]="{'min-startgame': timeoutLive && isLivesEnable}" class="startgame"
+        [routerLink]="['/game-play']"> {{ gameStart }} </button>
+      <div class="lives" *ngIf="user && account && account.lives >=0 && isLivesEnable"> <span class="lives-text">{{account.lives}}</span>
+      </div>
     </div>
   </div>
 

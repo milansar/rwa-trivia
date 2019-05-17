@@ -259,3 +259,74 @@ mat-card>:first-child{
 }
 
 
+.app-section {
+  background-color: #f2f2f2;
+  padding: 10px 0px;
+  border-top-width: 1px;
+  border-top: 1px solid #c1c1c1;
+  border-bottom: 1px solid #c1c1c1;
+  margin-bottom: 24px;
+}
+
+.app-section-first {
+  display:-webkit-box;
+}
+
+.cross-icons img{
+  margin-top: 22px;
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+}
+
+.app-icon {
+  margin-left: 12px;
+}
+
+.app-icon img{
+  border-radius: 10px;
+  height: 60;
+  width: 60px;
+}
+
+.app-store {
+  margin-left: 12px;
+  margin-top: 2px;
+}
+
+.app-store-title h5{
+  color: #000;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.app-store-text{
+  padding-bottom: 2px;
+  font-size: 14px;
+}
+
+.app-section-second {
+  margin-top: 22px;
+  text-align: right;
+  margin-right: 14px;
+}
+
+.app-section-second h2 a {
+  cursor: pointer;
+  color: #0079ff;
+  text-transform: uppercase;
+}
+
+@media(max-width :320px){
+  .app-section-second {
+    margin-right: 8px;
+  }
+}
+
+
+
+@media(min-width :360px){
+  .app-section-second {
+    margin-right: 14px;
+  }
+}
