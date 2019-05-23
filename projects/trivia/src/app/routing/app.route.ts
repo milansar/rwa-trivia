@@ -27,13 +27,13 @@ export const routes: Routes = [
   {
     path: 'user',
     loadChildren: '../user/user.module#UserModule',
-    resolve: { "categories": CategoriesResolver, "tags": TagsResolver }
+    resolve: { 'categories': CategoriesResolver, 'tags': TagsResolver }
   },
   {
     path: 'game-play',
     loadChildren: '../game-play/game-play.module#GamePlayModule',
     canActivate: [AuthGuard],
-    resolve: { "categories": CategoriesResolver, "tags": TagsResolver }
+    resolve: { 'categories': CategoriesResolver, 'tags': TagsResolver }
   },
   {
     path: 'bulk',
