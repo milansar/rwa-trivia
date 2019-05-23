@@ -60,6 +60,7 @@ export class Dashboard implements OnDestroy {
     startGame = this.START_A_NEW_GAME;
     cd: ChangeDetectorRef;
     serverCreatedTime: number;
+    appInstallationStatus: boolean;
 
     constructor(public store: Store<AppState>,
         private questionActions: QuestionActions,
@@ -89,11 +90,11 @@ export class Dashboard implements OnDestroy {
                 }
 
                 this.subscriptions.push(this.store.select(appState.coreState)
-                .pipe(select(s => s.questionOfTheDay)).subscribe(questionOfTheDay => {
-                    if (questionOfTheDay) {
-                        this.serverCreatedTime = questionOfTheDay.serverTimeQCreated;
-                    }
-                }));
+                    .pipe(select(s => s.questionOfTheDay)).subscribe(questionOfTheDay => {
+                        if (questionOfTheDay) {
+                            this.serverCreatedTime = questionOfTheDay.serverTimeQCreated;
+                        }
+                    }));
 
                 if (this.user) {
                     this.subscriptions.push(this.store.select(appState.coreState).pipe(select(s => s.applicationSettings))
@@ -215,6 +216,12 @@ export class Dashboard implements OnDestroy {
 
         this.friendInviteSliceStartIndex = 0;
         this.friendInviteSliceLastIndex = 3;
+
+        this.subscriptions.push(store.select(appState.coreState).pipe(select(s => s.appInstallationStatus))
+            .subscribe(appStatus => {
+                this.appInstallationStatus = appStatus;
+             }));
+
 
     }
 

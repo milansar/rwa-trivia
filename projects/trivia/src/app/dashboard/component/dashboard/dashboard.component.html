@@ -19,14 +19,18 @@
             <span *ngIf="deviceInfo.device.toLowerCase() === 'iphone'">Apple</span>
             <span *ngIf="deviceInfo.device.toLowerCase() === 'android'">Google</span>
           </div>
-          <div class="app-store-text">
+          <div class="app-store-text" *ngIf="appInstallationStatus">
             <span>INSTALLED</span>
+          </div>
+          <div class="app-store-text" *ngIf="!appInstallationStatus">
+            <span>NOT INSTALLED</span>
           </div>
         </div>
       </div>
     </div>
     <div class="col-xs-2" class="app-section-second">
-      <h2><a [href]="appUrl" target="_blank">OPEN</a></h2>
+      <h2 *ngIf="!appInstallationStatus"><a [href]="appUrl" target="_blank">Install</a></h2>
+      <h2 *ngIf="appInstallationStatus"><a [href]="appUrl" target="_blank">OPEN</a></h2>
     </div>
   </div>
   <div class="row">

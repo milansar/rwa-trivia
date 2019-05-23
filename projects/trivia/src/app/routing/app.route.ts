@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { PrivacyPolicyComponent, InvitationRedirectionComponent } from '../components/index';
+import { PrivacyPolicyComponent, InvitationRedirectionComponent, AppInstallationStatusComponent } from '../components/index';
 import { AuthGuard, BulkLoadGuard, CategoriesResolver, TagsResolver } from 'shared-library/core/route-guards';
 
 export const routes: Routes = [
@@ -19,6 +19,10 @@ export const routes: Routes = [
   {
     path: 'terms-and-conditions',
     component: PrivacyPolicyComponent
+  },
+  {
+    path: 'app-installation-status',
+    component: AppInstallationStatusComponent
   },
   {
     path: 'user',

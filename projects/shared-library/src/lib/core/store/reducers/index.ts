@@ -7,7 +7,7 @@ import {
 import { categories } from './categories.reducer';
 import { tags } from './tags.reducer';
 import { questionOfTheDay, questionSaveStatus } from './questions.reducer';
-import { loginRedirectUrl, resetPasswordLogs } from './ui-state.reducer';
+import { loginRedirectUrl, resetPasswordLogs, appInstallationStatus } from './ui-state.reducer';
 import { activeGames, newGameId, gameCreateStatus } from './game.reducer';
 import { applicationSettings } from './application-settings.reducer';
 
@@ -42,6 +42,7 @@ export interface CoreState {
   account: Account;
   gameCreateStatus: String;
   getGameResult: Game[];
+  appInstallationStatus: boolean;
 }
 
 export const reducer: ActionReducerMap<CoreState> = {
@@ -65,7 +66,8 @@ export const reducer: ActionReducerMap<CoreState> = {
   applicationSettings: applicationSettings,
   account: account,
   gameCreateStatus: gameCreateStatus,
-  getGameResult: getGameResult
+  getGameResult: getGameResult,
+  appInstallationStatus: appInstallationStatus
 };
 
 // Features

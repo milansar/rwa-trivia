@@ -1,23 +1,20 @@
-import { Component, OnInit, NgZone, OnDestroy } from '@angular/core';
-import * as firebase from 'nativescript-plugin-firebase';
-import { Store, select } from '@ngrx/store';
-import { Subscription } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
-import { AppState, appState } from '../../store';
-import * as gamePlayActions from '../../game-play/store/actions';
-import { UserActions } from 'shared-library/core/store/actions';
-import { RouterExtensions } from 'nativescript-angular/router';
-import * as Platform from 'platform';
-import { isAndroid } from 'tns-core-modules/platform';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
 import { android, AndroidActivityBackPressedEventData, AndroidApplication } from 'application';
-import { NavigationService } from 'shared-library/core/services/mobile/navigation.service'
-import { coreState } from 'shared-library/core/store';
-import { User } from 'shared-library/shared/model';
+import { RouterExtensions } from 'nativescript-angular/router';
+import * as firebase from 'nativescript-plugin-firebase';
 import * as Toast from 'nativescript-toast';
-import { on as applicationOn, resumeEvent, ApplicationEventData } from 'tns-core-modules/application';
-import { FirebaseAuthService } from 'shared-library/core/auth/firebase-auth.service';
-import { ApplicationSettingsActions } from 'shared-library/core/store/actions';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import * as Platform from 'platform';
+import { filter } from 'rxjs/operators';
+import { FirebaseAuthService } from 'shared-library/core/auth/firebase-auth.service';
+import { NavigationService } from 'shared-library/core/services/mobile/navigation.service';
+import { coreState } from 'shared-library/core/store';
+import { ApplicationSettingsActions, UserActions } from 'shared-library/core/store/actions';
+import { ApplicationEventData, on as applicationOn, resumeEvent } from 'tns-core-modules/application';
+import * as gamePlayActions from '../../game-play/store/actions';
+import { AppState } from '../../store';
+import * as urlUtils from 'tns-core-modules/utils/utils';
 
 @Component({
   selector: 'app-root',
@@ -73,13 +70,27 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     );
 
+    this.getDynamicLinkCallback();
+
     applicationOn(resumeEvent, (args: ApplicationEventData) => {
       firebase.getCurrentUser().then((user) => {
         this.firebaseAuthService.resumeState(user);
       });
+      this.getDynamicLinkCallback();
     });
 
   }
+
+
+  getDynamicLinkCallback(): void {
+    firebase.addOnDynamicLinkReceivedCallback(
+      (result) => {
+        urlUtils.openUrl(result.url);
+      }
+    );
+
+  }
+
 
 
 

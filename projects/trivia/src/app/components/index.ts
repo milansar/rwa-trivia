@@ -9,6 +9,8 @@ import { ProfileCardComponent } from './profile-card/profile-card.component';
 import { RecentGamesComponent } from './recent-games/recent-games.component';
 import { RecentGameCardComponent } from './recent-games/recent-game-card/recent-game-card.component';
 import { AchievementsComponent } from './achievements/achievements.component';
+import { AppInstallationStatusComponent } from './app-installation-status/app-installation-status.component';
+
 export {
     AppComponent,
     SideNavComponent,
@@ -20,7 +22,8 @@ export {
     ProfileCardComponent,
     RecentGamesComponent,
     RecentGameCardComponent,
-    AchievementsComponent
+    AchievementsComponent,
+    AppInstallationStatusComponent
 };
 
 export default [
@@ -34,5 +37,6 @@ export default [
     ProfileCardComponent,
     RecentGamesComponent,
     RecentGameCardComponent,
-    AchievementsComponent
+    AchievementsComponent,
+    AppInstallationStatusComponent
 ];
