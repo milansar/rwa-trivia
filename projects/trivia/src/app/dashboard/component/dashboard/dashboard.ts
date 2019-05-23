@@ -217,10 +217,6 @@ export class Dashboard implements OnDestroy {
         this.friendInviteSliceStartIndex = 0;
         this.friendInviteSliceLastIndex = 3;
 
-        this.subscriptions.push(store.select(appState.coreState).pipe(select(s => s.appInstallationStatus))
-            .subscribe(appStatus => {
-                this.appInstallationStatus = appStatus;
-             }));
 
 
     }

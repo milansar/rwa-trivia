@@ -22,7 +22,7 @@ export function resetPasswordLogs(state: any = [], action: ActionWithPayload<str
 };
 
 
-export function appInstallationStatus(state: boolean = false, action: ActionWithPayload<boolean>): boolean {
+export function appInstallationStatus(state: any = null, action: ActionWithPayload<boolean>): boolean {
   switch (action.type) {
     case UIStateActions.APP_INSTALLATION_STATUS:
       return action.payload;

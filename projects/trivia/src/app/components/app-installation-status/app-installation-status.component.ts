@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppState } from 'projects/trivia-admin/src/app/store';
+import { AppState } from '../../store';
 import { Store } from '@ngrx/store';
 import { UIStateActions } from 'shared-library/core/store/actions';
 
@@ -11,13 +11,13 @@ import { UIStateActions } from 'shared-library/core/store/actions';
 export class AppInstallationStatusComponent implements OnInit {
 
   constructor(private _activatedRoute: ActivatedRoute,
-     private store: Store<AppState>,
-      private uiStateActions: UIStateActions,
-      private router: Router) {
+    private store: Store<AppState>,
+    private uiStateActions: UIStateActions,
+    private router: Router) {
     _activatedRoute.queryParams.subscribe(
       params => {
         console.log('queryParams', params['status']);
-        uiStateActions.setAppInstallationStatus(params['status']);
+        store.dispatch(uiStateActions.setAppInstallationStatus((params['status'] === 'true') ? true : false));
         router.navigate(['/dashboard']);
       });
   }

@@ -1,12 +1,14 @@
 import { Component, OnInit, Inject, NgZone, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { PLATFORM_ID } from '@angular/core';
 import { QuestionActions, GameActions, UserActions } from 'shared-library/core/store/actions';
 import { Utils, WindowRef } from 'shared-library/core/services';
-import { AppState } from '../../../store';
+import { AppState, appState } from '../../../store';
 import { Dashboard } from './dashboard';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { CONFIG } from '../../../../../../shared-library/src/lib/environments/environment';
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { UIStateActions } from 'shared-library/core/store/actions';
 
 @Component({
   selector: 'dashboard',
@@ -14,6 +16,8 @@ import { CONFIG } from '../../../../../../shared-library/src/lib/environments/en
   styleUrls: ['./dashboard.component.scss', './dashboard.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+
+@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
 export class DashboardComponent extends Dashboard implements OnInit {
 
 
@@ -29,7 +33,8 @@ export class DashboardComponent extends Dashboard implements OnInit {
     utils: Utils,
     ngZone: NgZone,
     cd: ChangeDetectorRef,
-    private deviceService: DeviceDetectorService
+    private deviceService: DeviceDetectorService,
+    private uiStateActions: UIStateActions
   ) {
     super(store,
       questionActions,
@@ -65,6 +70,22 @@ export class DashboardComponent extends Dashboard implements OnInit {
       this.greeting = 'Evening';
       this.message = 'Relax your mind. Spice it up with a new game!';
     }
+
+
+    this.subscriptions.push(this.store.select(appState.coreState).pipe(select(s => s.appInstallationStatus))
+      .subscribe(appStatus => {
+        if (appStatus != null) {
+          alert('appStatus---->' + appStatus);
+          this.appInstallationStatus = appStatus;
+        } else {
+          if (this.deviceService.isMobile()) {
+            const anchorTag = document.createElement('a');
+            anchorTag.href = 'https://bitwiser.page.link/ZD5a';
+            anchorTag.click();
+          }
+        }
+      }
+      ));
   }
 
   displayMoreGames(): void {

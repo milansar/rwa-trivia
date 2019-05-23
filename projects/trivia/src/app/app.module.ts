@@ -19,7 +19,7 @@ import {
   AppComponent,
   SideNavComponent, HeaderComponent, FooterComponent, InvitationRedirectionComponent,
   PrivacyPolicyComponent, UserStatsCardComponent, RecentGameCardComponent, RecentGamesComponent,
-  ProfileCardComponent, AchievementsComponent,
+  ProfileCardComponent, AchievementsComponent, AppInstallationStatusComponent
 } from './components';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from 'shared-library/environments/environment';
@@ -27,6 +27,7 @@ import { SwUpdate } from '@angular/service-worker';
 import { PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { interval } from 'rxjs';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { interval } from 'rxjs';
     RecentGamesComponent,
     RecentGameCardComponent,
     UserStatsCardComponent,
-    AchievementsComponent
+    AchievementsComponent,
+    AppInstallationStatusComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +67,8 @@ import { interval } from 'rxjs';
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
-    { provide: RouterStateSerializer, useClass: CustomSerializer }
+    { provide: RouterStateSerializer, useClass: CustomSerializer },
+    DeviceDetectorService
   ],
   bootstrap: [AppComponent]
 })
