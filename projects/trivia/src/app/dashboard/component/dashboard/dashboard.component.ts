@@ -24,6 +24,8 @@ export class DashboardComponent extends Dashboard implements OnInit {
   deviceInfo: any;
   isMobile = false;
   appUrl: string;
+  dynamicLink: string;
+
 
   constructor(store: Store<AppState>,
     questionActions: QuestionActions,
@@ -44,6 +46,7 @@ export class DashboardComponent extends Dashboard implements OnInit {
       ngZone,
       utils,
       cd);
+    this.dynamicLink = 'https://bitwiser.page.link/ZD5a';
   }
 
 
@@ -79,9 +82,11 @@ export class DashboardComponent extends Dashboard implements OnInit {
           this.appInstallationStatus = appStatus;
         } else {
           if (this.deviceService.isMobile()) {
-            const anchorTag = document.createElement('a');
-            anchorTag.href = 'https://bitwiser.page.link/ZD5a';
-            anchorTag.click();
+            // const anchorTag = document.createElement('a');
+            // anchorTag.href = 'https://bitwiser.page.link/ZD5a';
+            // anchorTag.rel = 'noopener noreferrer';
+            // anchorTag.target = '_blank';
+            // anchorTag.click();
           }
         }
       }

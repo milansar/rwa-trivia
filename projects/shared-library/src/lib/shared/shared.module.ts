@@ -52,6 +52,7 @@ import { ShowHintWhenFocusOutDirective, OpenUserProfileDirective } from './direc
     SharedMaterialModule, CdkTableModule, RejectedQuestionContentComponent,
     HttpClientModule, ShareButtonModule, SocialPaletteComponent, AuthorComponent, ShowHintWhenFocusOutDirective,
     OpenUserProfileDirective, DeviceDetectorModule
-  ]
+  ],
+  providers: []
 })
 export class SharedModule { }

@@ -29,7 +29,7 @@
       </div>
     </div>
     <div class="col-xs-2" class="app-section-second">
-      <h2 *ngIf="!appInstallationStatus"><a [href]="appUrl" target="_blank">Install</a></h2>
+      <h2 *ngIf="!appInstallationStatus"><a [href]="dynamicLink" target="_blank">Install</a></h2>
       <h2 *ngIf="appInstallationStatus"><a [href]="appUrl" target="_blank">OPEN</a></h2>
     </div>
   </div>
