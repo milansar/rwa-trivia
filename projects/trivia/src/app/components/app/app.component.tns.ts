@@ -85,7 +85,7 @@ export class AppComponent implements OnInit, OnDestroy {
   getDynamicLinkCallback(): void {
     firebase.addOnDynamicLinkReceivedCallback(
       (result) => {
-        urlUtils.openUrl('https://rwa-trivia-dev-e57fc.firebaseapp.com/app-installation-status?status=true');
+        urlUtils.openUrl('http://192.168.0.23:4200/app-installation-status?status=true');
       }
     );
 

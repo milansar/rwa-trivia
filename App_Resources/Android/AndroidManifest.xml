@@ -44,6 +44,7 @@
     			 <category android:name="android.intent.category.DEFAULT"/>
    				 <category android:name="android.intent.category.BROWSABLE"/>
    				 <data android:host="bitwiser.page.link" android:pathPrefix="/ZD5a" android:scheme="https"/>
+				 <data android:host="bitwiser.page.link" android:pathPrefix="/ZD5a" android:scheme="http"/>
   			  </intent-filter>
 		</activity>
 		<activity android:name="com.tns.ErrorReportActivity"/>

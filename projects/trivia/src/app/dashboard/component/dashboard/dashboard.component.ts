@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, NgZone, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Inject, NgZone, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { PLATFORM_ID } from '@angular/core';
 import { QuestionActions, GameActions, UserActions } from 'shared-library/core/store/actions';
@@ -18,13 +18,14 @@ import { UIStateActions } from 'shared-library/core/store/actions';
 })
 
 @AutoUnsubscribe({ 'arrayName': 'subscriptions' })
-export class DashboardComponent extends Dashboard implements OnInit {
+export class DashboardComponent extends Dashboard implements OnInit, AfterViewInit {
 
 
   deviceInfo: any;
   isMobile = false;
   appUrl: string;
   dynamicLink: string;
+
 
 
   constructor(store: Store<AppState>,
@@ -75,23 +76,37 @@ export class DashboardComponent extends Dashboard implements OnInit {
     }
 
 
-    this.subscriptions.push(this.store.select(appState.coreState).pipe(select(s => s.appInstallationStatus))
-      .subscribe(appStatus => {
-        if (appStatus != null) {
+  }
+
+  ngAfterViewInit() {
+
+    if (this.isMobile) {
+      this.subscriptions.push(this.store.select(appState.coreState).pipe(select(s => s.appInstallationStatus))
+        .subscribe(appStatus => {
           alert('appStatus---->' + appStatus);
-          this.appInstallationStatus = appStatus;
-        } else {
-          if (this.deviceService.isMobile()) {
-            // const anchorTag = document.createElement('a');
-            // anchorTag.href = 'https://bitwiser.page.link/ZD5a';
-            // anchorTag.rel = 'noopener noreferrer';
-            // anchorTag.target = '_blank';
-            // anchorTag.click();
+          if (appStatus != null) {
+            this.appInstallationStatus = appStatus;
+          } else {
+            // if (this.deviceService.isMobile()) {
+            //   const anchorTag = document.createElement('a');
+            //   anchorTag.href = 'https://bitwiser.page.link/ZD5a';
+            //   anchorTag.rel = 'noopener noreferrer';
+            //   anchorTag.target = '_blank';
+            //   anchorTag.click();
+            // }
+            setTimeout(() => {
+              const element = document.getElementById('hiddenLink') as HTMLElement;
+              element.click();
+            }, 1000);
           }
         }
-      }
-      ));
+        ));
+    }
+
+
   }
+
+
 
   displayMoreGames(): void {
     this.gameSliceLastIndex = (this.activeGames.length > (this.gameSliceLastIndex + 8)) ?
