@@ -88,7 +88,7 @@ export class UserService {
                 const appSetting = await AppSettings.Instance.getAppSettings();
                 if (appSetting.social_profile) {
                     for (const socialProfile of appSetting.social_profile) {
-                        if (socialProfile.enable) {
+                        if (socialProfile.enable && dbUser[socialProfile.social_name]) {
                             user[socialProfile.social_name] = dbUser[socialProfile.social_name];
                         }
                     }
@@ -114,7 +114,7 @@ export class UserService {
                 }
 
             }
-            return { ...user, gamePlayed};
+            return { ...user, gamePlayed };
         } catch (error) {
             return Utils.throwError(error);
         }

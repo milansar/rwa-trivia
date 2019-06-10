@@ -96,9 +96,10 @@ export class PushNotification {
                     break;
 
                 case pushNotificationRouteConstants.GAME_REMAINING_TIME_NOTIFICATIONS:
-                    msg_data = { 'messageType': pushNotificationRouteConstants.GAME_PLAY, 'gameId': game.gameId };
+                    const gameObj: Game = data;
+                    msg_data = { 'messageType': pushNotificationRouteConstants.GAME_PLAY, 'gameId': gameObj.gameId };
                     result = await PushNotification
-                        .sendNotificationToDevices(game.nextTurnPlayerId, 'bitwiser Game Play',
+                        .sendNotificationToDevices(gameObj.nextTurnPlayerId, 'bitwiser Game Play',
                             'You have 32 minutes remaining to play your turn !', msg_data);
                     console.log('result', result);
                     console.log(`You have 32 minutes remaining to play your turn !`);
