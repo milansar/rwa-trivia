@@ -29,16 +29,16 @@ import { NewGame } from './new-game';
 @AutoUnsubscribe({ 'arrayName': 'subscriptions' })
 export class NewGameComponent extends NewGame implements OnInit, OnDestroy {
 
-  playerMode = 0;
+  //  playerMode = 0;
   showSelectPlayer = false;
   showSelectCategory = false;
   showSelectTag = false;
-  dataItem;
+  // dataItem;
   categoriesObs: Observable<Category[]>;
   customTag: string;
   categoryIds: number[] = [];
   private tagItems: ObservableArray<TokenModel>;
-  filteredCategories: Category[];
+  // filteredCategories: Category[];
   subscriptions = [];
   // This is magic variable
   // it delay complex UI show Router navigation can finish first to have smooth transition
@@ -83,49 +83,53 @@ export class NewGameComponent extends NewGame implements OnInit, OnDestroy {
 
     }));
 
-    this.categoriesObs.pipe(take(1)).subscribe(categories => {
-      categories.map(category => {
-        if (this.user.categoryIds && this.user.categoryIds.length > 0) {
-          category.isSelected = this.user.categoryIds.includes(category.id);
-        } else if (this.user.lastGamePlayOption && this.user.lastGamePlayOption.categoryIds.length > 0) {
-          category.isSelected = this.user.lastGamePlayOption.categoryIds.includes(category.id);
-        } else {
-          category.isSelected = true;
-        }
-        this.cd.markForCheck();
-        return category;
-      });
-      this.cd.markForCheck();
-      this.store.select(appState.coreState).pipe(select(s => s.applicationSettings), take(1)).subscribe(
-        appSettings => {
-          if (appSettings) {
-            this.applicationSettings = appSettings[0];
-            let filteredCategories = [];
-            if (this.applicationSettings) {
-              filteredCategories = this.categories.filter((category) => {
-                if (this.applicationSettings.game_play_categories.indexOf(Number(category.id)) > -1) {
-                  return category;
-                }
-              });
-              if (this.applicationSettings && this.applicationSettings.lives.enable) {
-                this.store.select(appState.coreState).pipe(select(s => s.account), take(1)).subscribe(account => {
-                  if (account) {
-                    this.life = account.lives;
-                  }
-                  this.cd.markForCheck();
-                });
-              }
-            } else {
-              filteredCategories = this.categories;
-            }
+    // this.categoriesObs.pipe(take(1)).subscribe(categories => {
+    //   categories.map(category => {
+    //     if (this.user.categoryIds && this.user.categoryIds.length > 0) {
+    //       category.isSelected = this.user.categoryIds.includes(category.id);
+    //     } else if (this.user.lastGamePlayOption && this.user.lastGamePlayOption.categoryIds.length > 0) {
+    //       category.isSelected = this.user.lastGamePlayOption.categoryIds.includes(category.id);
+    //     } else {
+    //       category.isSelected = true;
+    //     }
+    //     this.cd.markForCheck();
+    //     return category;
+    //   });
+    //   this.cd.markForCheck();
+    //   this.store.select(appState.coreState).pipe(select(s => s.applicationSettings), take(1)).subscribe(
+    //     appSettings => {
+    //       if (appSettings) {
+    //         this.applicationSettings = appSettings[0];
+    //         let filteredCategories = [];
+    //         if (this.applicationSettings) {
+    //           filteredCategories = this.categories.filter((category) => {
+    //             if (this.applicationSettings.game_play_categories.indexOf(Number(category.id)) > -1) {
+    //               return category;
+    //             }
+    //           });
+    //           if (this.applicationSettings && this.applicationSettings.lives.enable) {
+    //             this.store.select(appState.coreState).pipe(select(s => s.account), take(1)).subscribe(account => {
+    //               if (account) {
+    //                 this.life = account.lives;
+    //               }
+    //               this.cd.markForCheck();
+    //             });
+    //           }
+    //         } else {
+    //           filteredCategories = this.categories;
+    //         }
 
-            this.filteredCategories = [...filteredCategories.filter(c => c.requiredForGamePlay),
-            ...filteredCategories.filter(c => !c.requiredForGamePlay)];
-          }
-          this.cd.markForCheck();
-        });
+    //         this.filteredCategories = [...filteredCategories.filter(c => c.requiredForGamePlay),
+    //         ...filteredCategories.filter(c => !c.requiredForGamePlay)];
+    //       }
+    //       this.cd.markForCheck();
+    //     });
 
-    });
+
+
+    // });
+
+
 
     this.subscriptions.push(this.store.select(appState.coreState).pipe(select(s => s.gameCreateStatus)).subscribe(gameCreateStatus => {
       if (gameCreateStatus) {
@@ -134,19 +138,7 @@ export class NewGameComponent extends NewGame implements OnInit, OnDestroy {
       this.cd.markForCheck();
     }));
 
-    this.subscriptions.push(this.store.select(appState.coreState).pipe(select(s => s.userFriends)).subscribe((uFriends: any) => {
-      if (uFriends) {
-        this.uFriends = [];
-        uFriends.map(friend => {
-          this.uFriends = [...this.uFriends, ...friend.userId];
-        });
-        this.dataItem = this.uFriends;
-        this.noFriendsStatus = false;
-      } else {
-        this.noFriendsStatus = true;
-      }
-      this.cd.markForCheck();
-    }));
+
 
     // update to variable needed to do in ngZone otherwise it did not understand it
     this.page.on('loaded', () => this.ngZone.run(() => {
@@ -156,11 +148,11 @@ export class NewGameComponent extends NewGame implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.playerMode = undefined;
+    //    this.playerMode = undefined;
     this.showSelectPlayer = undefined;
     this.showSelectCategory = undefined;
     this.showSelectTag = undefined;
-    this.dataItem = undefined;
+    //    this.dataItem = undefined;
     this.categoriesObs = undefined;
     this.categories = [];
     this.subscriptions = [];
