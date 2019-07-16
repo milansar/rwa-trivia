@@ -66,49 +66,6 @@ export class NewGameComponent extends NewGame implements OnInit, OnDestroy {
     public cd: ChangeDetectorRef) {
     super(store, utils, gameActions, userActions, windowRef, cd, route, router);
 
-
-    // this.store.select(appState.coreState).pipe(select(s => s.applicationSettings), take(1),
-    //   map(appSettings => {
-    //     if (appSettings) {
-    //       this.applicationSettings = appSettings[0];
-    //       if (this.applicationSettings && this.applicationSettings.lives.enable) {
-    //         return appSettings;
-    //       }
-    //     }
-    //   }),
-    //   flatMap(() => this.store.select(appState.coreState).pipe(select(s => s.account),
-    //     skipWhile(account => !account), take(1), map(account => this.life = account.lives)))).subscribe(data => {
-    //       if (this.applicationSettings) {
-    //         this.selectedCategories = [];
-    //         let filteredCategories = [];
-    //         if (this.applicationSettings && this.applicationSettings.game_play_categories) {
-    //           filteredCategories = this.categories.filter((category) => {
-    //             if (this.applicationSettings.game_play_categories.indexOf(Number(category.id)) > -1) {
-    //               return category;
-    //             }
-    //           });
-    //         } else {
-    //           filteredCategories = this.categories;
-    //         }
-
-    //         this.cd.markForCheck();
-
-
-    //         const sortedCategories = [...filteredCategories.filter(c => c.requiredForGamePlay),
-    //         ...filteredCategories.filter(c => !c.requiredForGamePlay)];
-
-    //         this.sortedCategories = sortedCategories;
-
-    //         sortedCategories.map(category => {
-    //           category.isCategorySelected = this.isCategorySelected(category.id, category.requiredForGamePlay);
-    //           if (this.isCategorySelected(category.id, category.requiredForGamePlay)) {
-    //             this.selectedCategories.push(category.id);
-    //           }
-    //         });
-    //         this.cd.markForCheck();
-    //         // this.cd.detectChanges();
-    //       }
-    //     });
   }
 
   ngOnInit() {

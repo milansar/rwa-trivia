@@ -25,16 +25,12 @@ import { NewGame } from './new-game';
 @AutoUnsubscribe({ 'arrayName': 'subscriptions' })
 export class NewGameComponent extends NewGame implements OnInit, OnDestroy {
 
-  //  playerMode = 0;
+
   showSelectPlayer = false;
   showSelectCategory = false;
   showSelectTag = false;
-  // dataItem;
-  // categoriesObs: Observable<Category[]>;
   customTag: string;
-  // categoryIds: number[] = [];
   private tagItems: ObservableArray<TokenModel>;
-  // filteredCategories: Category[];
   subscriptions = [];
   // This is magic variable
   // it delay complex UI show Router navigation can finish first to have smooth transition
@@ -78,16 +74,12 @@ export class NewGameComponent extends NewGame implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    //    this.playerMode = undefined;
     this.showSelectPlayer = undefined;
     this.showSelectCategory = undefined;
     this.showSelectTag = undefined;
-    //    this.dataItem = undefined;
-    // this.categoriesObs = undefined;
     this.categories = [];
     this.subscriptions = [];
     this.customTag = undefined;
-    // this.categoryIds = [];
     this.tagItems = undefined;
     this.filteredCategories = [];
     this.destroy();
