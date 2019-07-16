@@ -123,6 +123,7 @@ export class GameMechanics {
     static async createNewGame(userId: string, gameOptions: GameOptions): Promise<string> {
         let gameId;
         try {
+
             await GameMechanics.updateUser(userId, gameOptions);
 
             if (Number(gameOptions.playerMode) === PlayerMode.Opponent) {
@@ -294,11 +295,12 @@ export class GameMechanics {
 
     // Add lastGamePlayOption when new game create
     private static async updateUser(userId: string, gameOptions: any): Promise<string> {
+
         try {
             const dbUser: User = await UserService.getUserById(userId);
             dbUser.lastGamePlayOption = gameOptions;
 
-            await UserService.updateUser(dbUser);
+            await UserService.updateUser({ ...dbUser });
             return dbUser.userId;
 
         } catch (error) {

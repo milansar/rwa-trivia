@@ -1,20 +1,18 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
-import { Router, ActivatedRoute } from '@angular/router';
-import { select, Store } from '@ngrx/store';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { Observable } from 'rxjs';
-import { map, take, flatMap, skipWhile } from 'rxjs/operators';
+import { flatMap, map } from 'rxjs/operators';
 import { Utils, WindowRef } from 'shared-library/core/services';
 import { GameActions, UserActions } from 'shared-library/core/store/actions';
-import {
-  Category, GameMode, GameOptions, OpponentType, PlayerMode, FirebaseAnalyticsKeyConstants,
-  FirebaseAnalyticsEventConstants, GameConstants
-} from 'shared-library/shared/model';
-import { AppState, appState } from '../../../store';
+import { Category, GameMode, GameOptions } from 'shared-library/shared/model';
+import { AppState } from '../../../store';
 import { NewGame } from './new-game';
-import { SwiperDirective, SwiperConfigInterface } from 'ngx-swiper-wrapper';
+
 @Component({
   selector: 'new-game',
   templateUrl: './new-game.component.html',
@@ -68,12 +66,6 @@ export class NewGameComponent extends NewGame implements OnInit, OnDestroy {
     public cd: ChangeDetectorRef) {
     super(store, utils, gameActions, userActions, windowRef, cd, route, router);
 
-    this.subscriptions.push(this.store.select(appState.coreState).pipe(select(s => s.gameCreateStatus)).subscribe(gameCreateStatus => {
-      if (gameCreateStatus) {
-        this.redirectToDashboard(gameCreateStatus);
-      }
-      this.cd.markForCheck();
-    }));
 
     // this.store.select(appState.coreState).pipe(select(s => s.applicationSettings), take(1),
     //   map(appSettings => {

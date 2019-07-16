@@ -96,8 +96,6 @@ export class NewGame implements OnDestroy {
             }
 
 
-
-
             this.filteredCategories = [...filteredCategories.filter(c => c.requiredForGamePlay),
             ...filteredCategories.filter(c => !c.requiredForGamePlay)];
 
@@ -108,33 +106,10 @@ export class NewGame implements OnDestroy {
                 this.selectedCategories.push(category.id);
               }
             });
-            this.cd.markForCheck();
           }
+          this.cd.markForCheck();
         });
 
-    // this.subscriptions.push(
-    //   this.route.params.pipe(map(data => data),
-    //     switchMap((data) => {
-    //       if (!data.userid) {
-    //         return this.store.select(appState.coreState).pipe(select(s => s.userFriends));
-    //       } else {
-    //         return empty();
-    //       }
-    //     })).subscribe((uFriends: any) => {
-    //       if (uFriends) {
-    //         this.uFriends = [];
-    //         uFriends.map(friend => {
-    //           if (this.userDict && !this.userDict[friend.userId]) {
-    //             this.store.dispatch(this.userActions.loadOtherUserProfile(friend.userId));
-    //           }
-    //           this.uFriends = [...this.uFriends, ...friend.userId];
-    //         });
-    //         this.noFriendsStatus = false;
-    //       } else {
-    //         this.noFriendsStatus = true;
-    //       }
-    //       this.cd.markForCheck();
-    //     }));
 
     this.subscriptions.push(this.store.select(appState.coreState).pipe(select(s => s.userFriends)).subscribe((uFriends: any) => {
       if (uFriends) {
@@ -151,6 +126,14 @@ export class NewGame implements OnDestroy {
       }
       this.cd.markForCheck();
     }));
+
+    this.subscriptions.push(this.store.select(appState.coreState).pipe(select(s => s.gameCreateStatus)).subscribe(gameCreateStatus => {
+      if (gameCreateStatus) {
+        this.redirectToDashboard(gameCreateStatus);
+      }
+      this.cd.markForCheck();
+    }));
+
 
     this.store.dispatch(this.gameActions.resetNewGame());
     this.store.dispatch(new gameplayactions.ResetCurrentGame());
