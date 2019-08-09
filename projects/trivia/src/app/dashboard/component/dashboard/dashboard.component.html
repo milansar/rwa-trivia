@@ -19,7 +19,11 @@
       <div class="lives" *ngIf="user && account && account.lives >=0 && isLivesEnable" > <span class="lives-text">{{account.lives}}</span> </div>
     </div>
   </div>
-
+  
+    <button (click)="getFriends()" class="btn btn-lg btn-primary btn-block">
+      Get friends
+    </button>
+  
   <!-- Currently active games -->
   <section *ngIf="user" id="curentactive" class="card">
     <div class="h1block">

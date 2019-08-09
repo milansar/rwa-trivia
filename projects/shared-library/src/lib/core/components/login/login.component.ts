@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
-import { CoreState, UIStateActions } from '../../store';
+import { CoreState, UIStateActions, coreState } from '../../store';
 import { Store } from '@ngrx/store';
 import { FirebaseAuthService } from './../../auth/firebase-auth.service';
 import { Login } from './login';
@@ -10,6 +10,8 @@ import * as firebase from 'firebase/app';
 import * as firebaseui from 'firebaseui';
 import { WindowRef } from 'shared-library/core/services';
 import { CONFIG } from 'shared-library/environments/environment';
+import { UserActions } from './../../store/actions';
+import { select} from '@ngrx/store';
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
@@ -28,7 +30,8 @@ export class LoginComponent extends Login implements  OnDestroy {
     private uiStateActions: UIStateActions,
     private firebaseAuthService: FirebaseAuthService,
     public cd: ChangeDetectorRef,
-    private windowsRef: WindowRef) {
+    private windowsRef: WindowRef,
+    private userActions: UserActions) {
     super(fb, store, cd);
 
     this.uiConfig = {
@@ -125,6 +128,12 @@ export class LoginComponent extends Login implements  OnDestroy {
 
   fbLogin() {
     this.firebaseAuthService.facebookLogin()
+    .then(data => {
+        data.user.access_token = data.credential.access_token;
+        this.subscriptions.push(this.store.select(coreState).pipe(select(s => s.user)).subscribe(user => {
+             this.store.dispatch(this.userActions.updateUser(data.user));
+        }));
+      })
       .catch((error: Error) => {
         this.notificationMsg = error.message;
         this.errorStatus = true;

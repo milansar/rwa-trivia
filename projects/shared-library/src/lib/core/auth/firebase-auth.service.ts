@@ -18,4 +18,5 @@ export abstract class FirebaseAuthService {
     abstract twitterLogin(): Promise<any>;
     abstract githubLogin(): Promise<any>;
     abstract resumeState(user);
+    abstract getProvider();
 }

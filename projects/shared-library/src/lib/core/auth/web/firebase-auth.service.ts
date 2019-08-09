@@ -67,7 +67,9 @@ export class WebFirebaseAuthService implements FirebaseAuthService {
     }
 
     public facebookLogin(): Promise<any> {
-        return this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
+        const provider = new firebase.auth.FacebookAuthProvider();
+        provider.addScope('public_profile,user_friends,email');
+        return this.afAuth.auth.signInWithPopup(provider);
     }
     public phoneLogin(phoneNumber): Promise<any> {
         return;
@@ -87,5 +89,9 @@ export class WebFirebaseAuthService implements FirebaseAuthService {
 
     public resumeState(user) {
 
+    }
+
+    public getProvider() {
+        return firebase.auth().currentUser.providerData[0];
     }
 }

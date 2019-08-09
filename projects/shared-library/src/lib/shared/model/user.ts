@@ -33,6 +33,7 @@ export class User {
   account?: Account;
   achievements: string[];
   gamePlayed: Array<{ [key: string]: FriendsMetadata }>;
+  access_token: string;
 
   constructor(authState?: firebase.User & { name: string }) {
     if (authState) {

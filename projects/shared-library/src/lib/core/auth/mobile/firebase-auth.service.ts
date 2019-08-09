@@ -93,4 +93,8 @@ export class TNSFirebaseAuthService implements FirebaseAuthService {
     public resumeState(user) {
         this.userSubject.next(user);
     }
+
+    public getProvider() {
+        return;
+    }
 }

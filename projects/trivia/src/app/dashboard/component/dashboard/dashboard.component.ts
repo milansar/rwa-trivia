@@ -5,7 +5,8 @@ import { QuestionActions, GameActions, UserActions } from 'shared-library/core/s
 import { Utils, WindowRef } from 'shared-library/core/services';
 import { AppState } from '../../../store';
 import { Dashboard } from './dashboard';
-
+import { FacebookService, LoginResponse } from 'ngx-facebook';
+import { FirebaseAuthService } from 'shared-library/core/auth';
 @Component({
   selector: 'dashboard',
   templateUrl: './dashboard.component.html',
@@ -20,7 +21,9 @@ export class DashboardComponent extends Dashboard implements OnInit {
     @Inject(PLATFORM_ID) platformId: Object,
     utils: Utils,
     ngZone: NgZone,
-    cd: ChangeDetectorRef
+    cd: ChangeDetectorRef,
+    private fb: FacebookService,
+    private firebaseAuthService: FirebaseAuthService
     ) {
     super(store,
       questionActions,
@@ -30,6 +33,11 @@ export class DashboardComponent extends Dashboard implements OnInit {
       ngZone,
       utils,
       cd);
+
+      fb.init({
+        appId: '266820933965932',
+        version: 'v2.9'
+      });
   }
 
 
@@ -81,6 +89,30 @@ export class DashboardComponent extends Dashboard implements OnInit {
       }
     }
   }
+
+  /**
+   * Get the users friends
+   */
+  getFriends() {
+    const fbUserData = this.firebaseAuthService.getProvider().providerId === 'facebook.com' ? this.firebaseAuthService.getProvider() : null;
+   if (fbUserData) {
+    this.fb.api(`/${fbUserData.uid}/friends`, 'get', {'access_token': this.user.access_token})
+        .then((res: any) => {
+        console.log('Got the users friends', res);
+      })
+      .catch(this.handleError);
+   }
+  }
+
+  /**
+   * This is a convenience method for the sake of this example project.
+   * Do not use this in production, it's better to handle errors separately.
+   * @param error
+   */
+  private handleError(error) {
+    console.error('Error processing action', error);
+  }
+
 }
 
 
