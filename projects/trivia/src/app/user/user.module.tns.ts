@@ -13,8 +13,9 @@ import {
   InviteFriendsDialogComponent,
   LocationResetDialogComponent,
   PreviewQuestionDialogComponent,
-  GameProfileComponent
+  GameProfileComponent,
 } from './components';
+import { ChangePasswordComponent } from '../../../../shared-library/src/lib/shared/mobile/component';
 
 import { DropDownModule } from 'nativescript-drop-down/angular';
 @NgModule({
@@ -27,7 +28,8 @@ import { DropDownModule } from 'nativescript-drop-down/angular';
     InviteFriendsDialogComponent,
     LocationResetDialogComponent,
     PreviewQuestionDialogComponent,
-    GameProfileComponent
+    GameProfileComponent,
+    ChangePasswordComponent
   ],
   imports: [
     // rwa modules
@@ -50,7 +52,7 @@ import { DropDownModule } from 'nativescript-drop-down/angular';
     MyQuestionsComponent,
     InviteFriendsComponent,
     LocationResetDialogComponent,
-    GameProfileComponent
+    GameProfileComponent,
   ],
   entryComponents: [
     LocationResetDialogComponent,
