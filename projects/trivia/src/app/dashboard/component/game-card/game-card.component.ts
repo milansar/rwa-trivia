@@ -1,7 +1,8 @@
-import { Component, Input, OnInit, OnChanges, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
 import { Observable, Subscription, timer } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { User, Game, Category, PlayerMode, GameStatus, CalenderConstants, userCardType } from 'shared-library/shared/model';
+import { User, Game, Category, PlayerMode, GameStatus, CalenderConstants, userCardType,
+   ApplicationSettings } from 'shared-library/shared/model';
 import { Utils } from 'shared-library/core/services';
 import { AppState, appState, categoryDictionary } from '../../../store';
 import { take } from 'rxjs/operators';
@@ -21,6 +22,10 @@ export class GameCardComponent implements OnInit, OnChanges, OnDestroy {
   @Input() cardType: any;
   @Input() categoryDict: { [key: number]: Category };
   @Input() userDict: { [key: string]: User };
+  @Input() applicationSettings: ApplicationSettings;
+  totalBadges: string[];
+  earnedBadges: string[];
+  earnedBadgesByOtherUser: string[];
   user$: Observable<User>;
   correctAnswerCount: number;
   questionIndex: number;
@@ -77,7 +82,7 @@ export class GameCardComponent implements OnInit, OnChanges, OnDestroy {
     }));
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges) {
     this.questionIndex = this.game.playerQnAs.length;
     this.correctAnswerCount = this.game.playerQnAs.filter((p) => p.answerCorrect).length;
     if (this.game) {
@@ -93,6 +98,18 @@ export class GameCardComponent implements OnInit, OnChanges, OnDestroy {
           )
           .filter(name => name !== '')
       ];
+    }
+
+    if (changes.game && changes.game.currentValue && this.game.gameOptions.isBadgeWithCategory) {
+      if (this.user.userId && this.game.stats.badge) {
+        this.earnedBadges = this.game.stats.badge[this.user.userId].reverse();
+      }
+      if (Number(this.game.gameOptions.playerMode) === PlayerMode.Opponent && this.game.stats.badge) {
+        this.earnedBadgesByOtherUser = this.game.stats.badge[this.otherUserId].reverse();
+      }
+    }
+    if (changes.applicationSettings && changes.applicationSettings.currentValue) {
+      this.totalBadges =  Object.keys(this.applicationSettings.badges);
     }
   }
 
