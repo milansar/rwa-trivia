@@ -7,7 +7,7 @@
             <ActivityIndicator [busy]="loaderBusy" width="100" height="100" marginTop="225" class="activity-indicator">
             </ActivityIndicator>
         </StackLayout>
-        <GridLayout [class.dialogOpen]="isShowPreview" [isUserInteractionEnabled]="isWebViewLoaded" rows="*" columns="*"
+        <!-- <GridLayout [class.dialogOpen]="isShowPreview" [isUserInteractionEnabled]="isWebViewLoaded" rows="*" columns="*"
             *ngIf="!loaderBusy">
             <StackLayout>
                 <NestedScrollView orientation="vertical">
@@ -165,13 +165,31 @@
                 </AbsoluteLayout>
             </StackLayout>
             <StackLayout height="0" #webViewParentStack>
-                    <!-- <NestedScrollView height="0" #webViewParentStack> -->
-                            <WebView height="215" width="100%" #webView id="questionWebView" (loaded)="webViewLoaded($event)">   </WebView>
-                    <!-- </NestedScrollView> -->
-                  
+                            <WebView height="215" width="100%" #webView id="questionWebView" (loaded)="webViewLoaded($event)">   </WebView>                  
                  
             </StackLayout>
 
+            <StackLayout height="100%" class="dialog__wrapper">
+                <app-preview-question-dialog [question]="previewQuestion" [categoryDictionary]="categories">
+                </app-preview-question-dialog>
+            </StackLayout>
+        </GridLayout> -->
+
+
+
+        <GridLayout [class.dialogOpen]="isShowPreview" rows="*,auto" columns="*" class="submit-question">
+            <WebView row="0" col="0" width="100%" height="auto" #webView id="questionWebView"
+                (loaded)="webViewLoaded($event)" (loadFinished)="weViewLoadFinished($event)"></WebView>
+            <GridLayout row="1" col="0" columns="*,50,*" iosOverflowSafeArea="false" class="button-section">
+                <Button stlRippleEffect row="0" col="0" colspan="2" width="100%" [text]="submitBtnTxt"
+          
+                    [ngClass]="{'enable-btn' : isFormValid, 'disable-btn' : !isFormValid }" class="question-buttons"
+                    (tap)="getQuestion()"></Button>
+                <FlexboxLayout stlRippleEffect borderRadius="3" class="enable-btn-preview" row="0" col="2"
+                    orientation="horizontal" justifyContent="center" padding="12" (tap)="preview()">
+                    <Label text="Preview" textWrap="true"></Label>
+                </FlexboxLayout>
+            </GridLayout>
             <StackLayout height="100%" class="dialog__wrapper">
                 <app-preview-question-dialog [question]="previewQuestion" [categoryDictionary]="categories">
                 </app-preview-question-dialog>
@@ -183,4 +201,5 @@
         <bottom-bar [screen]="'profile-settings'" *ngIf="displayBottomBar">
         </bottom-bar>
     </Absolutelayout>
+
 </GridLayout>

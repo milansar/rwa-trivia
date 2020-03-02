@@ -9,7 +9,7 @@ import * as userActions from '../../store/actions';
 import { QuestionActions } from 'shared-library/core/store/actions/question.actions';
 import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
 import { OnDestroy } from '@angular/core';
-import * as lodash from 'lodash';
+import { isEmpty } from 'lodash';
 
 @AutoUnsubscribe({ arrayName: 'subscriptions' })
 export class QuestionAddUpdate implements OnDestroy {
@@ -71,9 +71,9 @@ export class QuestionAddUpdate implements OnDestroy {
   saveDraft() {
     this.subscriptions.push(this.store.select(appState.coreState).pipe(
       select(s => s.applicationSettings),
-      filter(applicationSettings => { return !lodash.isEmpty(applicationSettings); }),
+      filter(applicationSettings => { return !isEmpty(applicationSettings); }),
       switchMap(appSettings => {
-        if (!lodash.isEmpty(appSettings)) {
+        if (!isEmpty(appSettings)) {
           if (appSettings[0]['auto_save']['is_enabled']) {
             if (!this.questionForm.controls.is_draft.value) {
               this.questionForm.patchValue({ is_draft: true });
@@ -168,7 +168,6 @@ export class QuestionAddUpdate implements OnDestroy {
   // Helper functions
   getQuestionFromFormValue(formValue: any): Question {
     let question: Question;
-
     question = new Question();
     question.id = formValue.id;
     question.is_draft = formValue.is_draft;
