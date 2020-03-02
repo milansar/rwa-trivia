@@ -23,6 +23,7 @@ export class GameCardComponent implements OnInit, OnChanges, OnDestroy {
   @Input() categoryDict: { [key: number]: Category };
   @Input() userDict: { [key: string]: User };
   @Input() applicationSettings: ApplicationSettings;
+  totalBadges: string[];
   earnedBadges: string[];
   earnedBadgesByOtherUser: string[];
   user$: Observable<User>;
@@ -104,6 +105,9 @@ export class GameCardComponent implements OnInit, OnChanges, OnDestroy {
       if (Number(this.game.gameOptions.playerMode) === PlayerMode.Opponent) {
         this.earnedBadgesByOtherUser = this.game.playerQnAs.map(data => data.badge && data.badge.won && data.playerId === this.otherUserId ?  data.badge.name : '').filter(data => data !== '');
       }
+    }
+    if (changes.applicationSettings && changes.applicationSettings.currentValue) {
+      this.totalBadges =  Object.keys(this.applicationSettings.badges);
     }
   }
 
