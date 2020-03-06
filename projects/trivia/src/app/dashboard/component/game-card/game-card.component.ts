@@ -90,17 +90,6 @@ export class GameCardComponent implements OnInit, OnChanges, OnDestroy {
       this.otherUserId = this.game.playerIds.filter(userId => userId !== this.user.userId)[0];
       this.otherUserInfo = this.userDict[this.otherUserId];
     }
-
-    if (this.game && this.categoryDict) {
-      this.categoryList = [
-        ...this.game.gameOptions.categoryIds
-          .map(id =>
-            this.categoryDict[id] ? this.capitalizeFirstLetter(this.categoryDict[id].categoryName) : ""
-          )
-          .filter(name => name !== '')
-      ];
-    }
-
     if (changes.game && changes.game.currentValue && this.game.gameOptions.isBadgeWithCategory) {
       if (this.user.userId && this.game.stats.badge) {
         this.earnedBadges = this.game.stats.badge[this.user.userId].reverse();
@@ -111,6 +100,15 @@ export class GameCardComponent implements OnInit, OnChanges, OnDestroy {
     }
     if (changes.applicationSettings && changes.applicationSettings.currentValue) {
       this.totalBadges =  Object.keys(this.applicationSettings.badges);
+    }
+    if (this.game && this.categoryDict) {
+      this.categoryList = [
+        ...this.game.gameOptions.categoryIds
+          .map(id =>
+            this.categoryDict[id] ? this.capitalizeFirstLetter(this.categoryDict[id].categoryName) : ""
+          )
+          .filter(name => name !== '')
+      ];
     }
   }
 
