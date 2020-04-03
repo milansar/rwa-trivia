@@ -87,9 +87,7 @@ export class QuestionAddUpdateComponent extends QuestionAddUpdate
 
   demoQ: Question = new Question();
   renderView = false;
-  // @ViewChild("categoryDropdown", { static: false })
   categoryDropdown: ElementRef;
-  // @ViewChild("timeDropdown", { static: false }) timeDropdown: ElementRef;
 
   public imageTaken: ImageAsset;
   public saveToGallery = true;
@@ -110,21 +108,13 @@ export class QuestionAddUpdateComponent extends QuestionAddUpdate
   theme: string;
   isShowPreview = false;
   previewQuestion: Question;
-  isFormValid: boolean;
+  isQFormValid: boolean;
 
   @Input() editQuestion: Question;
   @Input() displayBottomBar: Boolean = true;
 
   showEditQuestion = false;
   @Output() hideQuestion = new EventEmitter<boolean>();
-  // @ViewChild("autocomplete", { static: false })
-  // autocomplete: RadAutoCompleteTextViewComponent;
-  // @ViewChildren("textField") textField: QueryList<ElementRef>;
-  // @ViewChild("webView", { static: false }) webView: ElementRef<WebView>;
-  // @ViewChild("questionStack", { static: false }) questionStack: ElementRef;
-  // @ViewChildren("answerStack") answerStack: QueryList<ElementRef>;
-  // @ViewChild("webViewParentStack", { static: false })
-  // webViewParentStack: ElementRef;
   isWebViewLoaded = false;
   get dataItems(): ObservableArray<TokenModel> {
     return this.tagItems;
@@ -137,13 +127,9 @@ export class QuestionAddUpdateComponent extends QuestionAddUpdate
     public utils: Utils,
     public questionAction: QuestionActions,
     private routerExtension: RouterExtensions,
-    private page: Page,
     private cd: ChangeDetectorRef,
     public questionService: QuestionService,
-    private modal: ModalDialogService,
-    private vcRef: ViewContainerRef,
     private ngZone: NgZone,
-    private renderer: Renderer2,
     private el: ElementRef
   ) {
     super(fb, store, utils, questionAction);
@@ -153,7 +139,7 @@ export class QuestionAddUpdateComponent extends QuestionAddUpdate
     this.actionBarTxt = "Add_Question";
     // this.initDataItems();
     this.question = new Question();
-    this.isFormValid = false;
+    this.isQFormValid = false;
 
     if (isIOS) {
       this.iqKeyboard = IQKeyboardManager.sharedManager();
@@ -186,9 +172,10 @@ export class QuestionAddUpdateComponent extends QuestionAddUpdate
         ? "Resubmit"
         : "Submit";
     if (this.editQuestion) {
-      this.isFormValid = true;
+      this.isQFormValid = true;
       this.actionBarTxt = "Update Question";
     }
+
 
   }
 
@@ -295,20 +282,17 @@ export class QuestionAddUpdateComponent extends QuestionAddUpdate
             "viewType",
             this.currentWebViewParentId >= 0 ? "answer" : "question"
           );
-          // this.setInitialValue();
         }, 1);
       }
     }
   }
-
-  // preventEventPropogation() {}
 
   setWebInterface(webViewInstace) {
     const webInterface = new webViewInterfaceModule.WebViewInterface(
       webViewInstace,
       CONFIG.editorUrl
     );
-    // new webViewInterfaceModule.WebViewInterface(webViewInstace, CONFIG.editorUrl);
+
     webInterface.on("editorLoadFinished", quillContent => {
       if (quillContent) {
         // change is not being detected.
@@ -320,14 +304,12 @@ export class QuestionAddUpdateComponent extends QuestionAddUpdate
     });
 
     webInterface.on("isFormValid", (isFormValid) => {
-      setTimeout(() => {
-        if (isFormValid === 'false') {
-          this.isFormValid = false;
+        if (isFormValid === true) {
+          this.isQFormValid = true;
         } else {
-          this.isFormValid = true;
-        }
-        this.cd.markForCheck();
-      }, 1);
+          this.isQFormValid = false;
+        }     
+        this.cd.detectChanges();
 
     });
 
@@ -350,12 +332,12 @@ export class QuestionAddUpdateComponent extends QuestionAddUpdate
 
 
     webInterface.on("appIsLoaded", appIsLoaded => {
-      if(this.editQuestion) {
+      if (this.editQuestion) {
         this.oWebViewInterface.emit('editQuestion', this.editQuestion);
       } else {
         this.oWebViewInterface.emit('editQuestion', this.question);
       }
-      
+
     });
 
     webInterface.on("question", question => {
@@ -373,11 +355,17 @@ export class QuestionAddUpdateComponent extends QuestionAddUpdate
     });
 
 
+    webInterface.on("deleteImageUrl", deleteImageUrl => {
+      if (deleteImageUrl) {
+        this.store.dispatch(this.questionAction.deleteQuestionImage(deleteImageUrl));
+      }
+    });
+
+
     webInterface.on("previewQuestion", previewQuestion => {
       this.previewQuestion = previewQuestion;
       this.cd.markForCheck();
     });
-
 
     webInterface.on("uploadImageStart", uploadImage => {
       dialogs
@@ -422,24 +410,15 @@ export class QuestionAddUpdateComponent extends QuestionAddUpdate
 
   }
   ngOnDestroy() {
-    //   this.renderView = false;
-      if (this.oWebViewInterface) {
-        this.oWebViewInterface.off("editorLoadFinished");
-        this.oWebViewInterface.off("isFormValid");
-        this.oWebViewInterface.off("quillContent");
-        this.oWebViewInterface.off("appIsLoaded");
-        this.oWebViewInterface.off("question");
-        this.oWebViewInterface.off("previewQuestion");
-        this.oWebViewInterface.off("uploadImageStart");
-      }
-  }
-
-  weViewLoadFinished(event) {
-
-    // setTimeout(() => {
-    //   // this.oWebViewInterface.emit('editQuestion', this.editQuestion);
-    // }, 1000);
-
+    if (this.oWebViewInterface) {
+      this.oWebViewInterface.off("editorLoadFinished");
+      this.oWebViewInterface.off("isFormValid");
+      this.oWebViewInterface.off("quillContent");
+      this.oWebViewInterface.off("appIsLoaded");
+      this.oWebViewInterface.off("question");
+      this.oWebViewInterface.off("previewQuestion");
+      this.oWebViewInterface.off("uploadImageStart");
+    }
   }
 }
 
