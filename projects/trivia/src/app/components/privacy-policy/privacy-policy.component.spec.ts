@@ -1,7 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { PrivacyPolicyComponent } from './privacy-policy.component';
 
-describe('AppComponent', () => {
+describe('PrivacyPolicyComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
