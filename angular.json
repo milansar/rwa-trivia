@@ -188,12 +188,10 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-builders/jest:run",
           "options": {
-            "main": "projects/trivia/src/test.ts",
-            "karmaConfig": "projects/trivia/karma.conf.js",
             "polyfills": "projects/trivia/src/polyfills.ts",
-            "tsConfig": "projects/trivia/tsconfig.spec.json",
+            "tsConfig": "./tsconfig.spec.json",
             "scripts": [],
             "styles": [
               "projects/trivia/src/styles/rwa-trivia.theme.scss",
@@ -426,12 +424,10 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-builders/jest:run",
           "options": {
-            "main": "projects/trivia-admin/src/test.ts",
             "polyfills": "projects/trivia-admin/src/polyfills.ts",
-            "tsConfig": "projects/trivia-admin/tsconfig.spec.json",
-            "karmaConfig": "projects/trivia-admin/karma.conf.js",
+            "tsConfig": "./tsconfig.spec.json",
             "styles": [
               "projects/trivia-admin/src/styles.css"
             ],
@@ -513,11 +509,9 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-builders/jest:run",
           "options": {
-            "main": "projects/shared-library/src/test.ts",
-            "tsConfig": "projects/shared-library/tsconfig.spec.json",
-            "karmaConfig": "projects/shared-library/karma.conf.js"
+            "tsConfig": "./tsconfig.spec.json"
           }
         },
         "lint": {
@@ -720,12 +714,10 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-builders/jest:run",
           "options": {
-            "main": "projects/trivia-editor/src/test.ts",
             "polyfills": "projects/trivia-editor/src/polyfills.ts",
-            "tsConfig": "projects/trivia-editor/tsconfig.spec.json",
-            "karmaConfig": "projects/trivia-editor/karma.conf.js",
+            "tsConfig": "./tsconfig.spec.json",
             "styles": [
               "projects/trivia-editor/src/styles.css"
             ],
