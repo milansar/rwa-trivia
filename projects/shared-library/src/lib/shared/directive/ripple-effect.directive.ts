@@ -1,7 +1,7 @@
 import { Directive, Input, Renderer2, HostListener, OnDestroy, ElementRef, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';
-import { Color } from 'tns-core-modules/color';
+// import { Color } from 'tns-core-modules/color';
 import * as enums from 'tns-core-modules/ui/enums';
 @Directive({
   selector: '[stlRippleEffect]',
@@ -9,8 +9,6 @@ import * as enums from 'tns-core-modules/ui/enums';
 
 @AutoUnsubscribe({ 'arrayName': 'subscriptions' })
 export class RippleEffectDirective implements OnDestroy {
-
-
   @Input() stlBackgroundColor: string;
   @Input() stlOpacity: number;
   @Input() stlBackgroundColorAfter: string;
@@ -50,7 +48,7 @@ export class RippleEffectDirective implements OnDestroy {
       }
       await this.templateRef.nativeElement.animate({
         opacity: this.stlOpacity,
-        backgroundColor: new Color(this.stlBackgroundColor),
+        // backgroundColor: new Color(this.stlBackgroundColor),
         duration: this.animationDuration ? Number(this.animationDuration) : 200,
         delay: 0,
         iterations: 1,
@@ -59,12 +57,12 @@ export class RippleEffectDirective implements OnDestroy {
 
       let color;
       if (this.stlBackgroundColor === '#F8F8F8') {
-        color = new Color(0.62, 0, 0, 0);
+        // color = new Color(0.62, 0, 0, 0);
       } else {
         if (this.stlBackgroundColorAfter || this.stlBackgroundColorAfter === 'transparent') {
-          color = new Color(this.stlBackgroundColorAfter);
+          // color = new Color(this.stlBackgroundColorAfter);
         } else {
-          color = new Color(this.stlBackgroundColor);
+          // color = new Color(this.stlBackgroundColor);
         }
       }
 

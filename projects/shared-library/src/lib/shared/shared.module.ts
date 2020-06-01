@@ -17,7 +17,7 @@ import {
   CheckDisplayNameComponent, FriendInviteComponent, GameInviteComponent, SignupExtraInfoComponent,
   RecentGamesComponent, RecentGameCardComponent
 } from './components';
-import { ShowHintWhenFocusOutDirective, OpenUserProfileDirective } from './directive';
+import { ShowHintWhenFocusOutDirective, OpenUserProfileDirective, RippleEffectDirective } from './directive';
 import { NgQuillTexModule } from 'ng-quill-tex';
 @NgModule({
   declarations: [
@@ -29,6 +29,7 @@ import { NgQuillTexModule } from 'ng-quill-tex';
     AuthorComponent,
     ShowHintWhenFocusOutDirective,
     OpenUserProfileDirective,
+    RippleEffectDirective,
     SafeHtmlPipe,
     RenderQuestionComponent,
     RenderAnswerComponent,
@@ -61,14 +62,14 @@ import { NgQuillTexModule } from 'ng-quill-tex';
     HttpClientModule,       // for share counts
     ShareButtonModule,
     NgQuillTexModule,
-    ImageCropperModule
+    ImageCropperModule,
   ],
   exports: [QuestionsSearchComponent, QuestionsTableComponent, RenderAnswerComponent, CropImageDialogComponent,
     CommonModule, HttpClientModule, ReactiveFormsModule, FormsModule,
     FlexLayoutModule, QuestionFormComponent,
     SharedMaterialModule, CdkTableModule, RejectedQuestionContentComponent,
     HttpClientModule, ShareButtonModule, SocialPaletteComponent, AuthorComponent, ShowHintWhenFocusOutDirective,
-    OpenUserProfileDirective, SafeHtmlPipe, RenderQuestionComponent, UserCardComponent, SignupExtraInfoComponent,
+    OpenUserProfileDirective, RippleEffectDirective, SafeHtmlPipe, RenderQuestionComponent, UserCardComponent, SignupExtraInfoComponent,
     UserReactionComponent, CheckDisplayNameComponent, FriendInviteComponent, GameInviteComponent, InviteMailFriendsComponent,
     RecentGamesComponent,
     RecentGameCardComponent
