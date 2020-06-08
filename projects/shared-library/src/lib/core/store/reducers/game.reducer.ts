@@ -1,6 +1,3 @@
-import { Observable } from 'rxjs';
-import { Action } from '@ngrx/store';
-
 import { ActionWithPayload, GameActions, UserActions } from '../actions';
 import { Game } from '../../../shared/model';
 
@@ -14,12 +11,12 @@ export function activeGames(state: any = [], action: ActionWithPayload<Game[]>):
       return state;
   }
 }
-export function newGameId(state: any = "", action: ActionWithPayload<string>): string {
+export function newGameId(state: any = '', action: ActionWithPayload<string>): string {
     switch (action.type) {
       case GameActions.CREATE_NEW_SUCCESS:
         return action.payload;
       case GameActions.RESET_NEW:
-        return "";
+        return '';
       default:
         return state;
     }
