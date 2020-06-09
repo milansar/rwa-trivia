@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { RouterStateUrl } from '../../../shared/model';
-import { TagActions, ActionWithPayload } from '../actions';
+import { TagActions } from '../actions';
 import { TagService } from '../../services';
 import { map, filter, switchMap, tap } from 'rxjs/operators';
 import { ROUTER_NAVIGATION } from '@ngrx/router-store';

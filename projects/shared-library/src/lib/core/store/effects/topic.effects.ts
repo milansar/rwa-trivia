@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { map, filter, switchMap, exhaustMap } from 'rxjs/operators';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { TopicActions, ActionWithPayload } from '../actions';
-import { Topic, RouterStateUrl } from '../../../shared/model';
 import { TopicService } from '../../services';
-import { ROUTER_NAVIGATION } from '@ngrx/router-store';
 
 @Injectable()
 export class TopicEffects {
