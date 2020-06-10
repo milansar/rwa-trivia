@@ -130,7 +130,6 @@ export class WebFirebaseAuthService implements FirebaseAuthService {
         this.user = user;
         this.db.object(`${CollectionConstants.INFO}/${CollectionConstants.CONNECTED}`)
             .valueChanges().subscribe(connected => {
-                console.log('callled once time');
                 this.isUserOnline = connected ? true : false;
                 if (!this.isUserOnline) {
                     // Instead of simply returning, we'll also set Firestore's state
