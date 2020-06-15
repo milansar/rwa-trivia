@@ -18,14 +18,14 @@ export class UserEffects {
         .pipe(ofType(UserActions.LOGIN_SUCCESS))
         .pipe(map((action: ActionWithPayload<User>) => action.payload),
             switchMap((user: User) => {
-                if ( user ) {
+                if (user) {
                     return this.svc.loadUserProfile(user).pipe(catchError((error) => {
                         return of();
                     }));
                 } else {
                     return of();
                 }
-              }),
+            }),
             mergeMap((user: User) => this.utils.setLoginFirebaseAnalyticsParameter(user).pipe(catchError((error) => {
                 return of();
             }))),
@@ -274,7 +274,7 @@ export class UserEffects {
             switchMap((action: ActionWithPayload<any>) =>
                 this.svc.getAddressSuggestions(action.payload).pipe(
                     map((result: any) => this.userActions.loadAddressSuggestionsSuccess(result))
-                    
+
                 ))
         );
 
