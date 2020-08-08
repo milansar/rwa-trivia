@@ -27,11 +27,11 @@ import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CoreState, UserActions, UIStateActions, coreState, getTopTopics } from 'shared-library/core/store';
 import { CheckDisplayNameComponent } from 'shared-library/shared/components';
-import { ObservableArray } from 'tns-core-modules/data/observable-array/observable-array';
+import { ObservableArray } from '@nativescript/core/data/observable-array/observable-array';
 import { TokenModel } from 'nativescript-ui-autocomplete';
-import * as utils from 'tns-core-modules/utils/utils';
+import * as utils from '@nativescript/core/utils/utils';
 
-import { ImageSource } from 'tns-core-modules/image-source';
+import { ImageSource } from '@nativescript/core/image-source';
 
 
 describe('ProfileSettingsComponent', () => {

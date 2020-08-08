@@ -6,7 +6,7 @@ import { CoreState, coreState } from "../../../../core/store";
 import { User } from "shared-library/shared/model";
 import { Utils } from "../../../../core/services";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Page } from "tns-core-modules/ui/page";
+import { Page } from "@nativescript/core/ui/page";
 import { AuthenticationProvider } from "shared-library/core/auth";
 
 @Component({

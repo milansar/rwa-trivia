@@ -5,7 +5,7 @@ import * as firebase from 'nativescript-plugin-firebase';
 import { Subject, Observable } from 'rxjs';
 import { RouterExtensions } from '@nativescript/angular/router';
 import { User, CollectionConstants, UserStatusConstants, TriggerConstants } from 'shared-library/shared/model';
-import { isAndroid } from 'tns-core-modules/ui/page/page';
+import { isAndroid } from '@nativescript/core/platform';
 
 
 @Injectable()

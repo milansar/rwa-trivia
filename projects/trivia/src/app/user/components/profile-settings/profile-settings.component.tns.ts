@@ -12,55 +12,52 @@ import {
   OnInit,
   Inject,
   PLATFORM_ID
-} from "@angular/core";
-import { FormBuilder } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { select, Store } from "@ngrx/store";
-import { ModalDialogService } from "@nativescript/angular/directives/dialogs";
+} from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { ModalDialogService } from '@nativescript/angular/directives/dialogs';
 import {
   isAvailable,
   requestPermissions,
   takePicture
-} from "nativescript-camera";
-import * as geolocation from "nativescript-geolocation";
-import { ImageCropper } from "nativescript-imagecropper";
-import * as imagepicker from "nativescript-imagepicker";
-import { TokenModel } from "nativescript-ui-autocomplete";
-import { RadAutoCompleteTextViewComponent } from "nativescript-ui-autocomplete/angular";
-import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
-import { filter } from "rxjs/operators";
-import { Utils } from "shared-library/core/services";
-import { coreState, UserActions } from "shared-library/core/store";
-import { profileSettingsConstants } from "shared-library/shared/model";
-import { ObservableArray } from "tns-core-modules/data/observable-array";
-import { ImageAsset } from "tns-core-modules/image-asset";
-import { fromAsset, ImageSource } from "tns-core-modules/image-source";
-import { isIOS, isAndroid } from "tns-core-modules/platform";
-import * as dialogs from "tns-core-modules/ui/dialogs";
+} from 'nativescript-camera';
+import * as geolocation from 'nativescript-geolocation';
+import { ImageCropper } from 'nativescript-imagecropper';
+import * as imagepicker from 'nativescript-imagepicker';
+import { TokenModel } from 'nativescript-ui-autocomplete';
+import { RadAutoCompleteTextViewComponent } from 'nativescript-ui-autocomplete/angular';
+import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { filter } from 'rxjs/operators';
+import { Utils } from 'shared-library/core/services';
+import { coreState, UserActions } from 'shared-library/core/store';
+import { ObservableArray } from '@nativescript/core/data/observable-array';
+import { ImageAsset } from '@nativescript/core/image-asset';
+import { ImageSource } from '@nativescript/core/image-source';
+import { isIOS } from '@nativescript/core/platform';
+import * as dialogs from '@nativescript/core/ui/dialogs';
 import {
   SegmentedBar,
   SegmentedBarItem
-} from "tns-core-modules/ui/segmented-bar";
-import * as utils from "tns-core-modules/utils/utils";
-import { AppState } from "../../../store";
-import { userState } from "../../store";
-import { LocationResetDialogComponent } from "./location-reset-dialog/location-reset-dialog.component";
-import { ProfileSettings } from "./profile-settings";
-import { AuthenticationProvider } from "shared-library/core/auth";
-import * as Platform from "tns-core-modules/platform";
-import { RouterExtensions } from "@nativescript/angular/router";
-import { screen } from "tns-core-modules/platform";
-const firebase = require('nativescript-plugin-firebase/app');
+} from '@nativescript/core/ui/segmented-bar';
+import * as utils from '@nativescript/core/utils/utils';
+import { AppState } from '../../../store';
+import { LocationResetDialogComponent } from './location-reset-dialog/location-reset-dialog.component';
+import { ProfileSettings } from './profile-settings';
+import { AuthenticationProvider } from 'shared-library/core/auth';
+import * as Platform from '@nativescript/core/platform';
+import { RouterExtensions } from '@nativescript/angular/router';
+import { firestore } from 'nativescript-plugin-firebase/app';
 
 declare var IQKeyboardManager;
 
 @Component({
   selector: "profile-settings",
-  templateUrl: "./profile-settings.component.html",
-  styleUrls: ["./profile-settings.component.scss"],
+  templateUrl: './profile-settings.component.html',
+  styleUrls: ['./profile-settings.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-@AutoUnsubscribe({ arrayName: "subscriptions" })
+@AutoUnsubscribe({ arrayName: 'subscriptions' })
 export class ProfileSettingsComponent extends ProfileSettings
   implements OnDestroy, AfterViewInit, OnInit {
   // Properties
@@ -69,8 +66,8 @@ export class ProfileSettingsComponent extends ProfileSettings
   dataItem;
   customTag: string;
   public tagItems: ObservableArray<TokenModel>;
-  SOCIAL_LABEL = "CONNECT YOUR SOCIAL ACCOUNT";
-  @ViewChildren("textField", { read: false }) textField: QueryList<ElementRef>;
+  SOCIAL_LABEL = 'CONNECT YOUR SOCIAL ACCOUNT';
+  @ViewChildren('textField', { read: false }) textField: QueryList<ElementRef>;
   platform = Platform;
   isValidDisplayName: boolean = null;
   isLocationEdit: boolean = false;
@@ -88,11 +85,11 @@ export class ProfileSettingsComponent extends ProfileSettings
   iqKeyboard: any;
   isSavingUserName: boolean;
 
-  @ViewChild("autocomplete", { static: false })
+  @ViewChild('autocomplete', { static: false })
   autocomplete: RadAutoCompleteTextViewComponent;
-  @ViewChild("acLocation", { static: false })
+  @ViewChild('acLocation', { static: false })
   acLocation: RadAutoCompleteTextViewComponent;
-  @ViewChildren("socialField") socialField: QueryList<ElementRef>;
+  @ViewChildren('socialField') socialField: QueryList<ElementRef>;
   constructor(
     public fb: FormBuilder,
     public store: Store<AppState>,
@@ -135,15 +132,15 @@ export class ProfileSettingsComponent extends ProfileSettings
         .select(coreState)
         .pipe(select(s => s.userProfileSaveStatus))
         .subscribe(status => {
-          if (status === "SUCCESS") {
-            this.uUtils.showMessage("success", "Profile is saved successfully");
+          if (status === 'SUCCESS') {
+            this.uUtils.showMessage('success', 'Profile is saved successfully');
             this.toggleLoader(false);
           }
           this.isSavingUserName = false;
           this.cd.markForCheck();
         })
     );
-    this.tabsTitles = ["Profile", "Stats"];
+    this.tabsTitles = ['Profile', 'Stats'];
     this.items = [];
     for (let i = 0; i < this.tabsTitles.length; i++) {
       const segmentedBarItem = <SegmentedBarItem>new SegmentedBarItem();
@@ -257,7 +254,7 @@ export class ProfileSettingsComponent extends ProfileSettings
   }
 
   editLocationField() {
-    this.singleFieldEdit["location"] = !this.singleFieldEdit["location"];
+    this.singleFieldEdit['location'] = !this.singleFieldEdit['location'];
     this.cd.detectChanges();
   }
 
@@ -311,7 +308,7 @@ export class ProfileSettingsComponent extends ProfileSettings
           this.cropImage(imageSource);
         }, isIOS ? 250 : 0);
       } catch (error) {
-        this.utils.sendErrorToCrashlytics("appLog", error);
+        this.utils.sendErrorToCrashlytics('appLog', error);
         console.error(error);
       }
     }
@@ -341,7 +338,7 @@ export class ProfileSettingsComponent extends ProfileSettings
         this.cd.detectChanges();
       }
     } catch (error) {
-      this.utils.sendErrorToCrashlytics("appLog", error);
+      this.utils.sendErrorToCrashlytics('appLog', error);
       console.error(error);
     }
   }
@@ -372,7 +369,7 @@ export class ProfileSettingsComponent extends ProfileSettings
         this.cropImage(imageSource);
       }, 1);
     } catch (error) {
-      this.utils.sendErrorToCrashlytics("appLog", error);
+      this.utils.sendErrorToCrashlytics('appLog', error);
       console.error(error);
     }
   }
@@ -545,7 +542,7 @@ export class ProfileSettingsComponent extends ProfileSettings
       try {
         const position = await geolocation.getCurrentLocation({});
         if (position) {
-          this.user.geoPoint = new firebase.firestore().GeoPoint(position.latitude, position.longitude);
+          this.user.geoPoint = firestore().GeoPoint(position.latitude, position.longitude);
           this.store.dispatch(
             this.userAction.loadAddressUsingLatLong(
               `${position.latitude},${position.longitude}`
@@ -553,7 +550,7 @@ export class ProfileSettingsComponent extends ProfileSettings
           );
         }
       } catch (e) {
-        console.log("Error: " + (e.message || e));
+        console.log('Error: ' + (e.message || e));
       }
     } else {
       const options = {
@@ -575,7 +572,7 @@ export class ProfileSettingsComponent extends ProfileSettings
       }
     } catch (e) {
       this.isLocationEnalbed = false;
-      console.log("Error: " + (e.message || e));
+      console.log('Error: ' + (e.message || e));
     }
   }
 

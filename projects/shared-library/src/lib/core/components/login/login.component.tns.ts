@@ -8,9 +8,9 @@ import { setString } from 'nativescript-plugin-firebase/crashlytics/crashlytics'
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';
 import { Subject } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
-import { android, AndroidActivityBackPressedEventData, AndroidApplication } from 'tns-core-modules/application';
-import { isAndroid, isIOS } from 'tns-core-modules/platform';
-import { Page } from 'tns-core-modules/ui/page';
+import { android, AndroidActivityBackPressedEventData, AndroidApplication } from '@nativescript/core/application';
+import { isAndroid, isIOS } from '@nativescript/core/platform';
+import { Page } from '@nativescript/core/ui/page';
 import { CountryListComponent } from '../../../shared/mobile/component/countryList/countryList.component';
 import { PhoneNumberValidationProvider } from '../../../shared/mobile/component/countryList/phone-number-validation.provider';
 import { CoreState, coreState, UIStateActions } from '../../store';

@@ -8,7 +8,7 @@ import { NativeScriptRouterModule } from '@nativescript/angular/router';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
-import * as utils from 'tns-core-modules/utils/utils';
+import * as utils from '@nativescript/core/utils/utils';
 import { AppState, appState, categoryDictionary } from './../app/store';
 import { UserActions } from 'shared-library/core/store/actions';
 import { testData } from 'test/data';

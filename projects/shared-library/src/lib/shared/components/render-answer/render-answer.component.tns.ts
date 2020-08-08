@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
 import { Answer } from 'shared-library/shared/model';
-import { LoadEventData } from 'tns-core-modules/ui/web-view';
-import { isAndroid, isIOS } from 'tns-core-modules/platform';
+import { LoadEventData } from '@nativescript/core/ui/web-view';
+import { isAndroid, isIOS } from '@nativescript/core/platform';
 import { externalUrl } from './../../../environments/external-url';
 
 @Component({

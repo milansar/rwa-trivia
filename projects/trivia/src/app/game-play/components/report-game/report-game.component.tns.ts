@@ -1,12 +1,13 @@
 import {
-    ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren, Input, SimpleChanges, OnChanges, Output, EventEmitter
+    ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef,
+    OnDestroy, OnInit, QueryList, ViewChildren, Input, Output, EventEmitter
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';
 import { Observable } from 'rxjs';
 import { Utils } from 'shared-library/core/services';
-import { Category, FirebaseScreenNameConstants, Game, Question, QuestionMetadata, ReportQuestion, User } from 'shared-library/shared/model';
-import { isIOS } from 'tns-core-modules/ui/page/page';
+import { Category, Game, Question, QuestionMetadata, ReportQuestion, User } from 'shared-library/shared/model';
+import { isIOS } from '@nativescript/core/platform';
 import { AppState, categoryDictionary } from '../../../store';
 import * as gameplayactions from '../../store/actions';
 declare var IQKeyboardManager;

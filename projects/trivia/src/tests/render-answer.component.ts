@@ -7,8 +7,8 @@ import {
 } from '@nativescript/angular/testing';
 import { RenderAnswerComponent } from 'shared-library/shared/components/render-answer/render-answer.component';
 import { testData } from 'test/data';
-import { LoadEventData } from 'tns-core-modules/ui/web-view';
-import { isIOS } from 'tns-core-modules/platform';
+import { LoadEventData } from '@nativescript/core/ui/web-view';
+import { isIOS } from '@nativescript/core/platform';
 
 describe('RenderAnswerComponent', () => {
     let component: RenderAnswerComponent;

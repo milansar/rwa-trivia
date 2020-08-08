@@ -16,7 +16,7 @@ import { NavigationService } from 'shared-library/core/services/mobile';
 import { of } from 'rxjs';
 import cloneDeep from 'lodash/cloneDeep';
 import { PlayerMode } from 'shared-library/shared/model';
-import { ObservableArray } from 'tns-core-modules/data/observable-array/observable-array';
+import { ObservableArray } from '@nativescript/core/data/observable-array/observable-array';
 import { TokenModel } from 'nativescript-ui-autocomplete';
 import * as gameplayactions from '../app/game-play/store/actions';
 

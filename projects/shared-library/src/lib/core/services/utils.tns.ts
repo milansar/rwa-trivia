@@ -1,10 +1,10 @@
-import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import {
   Feedback,
   FeedbackPosition,
   FeedbackType
-} from "nativescript-feedback";
-import * as firebase from "nativescript-plugin-firebase";
+} from 'nativescript-feedback';
+import * as firebase from 'nativescript-plugin-firebase';
 import {
   Parameter,
   User,
@@ -17,11 +17,11 @@ import {
   GameMode,
   Game,
   GeneralConstants
-} from "../../shared/model";
-import { of, Observable } from "rxjs";
-import { UtilsCore } from "./utilsCore";
-import { isAndroid } from "tns-core-modules/platform";
-import { RouterExtensions } from "@nativescript/angular/router";
+} from '../../shared/model';
+import { of, Observable } from 'rxjs';
+import { UtilsCore } from './utilsCore';
+import { isAndroid } from '@nativescript/core/platform';
+import { RouterExtensions } from '@nativescript/angular/router';
 
 @Injectable()
 export class Utils extends UtilsCore {
@@ -30,7 +30,7 @@ export class Utils extends UtilsCore {
     position: FeedbackPosition.Bottom,
     duration: 3000,
     type: FeedbackType.Custom,
-    message: ""
+    message: ''
   };
 
   constructor(
@@ -43,10 +43,10 @@ export class Utils extends UtilsCore {
 
   showMessage(type: string, message: string) {
     switch (type) {
-      case "success":
+      case 'success':
         this.messageConfig.type = FeedbackType.Success;
         break;
-      case "error":
+      case 'error':
         this.messageConfig.type = FeedbackType.Error;
         break;
     }
@@ -289,7 +289,7 @@ export class Utils extends UtilsCore {
       analyticsParameter
     );
 
-    return of("success");
+    return of('success');
   }
 
   setUserLocationFirebaseAnalyticsParameter(
@@ -316,7 +316,7 @@ export class Utils extends UtilsCore {
       );
     }
 
-    return of("success");
+    return of('success');
   }
 
   hideKeyboard(field) {
@@ -344,6 +344,6 @@ export class Utils extends UtilsCore {
   }
 
   goToDashboard() {
-    this.routerExtensions.navigate(["/dashboard"], { clearHistory: true });
+    this.routerExtensions.navigate(['/dashboard'], { clearHistory: true });
   }
 }

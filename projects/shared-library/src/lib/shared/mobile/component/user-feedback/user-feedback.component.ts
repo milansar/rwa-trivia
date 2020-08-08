@@ -1,11 +1,11 @@
 import { Component, ChangeDetectionStrategy, OnDestroy, ViewChildren, QueryList, ElementRef, ChangeDetectorRef, OnInit } from '@angular/core';
-import { Page } from 'tns-core-modules/ui/page';
+import { Page } from '@nativescript/core/ui/page';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { UserActions, coreState } from 'shared-library/core/store';
 import { AppState, appState } from './../../../../../../../trivia/src/app/store';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';
-import { isIOS } from 'tns-core-modules/platform';
+import { isIOS } from '@nativescript/core/platform';
 import { Utils } from 'shared-library/core/services';
 declare var IQKeyboardManager;
 @Component({

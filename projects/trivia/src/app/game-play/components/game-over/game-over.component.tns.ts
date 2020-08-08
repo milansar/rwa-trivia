@@ -11,10 +11,9 @@ import { UserActions } from 'shared-library/core/store/actions';
 import { AppState, appState } from '../../../store';
 import { gamePlayState } from '../../store';
 import { GameOver } from './game-over';
-import { Image } from 'tns-core-modules/ui/image';
-import { appConstants } from 'shared-library/shared/model';
-import { Question } from '../../../../../../shared-library/src/lib/shared/model';
-import { Page } from 'tns-core-modules/ui/page/page';
+import { Image } from '@nativescript/core/ui/image';
+import { appConstants, Question } from 'shared-library/shared/model';
+import { Page } from '@nativescript/core/ui/page';
 
 @Component({
   selector: 'game-over',

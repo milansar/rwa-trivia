@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { Page } from 'tns-core-modules/ui/page';
-import { openUrl } from 'tns-core-modules/utils/utils';
+import { Page } from '@nativescript/core/ui/page';
+import { openUrl } from '@nativescript/core/utils/utils';
 import { Utils } from 'shared-library/core/services';
 import { FirebaseScreenNameConstants } from 'shared-library/shared/model';
 

@@ -1,69 +1,54 @@
 import {
   Component,
   OnDestroy,
-  ViewChild,
   Input,
   Output,
   EventEmitter,
   OnChanges,
   NgZone,
-  ViewChildren,
-  QueryList,
   ElementRef,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  ViewContainerRef,
   AfterViewInit,
   OnInit,
-  ɵConsole,
-  Renderer2
-} from "@angular/core";
-import { FormGroup, FormBuilder, FormArray, Validators } from "@angular/forms";
-import { Store, select } from "@ngrx/store";
-import { RouterExtensions } from "@nativescript/angular/router";
-import { Utils } from "shared-library/core/services";
-import { AppState, appState } from "../../../store";
-import { QuestionActions } from "shared-library/core/store/actions/question.actions";
-import { Question, Answer, Category } from "shared-library/shared/model";
-import { QuestionAddUpdate } from "./question-add-update";
-import { debounceTime, filter } from "rxjs/operators";
-import { ObservableArray } from "tns-core-modules/data/observable-array";
-import { TokenModel } from "nativescript-ui-autocomplete";
-import { RadAutoCompleteTextViewComponent } from "nativescript-ui-autocomplete/angular";
-import { Page, isIOS, isAndroid } from "tns-core-modules/ui/page";
+} from '@angular/core';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { Store, select } from '@ngrx/store';
+import { RouterExtensions } from '@nativescript/angular/router';
+import { Utils } from 'shared-library/core/services';
+import { AppState, appState } from '../../../store';
+import { QuestionActions } from 'shared-library/core/store/actions/question.actions';
+import { Question, Answer } from 'shared-library/shared/model';
+import { QuestionAddUpdate } from './question-add-update';
+import { ObservableArray } from '@nativescript/core/data/observable-array';
+import { TokenModel } from 'nativescript-ui-autocomplete';
+import { isIOS } from '@nativescript/core/platform';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';
-import { WebView, LoadEventData } from "tns-core-modules/ui/web-view";
-import * as webViewInterfaceModule from "nativescript-webview-interface";
-import * as imagepicker from "nativescript-imagepicker";
-import * as dialogs from "tns-core-modules/ui/dialogs";
-import { fromAsset } from "tns-core-modules/image-source";
-import { ImageCropper } from "nativescript-imagecropper";
-import { SegmentedBarItem } from "tns-core-modules/ui/segmented-bar";
+import * as webViewInterfaceModule from 'nativescript-webview-interface';
+import * as imagepicker from 'nativescript-imagepicker';
+import * as dialogs from '@nativescript/core/ui/dialogs';
+import { fromAsset } from '@nativescript/core/image-source';
+import { ImageCropper } from 'nativescript-imagecropper';
+import { SegmentedBarItem } from '@nativescript/core/ui/segmented-bar';
 import {
   isAvailable,
   requestPermissions,
   takePicture
-} from "nativescript-camera";
-import { ImageAsset } from "tns-core-modules/image-asset";
-import { ImageSource } from "tns-core-modules/image-source";
-import { QuestionService } from "shared-library/core/services";
-import {
-  SelectedIndexChangedEventData,
-  DropDown
-} from "nativescript-drop-down";
-import { ModalDialogService } from "@nativescript/angular/directives/dialogs";
-import { CONFIG } from "shared-library/environments/environment";
-import * as Platform from "tns-core-modules/platform";
-import { isEmpty } from 'lodash';
+} from 'nativescript-camera';
+import { ImageAsset } from '@nativescript/core/image-asset';
+import { ImageSource } from '@nativescript/core/image-source';
+import { QuestionService } from 'shared-library/core/services';
+import { CONFIG } from 'shared-library/environments/environment';
+import * as Platform from '@nativescript/core/platform';
 import { QuestionStatus } from 'shared-library/shared/model';
 
 declare var IQKeyboardManager;
-declare var android: any;
+
 
 @Component({
-  selector: "app-question-add-update",
-  templateUrl: "./question-add-update.component.html",
-  styleUrls: ["./question-add-update.component.scss"],
+  selector: 'app-question-add-update',
+  templateUrl: './question-add-update.component.html',
+  styleUrls: ['./question-add-update.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
@@ -135,8 +120,8 @@ export class QuestionAddUpdateComponent extends QuestionAddUpdate
     super(fb, store, utils, questionAction);
     this.isMobile = true;
     requestPermissions();
-    this.submitBtnTxt = "Submit";
-    this.actionBarTxt = "Add_Question";
+    this.submitBtnTxt = 'Submit';
+    this.actionBarTxt = 'Add_Question';
     // this.initDataItems();
     this.question = new Question();
     this.isQFormValid = false;
@@ -153,11 +138,11 @@ export class QuestionAddUpdateComponent extends QuestionAddUpdate
         .select(appState.coreState)
         .pipe(select(s => s.questionSaveStatus))
         .subscribe(status => {
-          if (status === "SUCCESS") {
+          if (status === 'SUCCESS') {
             this.store.dispatch(this.questionAction.resetQuestionSuccess());
-            this.utils.showMessage("success", "Question saved!");
-            this.routerExtension.navigate(["/user/my/questions"]);
-            this.actionBarTxt = "My Question";
+            this.utils.showMessage('success', 'Question saved!');
+            this.routerExtension.navigate(['/user/my/questions']);
+            this.actionBarTxt = 'My Question';
             setTimeout(() => {
               this.hideQuestion.emit(false);
               this.toggleLoader(false);
@@ -169,11 +154,11 @@ export class QuestionAddUpdateComponent extends QuestionAddUpdate
 
     this.submitBtnTxt =
       (this.editQuestion && this.editQuestion.status === QuestionStatus.REQUIRED_CHANGE)
-        ? "Resubmit"
-        : "Submit";
+        ? 'Resubmit'
+        : 'Submit';
     if (this.editQuestion) {
       this.isQFormValid = true;
-      this.actionBarTxt = "Update Question";
+      this.actionBarTxt = 'Update Question';
     }
 
 
@@ -214,20 +199,20 @@ export class QuestionAddUpdateComponent extends QuestionAddUpdate
       ).image;
       if (result) {
         const image = `data:image/jpeg;base64,${result.toBase64String(
-          "jpeg",
+          'jpeg',
           100
         )}`;
         this.imagePath = image;
         this.subscriptions.push(
           this.questionService
-            .saveQuestionImage(this.imagePath, "")
+            .saveQuestionImage(this.imagePath, '')
             .subscribe(imageObject => {
               if (imageObject != null) {
                 if (imageObject.name) {
                   const imageName =
                     this.utils.getQuestionUrl(imageObject.name) +
                     `?d=${new Date().getTime()}`;
-                  webviewElement.emit("imageUrl", imageName);
+                  webviewElement.emit('imageUrl', imageName);
                 }
               }
             })
@@ -243,7 +228,7 @@ export class QuestionAddUpdateComponent extends QuestionAddUpdate
     try {
       let imageSource = new ImageSource();
       const context = imagepicker.create({
-        mode: "single" // use "multiple" for multiple selection
+        mode: 'single' // use "multiple" for multiple selection
       });
       await context.authorize();
       const selection = await context.present();
@@ -281,8 +266,8 @@ export class QuestionAddUpdateComponent extends QuestionAddUpdate
         // need to wait for the load to be finished before emit the value.
         setTimeout(() => {
           this.oWebViewInterface.emit(
-            "viewType",
-            this.currentWebViewParentId >= 0 ? "answer" : "question"
+            'viewType',
+            this.currentWebViewParentId >= 0 ? 'answer' : 'question'
           );
         }, 1);
       }
@@ -295,7 +280,7 @@ export class QuestionAddUpdateComponent extends QuestionAddUpdate
       CONFIG.editorUrl
     );
 
-    webInterface.on("editorLoadFinished", quillContent => {
+    webInterface.on('editorLoadFinished', quillContent => {
       if (quillContent) {
         // change is not being detected.
         this.ngZone.run(() => {
@@ -305,7 +290,7 @@ export class QuestionAddUpdateComponent extends QuestionAddUpdate
       }
     });
 
-    webInterface.on("isFormValid", (isFormValid) => {
+    webInterface.on('isFormValid', (isFormValid) => {
         if (isFormValid === true) {
           this.isQFormValid = true;
         } else {
@@ -315,25 +300,25 @@ export class QuestionAddUpdateComponent extends QuestionAddUpdate
 
     });
 
-    webInterface.on("quillContent", quillContent => {
+    webInterface.on('quillContent', quillContent => {
       if (this.currentWebViewParentId === -1) {
         this.questionForm
-          .get("questionText")
-          .patchValue(quillContent.html ? quillContent.html : "");
-        this.questionForm.get("questionObject").patchValue(quillContent.delta);
+          .get('questionText')
+          .patchValue(quillContent.html ? quillContent.html : '');
+        this.questionForm.get('questionObject').patchValue(quillContent.delta);
       } else if (this.currentWebViewParentId >= 0) {
-        const ansForm = (<FormArray>this.questionForm.controls["answers"]).at(
+        const ansForm = (<FormArray>this.questionForm.controls['answers']).at(
           this.currentWebViewParentId
         );
-        ansForm["controls"].answerText.patchValue(
-          quillContent.html ? quillContent.html : ""
+        ansForm['controls'].answerText.patchValue(
+          quillContent.html ? quillContent.html : ''
         );
-        ansForm["controls"].answerObject.patchValue(quillContent.delta);
+        ansForm['controls'].answerObject.patchValue(quillContent.delta);
       }
     });
 
 
-    webInterface.on("appIsLoaded", appIsLoaded => {
+    webInterface.on('appIsLoaded', appIsLoaded => {
       if (this.editQuestion) {
         this.oWebViewInterface.emit('editQuestion', this.editQuestion);
       } else {
@@ -342,7 +327,7 @@ export class QuestionAddUpdateComponent extends QuestionAddUpdate
 
     });
 
-    webInterface.on("question", question => {
+    webInterface.on('question', question => {
 
       if (!question) {
         return false;
@@ -357,29 +342,29 @@ export class QuestionAddUpdateComponent extends QuestionAddUpdate
     });
 
 
-    webInterface.on("deleteImageUrl", deleteImageUrl => {
+    webInterface.on('deleteImageUrl', deleteImageUrl => {
       if (deleteImageUrl) {
         this.store.dispatch(this.questionAction.deleteQuestionImage(deleteImageUrl));
       }
     });
 
 
-    webInterface.on("previewQuestion", previewQuestion => {
+    webInterface.on('previewQuestion', previewQuestion => {
       this.previewQuestion = previewQuestion;
       this.cd.markForCheck();
     });
 
-    webInterface.on("uploadImageStart", uploadImage => {
+    webInterface.on('uploadImageStart', uploadImage => {
       dialogs
         .action({
-          message: "Choose option",
-          cancelButtonText: "Cancel",
-          actions: ["Camera", "Gallery"]
+          message: 'Choose option',
+          cancelButtonText: 'Cancel',
+          actions: ['Camera', 'Gallery']
         })
         .then(async result => {
-          if (result === "Camera") {
+          if (result === 'Camera') {
             await this.uploadImageFromCamera(webInterface);
-          } else if (result === "Gallery") {
+          } else if (result === 'Gallery') {
             await this.uploadImageFromGallery(webInterface);
           }
           this.cd.markForCheck();
@@ -413,23 +398,23 @@ export class QuestionAddUpdateComponent extends QuestionAddUpdate
   }
   ngOnDestroy() {
     if (this.oWebViewInterface) {
-      this.oWebViewInterface.off("editorLoadFinished");
-      this.oWebViewInterface.off("isFormValid");
-      this.oWebViewInterface.off("quillContent");
-      this.oWebViewInterface.off("appIsLoaded");
-      this.oWebViewInterface.off("question");
-      this.oWebViewInterface.off("previewQuestion");
-      this.oWebViewInterface.off("uploadImageStart");
+      this.oWebViewInterface.off('editorLoadFinished');
+      this.oWebViewInterface.off('isFormValid');
+      this.oWebViewInterface.off('quillContent');
+      this.oWebViewInterface.off('appIsLoaded');
+      this.oWebViewInterface.off('question');
+      this.oWebViewInterface.off('previewQuestion');
+      this.oWebViewInterface.off('uploadImageStart');
     }
   }
 }
 
 // Custom Validators
 function questionFormValidator(fg: FormGroup): { [key: string]: boolean } {
-  const answers: Answer[] = fg.get("answers").value;
+  const answers: Answer[] = fg.get('answers').value;
   if (
-    fg.get("isRichEditor").value &&
-    (fg.get("maxTime").value === 0 || fg.get("maxTime").value === null)
+    fg.get('isRichEditor').value &&
+    (fg.get('maxTime').value === 0 || fg.get('maxTime').value === null)
   ) {
     return { maxTimeNotSelected: true };
   }

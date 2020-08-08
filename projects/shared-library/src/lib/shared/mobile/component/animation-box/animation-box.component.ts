@@ -9,7 +9,7 @@ import {
   ContentChild,
   AfterContentInit
 } from "@angular/core";
-import { screen } from "tns-core-modules/platform";
+import { screen } from "@nativescript/core/platform";
 import { Utils } from "shared-library/core/services";
 
 @Component({

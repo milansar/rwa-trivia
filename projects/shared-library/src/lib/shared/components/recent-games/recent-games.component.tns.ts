@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { UserActions } from 'shared-library/core/store/actions';
-import { Page } from 'tns-core-modules/ui/page';
+import { Page } from '@nativescript/core/ui/page';
 import { CoreState } from 'shared-library/core/store';
 import { RecentGames } from './recent-games';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';
@@ -13,7 +13,7 @@ import { AutoUnsubscribe } from 'shared-library/shared/decorators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ arrayName: "subscriptions" })
+@AutoUnsubscribe({ arrayName: 'subscriptions' })
 export class RecentGamesComponent extends RecentGames implements OnInit, OnDestroy {
 
   // This is magic variable

@@ -6,11 +6,11 @@ import { QuestionActions } from 'shared-library/core/store';
 import { User, Question, QuestionStatus } from 'shared-library/shared/model';
 import { AppState, appState } from '../../../store';
 import { MyQuestions } from './my-questions';
-import { Page } from 'tns-core-modules/ui/page';
+import { Page } from '@nativescript/core/ui/page';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';
 import { FirebaseScreenNameConstants } from 'shared-library/shared/model';
 import { Utils } from 'shared-library/core/services';
-import * as Platform from "tns-core-modules/platform";
+import * as Platform from "@nativescript/core/platform";
 
 @Component({
   selector: 'my-questions',

@@ -1,8 +1,8 @@
 import { Directive, Input, Renderer2, HostListener, OnDestroy, ElementRef, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';
-import { Color } from 'tns-core-modules/color';
-import * as enums from 'tns-core-modules/ui/enums';
+import { Color } from '@nativescript/core/color';
+import * as enums from '@nativescript/core/ui/enums';
 @Directive({
   selector: '[stlRippleEffect]',
 })

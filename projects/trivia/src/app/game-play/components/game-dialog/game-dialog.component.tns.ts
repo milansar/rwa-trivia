@@ -12,8 +12,7 @@ import { FirebaseScreenNameConstants } from 'shared-library/shared/model';
 import {
   resumeEvent, suspendEvent, ApplicationEventData,
   on as applicationOn, off as applicationOff,
-} from 'tns-core-modules/application';
-import { Page } from 'tns-core-modules/ui/page/page';
+} from '@nativescript/core/application';
 
 
 @Component({

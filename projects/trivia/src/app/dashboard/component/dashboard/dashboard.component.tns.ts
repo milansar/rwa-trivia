@@ -5,7 +5,7 @@ import { AutoUnsubscribe } from 'shared-library/shared/decorators';
 import { Utils, WindowRef } from 'shared-library/core/services';
 import { GameActions, QuestionActions, UserActions } from 'shared-library/core/store/actions';
 import { GameStatus } from 'shared-library/shared/model';
-import { Page } from 'tns-core-modules/ui/page/page';
+import { Page } from '@nativescript/core/ui/page';
 import { AppState, appState } from '../../../store';
 import { Dashboard } from './dashboard';
 

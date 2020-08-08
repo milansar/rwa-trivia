@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit, ViewChild, Inject, PLATFORM_ID, QueryList, ElementRef, ViewChildren } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit,
+  ViewChild, Inject, PLATFORM_ID, QueryList, ElementRef, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { RouterExtensions } from '@nativescript/angular/router';
@@ -9,8 +10,9 @@ import { AutoUnsubscribe } from 'shared-library/shared/decorators';
 import { Utils, WindowRef } from 'shared-library/core/services';
 import { GameActions, UserActions, TagActions } from 'shared-library/core/store/actions';
 import { Category, PlayerMode } from 'shared-library/shared/model';
-import { ObservableArray } from 'tns-core-modules/data/observable-array';
-import { Page, isIOS } from 'tns-core-modules/ui/page/page';
+import { ObservableArray } from '@nativescript/core/data/observable-array';
+import { Page } from '@nativescript/core/ui/page';
+import { isIOS } from '@nativescript/core/platform';
 import { AppState, appState } from '../../../store';
 import { NewGame } from './new-game';
 import { NavigationService } from 'shared-library/core/services/mobile';

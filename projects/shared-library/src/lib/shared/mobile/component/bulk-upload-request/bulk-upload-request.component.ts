@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, OnDestroy, ChangeDetectorRef, OnInit } from '@angular/core';
-import * as app from 'tns-core-modules/application';
+import * as app from '@nativescript/core/application';
 import { RouterExtensions } from '@nativescript/angular/router';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import { select, Store } from '@ngrx/store';

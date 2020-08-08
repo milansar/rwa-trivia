@@ -7,7 +7,7 @@ import { coreState } from '../../../../core/store';
 import { User } from 'shared-library/shared/model/user';
 import { Category } from 'shared-library/shared/model';
 import { Observable } from 'rxjs';
-import { Page } from 'tns-core-modules/ui/page';
+import { Page } from '@nativescript/core/ui/page';
 
 @Component({
   selector: 'app-select-category-tag',

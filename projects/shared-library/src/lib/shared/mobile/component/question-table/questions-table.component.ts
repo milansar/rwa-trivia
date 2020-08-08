@@ -5,7 +5,7 @@ import { Question, QuestionStatus, Category, User, Answer } from '../../../../sh
 import { Observable } from 'rxjs';
 import { RadListViewComponent } from "nativescript-ui-listview/angular";
 import { ListViewItemSnapMode } from 'nativescript-ui-listview';
-import { isIOS } from 'tns-core-modules/ui/page/page';
+import { isIOS } from '@nativescript/core/platform';
 
 @Component({
   selector: 'question-table',

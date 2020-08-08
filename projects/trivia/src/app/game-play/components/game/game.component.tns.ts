@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { User } from 'shared-library/shared/model';
 import { AppState } from '../../../store';
 import { Game } from './game';
-import { Page } from 'tns-core-modules/ui/page/page';
+import { Page } from '@nativescript/core/ui/page';
 
 @Component({
   selector: 'game',

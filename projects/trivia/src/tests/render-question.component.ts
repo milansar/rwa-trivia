@@ -10,8 +10,8 @@ import { NativeScriptFormsModule } from '@nativescript/angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { testData } from 'test/data';
-import { LoadEventData } from 'tns-core-modules/ui/web-view';
-import { isIOS } from 'tns-core-modules/platform';
+import { LoadEventData } from '@nativescript/core/ui/web-view';
+import { isIOS } from '@nativescript/core/platform';
 
 
 describe('RenderQuestionComponent', () => {

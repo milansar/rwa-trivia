@@ -5,9 +5,9 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../store';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserActions } from 'shared-library/core/store';
-import * as utils from 'tns-core-modules/utils/utils';
+import * as utils from '@nativescript/core/utils/utils';
 import { Utils } from 'shared-library/core/services';
-import { Page } from 'tns-core-modules/ui/page';
+import { Page } from '@nativescript/core/ui/page';
 import { RouterExtensions } from '@nativescript/angular/router';
 @Component({
     selector: 'game-profile',

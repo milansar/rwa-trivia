@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Utils } from 'shared-library/core/services';
 import { UserActions, TagActions, TopicActions } from 'shared-library/core/store/actions';
-import { Page } from 'tns-core-modules/ui/page';
+import { Page } from '@nativescript/core/ui/page';
 import { Leaderboard } from './leaderboard';
 import { SelectedIndexChangedEventData, DropDown } from 'nativescript-drop-down';
 import { ValueList } from 'nativescript-drop-down';
