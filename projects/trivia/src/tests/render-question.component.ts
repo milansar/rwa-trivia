@@ -66,7 +66,7 @@ describe('RenderQuestionComponent', () => {
         };
         const loadevent: LoadEventData = {
             url: 'https://www.nativescript.org/?height#200',
-            navigationType: 'linkClicked', error: '', eventName: '', object: webViewObject
+            navigationType: 'navigate', error: '', eventName: '', object: webViewObject
         };
         spyOn(component.calHeight, 'emit');
 
@@ -92,7 +92,7 @@ describe('RenderQuestionComponent', () => {
         };
         const loadevent: LoadEventData = {
             url: 'https://www.nativescript.org/?height200',
-            navigationType: 'linkClicked', error: '', eventName: '', object: webViewObject
+            navigationType: 'navigate', error: '', eventName: '', object: webViewObject
         };
         spyOn(component.calHeight, 'emit');
         if (isIOS) {

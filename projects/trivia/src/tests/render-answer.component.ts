@@ -9,6 +9,7 @@ import { RenderAnswerComponent } from 'shared-library/shared/components/render-a
 import { testData } from 'test/data';
 import { LoadEventData } from '@nativescript/core/ui/web-view';
 import { isIOS } from '@nativescript/core/platform';
+import { NavigationType } from '@nativescript/core/ui/frame';
 
 describe('RenderAnswerComponent', () => {
     let component: RenderAnswerComponent;
@@ -94,7 +95,7 @@ describe('RenderAnswerComponent', () => {
         };
         const loadevent: LoadEventData = {
             url: 'https://www.nativescript.org/?height#200',
-            navigationType: 'linkClicked', error: '', eventName: '', object: webViewObject
+            navigationType: 'navigate', error: '', eventName: '', object: webViewObject
         };
         spyOn(component.calAnsHeight, 'emit');
 
@@ -118,7 +119,7 @@ describe('RenderAnswerComponent', () => {
         };
         const loadevent: LoadEventData = {
             url: 'https://www.nativescript.org/?height200',
-            navigationType: 'linkClicked', error: '', eventName: '', object: webViewObject
+            navigationType: 'navigate', error: '', eventName: '', object: webViewObject
         };
         spyOn(component.calAnsHeight, 'emit');
 
