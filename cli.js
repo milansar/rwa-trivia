@@ -168,7 +168,7 @@ const commandList = {
             },
             "environment": {
                 "demand": false,
-                "coerce": args => args === 'production' ? '--env.prod --env.aot --env.uglify' : '',
+                "coerce": args => args === 'production' ? '--env.production --env.uglify' : '',
                 "default": 'dev',
                 "alias": ['E', 'e']
             },
