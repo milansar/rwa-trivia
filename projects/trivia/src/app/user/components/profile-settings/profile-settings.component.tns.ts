@@ -47,12 +47,12 @@ import { ProfileSettings } from './profile-settings';
 import { AuthenticationProvider } from 'shared-library/core/auth';
 import * as Platform from '@nativescript/core/platform';
 import { RouterExtensions } from '@nativescript/angular/router';
-import { firestore } from 'nativescript-plugin-firebase/app';
+const firebase = require('nativescript-plugin-firebase/app');
 
 declare var IQKeyboardManager;
 
 @Component({
-  selector: "profile-settings",
+  selector: 'profile-settings',
   templateUrl: './profile-settings.component.html',
   styleUrls: ['./profile-settings.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -542,7 +542,7 @@ export class ProfileSettingsComponent extends ProfileSettings
       try {
         const position = await geolocation.getCurrentLocation({});
         if (position) {
-          this.user.geoPoint = firestore().GeoPoint(position.latitude, position.longitude);
+          this.user.geoPoint =  new firebase.firestore.GeoPoint(position.latitude, position.longitude);
           this.store.dispatch(
             this.userAction.loadAddressUsingLatLong(
               `${position.latitude},${position.longitude}`

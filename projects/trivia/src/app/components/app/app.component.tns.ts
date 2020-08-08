@@ -18,7 +18,7 @@ import { FirebaseAuthService } from 'shared-library/core/auth/firebase-auth.serv
 import { ApplicationSettingsActions, CategoryActions } from 'shared-library/core/store/actions';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';
 import * as util from '@nativescript/core/utils/utils';
-import { alert } from '@nativescript/core/ui/dialogs/dialogs';
+import { alert } from '@nativescript/core/ui/dialogs';
 import { projectMeta } from 'shared-library/environments/environment';
 import * as appversion from 'nativescript-appversion';
 import { Utils } from 'shared-library/core/services';
@@ -30,7 +30,9 @@ import { ModalDialogOptions, ModalDialogService } from '@nativescript/angular';
 import { WelcomeScreenComponent } from 'shared-library/shared/mobile/component';
 import * as appSettingsStorage from '@nativescript/core/application-settings';
 import { TopicActions } from 'shared-library/core/store/actions';
-import { RadSideDrawerComponent, SideDrawerType } from 'nativescript-ui-sidedrawer/angular';
+import { RadSideDrawerComponent,  } from 'nativescript-ui-sidedrawer/angular';
+import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
+
 
 
 registerElement('Carousel', () => Carousel);
@@ -51,7 +53,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   currentRouteUrl: string;
   bottomSafeArea: number;
   @ViewChild(RadSideDrawerComponent, { static: true }) public drawerComponent: RadSideDrawerComponent;
-  private _drawer: SideDrawerType;
+  private _drawer: RadSideDrawer;
   constructor(
     private store: Store<AppState>,
     private navigationService: NavigationService,
