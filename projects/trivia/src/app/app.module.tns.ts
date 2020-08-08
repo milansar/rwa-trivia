@@ -26,7 +26,7 @@ export function firebaseFactory() {
 
 registerElement('PreviousNextView', () => require('nativescript-iqkeyboardmanager').PreviousNextView);
 registerElement('CardView', () => CardView);
-registerElement("NestedScrollView", () => require("nativescript-nested-scrollview").NestedScrollView);
+
 
 @NgModule({
   declarations: [
