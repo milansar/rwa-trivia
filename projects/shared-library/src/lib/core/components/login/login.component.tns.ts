@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, 
+  ElementRef, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren, ViewContainerRef } from '@angular/core';
 import { FormBuilder, NgModel } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import * as application from 'application';
-import { ModalDialogOptions, ModalDialogService } from '@nativescript/angular/modal-dialog';
+import * as application from '@nativescript/core/application';
+import { ModalDialogOptions, ModalDialogService } from '@nativescript/angular';
 import { RouterExtensions } from '@nativescript/angular/router';
 import { setString } from 'nativescript-plugin-firebase/crashlytics/crashlytics';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';

@@ -17,7 +17,7 @@ import { RouterModule } from '@angular/router';
 import { PrivacyPolicyComponent, AchievementsComponent } from './components';
 import { UserFeedbackComponent } from './components/index.tns';
 import { WelcomeScreenComponent } from '../../../shared-library/src/lib/shared/mobile/component';
-import { ModalDialogService } from '@nativescript/angular/modal-dialog';
+import { ModalDialogService } from '@nativescript/angular';
 import { CardView } from '@nstudio/nativescript-cardview';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 export function firebaseFactory() {

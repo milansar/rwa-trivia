@@ -26,7 +26,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { FirebaseScreenNameConstants, User } from 'shared-library/shared/model';
 import { registerElement } from '@nativescript/angular/element-registry';
 import { Carousel, CarouselItem } from 'nativescript-carousel';
-import { ModalDialogOptions, ModalDialogService } from '@nativescript/angular/modal-dialog';
+import { ModalDialogOptions, ModalDialogService } from '@nativescript/angular';
 import { WelcomeScreenComponent } from 'shared-library/shared/mobile/component';
 import * as appSettingsStorage from '@nativescript/core/application-settings';
 import { TopicActions } from 'shared-library/core/store/actions';

@@ -1,7 +1,6 @@
 import { Component, OnDestroy, ChangeDetectorRef, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { User, Question, Category } from 'shared-library/shared/model';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';
-import { ModalDialogParams } from '@nativescript/angular/modal-dialog';
 
 @Component({
   selector: 'app-preview-question-dialog',

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { RouterExtensions } from '@nativescript/angular/router';
-import { Page } from '@nativescript/core/ui/page/page';
+import { Page } from '@nativescript/core/ui/page';
 import { Store, select } from "@ngrx/store";
 import { UserActions, CategoryActions, TagActions, coreState } from 'shared-library/core/store';
 import { User, Category } from 'shared-library/shared/model';
