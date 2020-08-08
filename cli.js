@@ -139,7 +139,7 @@ const commandList = {
     },
     "mobile":
     {
-        "command": "tns app platform --bundle environment forDevice --env.package_name=packageName --env.project=productVariant noHmr",
+        "command": "tns app platform environment forDevice --env.package_name=packageName --env.project=productVariant noHmr",
         "description": "run android/ios app in staging/production environment",
         "options": {
             "productVariant": {
@@ -213,9 +213,9 @@ const commandList = {
     "release-mobile": {
         "command": `npx rimraf platforms/platformName &&
                     tns platform add platformName &&
-                    tns build platformName --bundle 
+                    tns build platformName 
                         environment
-                        --env.aot --env.uglify 
+                        --env.uglify 
                         forDevice
                         --env.package_name=packageName 
                         --env.project=productVariant
