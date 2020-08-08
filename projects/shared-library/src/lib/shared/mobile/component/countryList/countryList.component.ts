@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { ModalDialogParams } from 'nativescript-angular/modal-dialog';
+import { ModalDialogParams } from '@nativescript/angular/modal-dialog';
 import { Country } from './model/country.model';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';
 import { Subscription } from 'rxjs';

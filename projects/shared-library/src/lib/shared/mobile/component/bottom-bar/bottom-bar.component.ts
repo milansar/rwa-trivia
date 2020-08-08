@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, OnDestroy, OnChanges, ChangeDetectorRef, OnInit } from '@angular/core';
 import * as app from 'tns-core-modules/application';
-import { RouterExtensions } from 'nativescript-angular/router';
+import { RouterExtensions } from '@nativescript/angular/router';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import { select, Store } from '@ngrx/store';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';

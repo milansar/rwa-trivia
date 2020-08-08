@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { ModalDialogService } from 'nativescript-angular/directives/dialogs';
-import { RouterExtensions } from 'nativescript-angular/router';
+import { ModalDialogService } from '@nativescript/angular/directives/dialogs';
+import { RouterExtensions } from '@nativescript/angular/router';
 import { getImage } from 'nativescript-screenshot';
 import * as SocialShare from 'nativescript-social-share';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';

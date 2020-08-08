@@ -1,10 +1,10 @@
 import 'reflect-metadata';
 import { GameQuestionComponent } from '../app/game-play/components/game-question/game-question.component.tns';
 import { Utils } from 'shared-library/core/services/utils';
-import { nsTestBedBeforeEach, nsTestBedAfterEach, nsTestBedRender } from 'nativescript-angular/testing';
+import { nsTestBedBeforeEach, nsTestBedAfterEach, nsTestBedRender } from '@nativescript/angular/testing';
 import { ComponentFixture, TestBed, tick, fakeAsync, discardPeriodicTasks } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NativeScriptRouterModule } from 'nativescript-angular/router';
+import { NativeScriptRouterModule } from '@nativescript/angular/router';
 import { Router } from '@angular/router';
 import { Store, MemoizedSelector } from '@ngrx/store';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';

@@ -4,7 +4,7 @@ import {
     nsTestBedAfterEach,
     nsTestBedBeforeEach,
     nsTestBedRender,
-} from 'nativescript-angular/testing';
+} from '@nativescript/angular/testing';
 import { RenderAnswerComponent } from 'shared-library/shared/components/render-answer/render-answer.component';
 import { testData } from 'test/data';
 import { LoadEventData } from 'tns-core-modules/ui/web-view';

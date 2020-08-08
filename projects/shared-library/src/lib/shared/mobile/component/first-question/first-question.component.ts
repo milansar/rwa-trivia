@@ -5,7 +5,7 @@ import { Store, select } from '@ngrx/store';
 import { Utils } from 'shared-library/core/services';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';
 import { Observable } from 'rxjs';
-import { RouterExtensions } from 'nativescript-angular/router';
+import { RouterExtensions } from '@nativescript/angular/router';
 import { map, flatMap, filter } from 'rxjs/operators';
 import { UserActions } from 'shared-library/core/store';
 import { GameActions } from 'shared-library/core/store';

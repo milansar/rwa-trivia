@@ -4,13 +4,13 @@ import {
   nsTestBedAfterEach,
   nsTestBedBeforeEach,
   nsTestBedRender,
-} from 'nativescript-angular/testing';
+} from '@nativescript/angular/testing';
 import { ProfileSettingsComponent } from './../app/user/components/profile-settings/profile-settings.component.tns';
 import { StoreModule, Store, MemoizedSelector } from '@ngrx/store';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { testData } from 'test/data';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NativeScriptRouterModule } from 'nativescript-angular/router';
+import { NativeScriptRouterModule } from '@nativescript/angular/router';
 import { User, profileSettingsConstants } from 'shared-library/shared/model';
 import {
   AppState, appState, categoryDictionary,
@@ -20,7 +20,7 @@ import {
 import { userState } from './../app/user/store';
 import { Router } from '@angular/router';
 import { Utils } from 'shared-library/core/services';
-import { NativeScriptFormsModule } from 'nativescript-angular/forms';
+import { NativeScriptFormsModule } from '@nativescript/angular/forms';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { AuthenticationProvider, FirebaseAuthService } from 'shared-library/core/auth';
 import { of } from 'rxjs';

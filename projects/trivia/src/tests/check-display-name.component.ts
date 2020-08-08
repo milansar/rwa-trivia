@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { CheckDisplayNameComponent } from 'shared-library/shared/components/check-display-name/check-display-name.component';
 import { Utils } from 'shared-library/core/services/utils';
 import { ElementRef } from '@angular/core';
-import { nsTestBedBeforeEach, nsTestBedAfterEach, nsTestBedRender } from 'nativescript-angular/testing';
+import { nsTestBedBeforeEach, nsTestBedAfterEach, nsTestBedRender } from '@nativescript/angular/testing';
 import { ComponentFixture } from '@angular/core/testing';
 
 describe('CheckDisplayNameComponent', () => {

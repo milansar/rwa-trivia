@@ -16,7 +16,7 @@ import {
 import { FormBuilder } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { select, Store } from "@ngrx/store";
-import { ModalDialogService } from "nativescript-angular/directives/dialogs";
+import { ModalDialogService } from "@nativescript/angular/directives/dialogs";
 import {
   isAvailable,
   requestPermissions,
@@ -48,7 +48,7 @@ import { LocationResetDialogComponent } from "./location-reset-dialog/location-r
 import { ProfileSettings } from "./profile-settings";
 import { AuthenticationProvider } from "shared-library/core/auth";
 import * as Platform from "tns-core-modules/platform";
-import { RouterExtensions } from "nativescript-angular/router";
+import { RouterExtensions } from "@nativescript/angular/router";
 import { screen } from "tns-core-modules/platform";
 const firebase = require('nativescript-plugin-firebase/app');
 

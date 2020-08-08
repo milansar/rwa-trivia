@@ -4,9 +4,9 @@ import {
     nsTestBedAfterEach,
     nsTestBedBeforeEach,
     nsTestBedRender,
-} from 'nativescript-angular/testing';
+} from '@nativescript/angular/testing';
 import { DashboardComponent } from './../app/dashboard/component/dashboard/dashboard.component.tns';
-import { NativeScriptFormsModule } from 'nativescript-angular/forms';
+import { NativeScriptFormsModule } from '@nativescript/angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule, MemoizedSelector, Store } from '@ngrx/store';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
@@ -15,10 +15,10 @@ import { Utils, WindowRef } from 'shared-library/core/services';
 import { testData } from 'test/data';
 import { GameActions, QuestionActions, UserActions } from 'shared-library/core/store/actions';
 import { TimeAgoPipe } from 'time-ago-pipe';
-import { RouterExtensions } from 'nativescript-angular/router';
+import { RouterExtensions } from '@nativescript/angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DOCUMENT } from '@angular/common';
-import { NativeScriptRouterModule } from 'nativescript-angular/router';
+import { NativeScriptRouterModule } from '@nativescript/angular/router';
 import { User, Game, PlayerMode, GameStatus, OpponentType, Invitation } from 'shared-library/shared/model';
 import { AppState, appState } from './../app/store';
 import { DashboardState } from './../app/dashboard/store';

@@ -3,7 +3,7 @@ import { AppState } from '../../../store';
 import { Store } from '@ngrx/store';
 import { UserActions } from 'shared-library/core/store/actions';
 import { InviteFriends } from './invite-friends';
-import { RouterExtensions } from 'nativescript-angular/router';
+import { RouterExtensions } from '@nativescript/angular/router';
 import { Page } from 'tns-core-modules/ui/page/page';
 import { FirebaseScreenNameConstants } from 'shared-library/shared/model';
 

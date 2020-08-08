@@ -4,9 +4,9 @@ import {
     nsTestBedAfterEach,
     nsTestBedBeforeEach,
     nsTestBedRender,
-} from 'nativescript-angular/testing';
+} from '@nativescript/angular/testing';
 import { RenderQuestionComponent } from 'shared-library/shared/components/render-question/render-question.component';
-import { NativeScriptFormsModule } from 'nativescript-angular/forms';
+import { NativeScriptFormsModule } from '@nativescript/angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { testData } from 'test/data';

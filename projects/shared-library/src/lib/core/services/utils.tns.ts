@@ -21,7 +21,7 @@ import {
 import { of, Observable } from "rxjs";
 import { UtilsCore } from "./utilsCore";
 import { isAndroid } from "tns-core-modules/platform";
-import { RouterExtensions } from "nativescript-angular/router";
+import { RouterExtensions } from "@nativescript/angular/router";
 
 @Injectable()
 export class Utils extends UtilsCore {

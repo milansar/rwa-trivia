@@ -1,10 +1,10 @@
 import 'reflect-metadata';
 import { GameOverComponent } from '../app/game-play/components/game-over/game-over.component.tns';
 import { Utils, WindowRef } from 'shared-library/core/services';
-import { nsTestBedBeforeEach, nsTestBedRender } from 'nativescript-angular/testing';
+import { nsTestBedBeforeEach, nsTestBedRender } from '@nativescript/angular/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NativeScriptRouterModule } from 'nativescript-angular/router';
+import { NativeScriptRouterModule } from '@nativescript/angular/router';
 import { Router } from '@angular/router';
 import { Store, MemoizedSelector } from '@ngrx/store';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';

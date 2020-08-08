@@ -4,9 +4,9 @@ import {
   nsTestBedAfterEach,
   nsTestBedBeforeEach,
   nsTestBedRender,
-} from 'nativescript-angular/testing';
+} from '@nativescript/angular/testing';
 import { RecentGamesComponent } from 'shared-library/shared/components/recent-games/recent-games.component.tns';
-import { NativeScriptFormsModule } from 'nativescript-angular/forms';
+import { NativeScriptFormsModule } from '@nativescript/angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule, MemoizedSelector, Store } from '@ngrx/store';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';

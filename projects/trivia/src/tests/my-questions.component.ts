@@ -4,14 +4,14 @@ import {
     nsTestBedAfterEach,
     nsTestBedBeforeEach,
     nsTestBedRender,
-} from 'nativescript-angular/testing';
+} from '@nativescript/angular/testing';
 import { MyQuestionsComponent } from './../app/user/components/my-questions/my-questions.component';
 import { StoreModule, Store } from '@ngrx/store';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { testData } from 'test/data';
 import { GameActions, QuestionActions, UserActions } from 'shared-library/core/store/actions';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NativeScriptRouterModule } from 'nativescript-angular/router';
+import { NativeScriptRouterModule } from '@nativescript/angular/router';
 import { User } from 'shared-library/shared/model';
 import { AppState, appState } from './../app/store';
 import { userState, UserState } from './../app/user/store';
