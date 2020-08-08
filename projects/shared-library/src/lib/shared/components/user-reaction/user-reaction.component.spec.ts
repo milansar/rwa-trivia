@@ -6,7 +6,7 @@ import { coreState, CoreState, UserActions, ActionWithPayload } from 'shared-lib
 import { GameActions, UIStateActions } from 'shared-library/core/store/actions';
 import { AuthenticationProvider } from 'shared-library/core/auth';
 import { Utils, WindowRef } from 'shared-library/core/services';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { testData } from 'test/data';
 import { UserReactionComponent } from './user-reaction.component';
 import { SimpleChange } from '@angular/core';
@@ -49,10 +49,9 @@ describe('UserReactionComponent', () => {
         });
 
         fixture = TestBed.createComponent(UserReactionComponent);
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<CoreState>>(MockStore);
         component = fixture.componentInstance;
-
-        mockCoreSelector = mockStore.overrideSelector<CoreState, Partial<CoreState>>(coreState, {});
+        mockCoreSelector = mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(coreState, {});
         spy = spyOn(mockStore, 'dispatch');
         fixture.detectChanges();
     }));

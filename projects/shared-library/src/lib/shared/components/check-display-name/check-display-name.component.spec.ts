@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CheckDisplayNameComponent } from './check-display-name.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Utils, WindowRef } from 'shared-library/core/services';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('CheckDisplayNameComponent', () => {
   let component: CheckDisplayNameComponent;

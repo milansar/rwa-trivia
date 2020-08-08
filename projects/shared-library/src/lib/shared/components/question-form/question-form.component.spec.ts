@@ -5,7 +5,9 @@ import { StoreModule, MemoizedSelector, Store } from '@ngrx/store';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { coreState, CoreState, categoryDictionary, QuestionActions, ActionWithPayload } from 'shared-library/core/store';
 import { Utils, WindowRef, QuestionService } from 'shared-library/core/services';
-import { MatSnackBarModule, MatDialogModule, MatAutocompleteModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { testData } from 'test/data';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -80,9 +82,9 @@ describe('QuestionFormComponent', () => {
     });
 
     fixture = TestBed.createComponent(QuestionFormComponent);
-    mockStore = TestBed.get(Store);
+    mockStore = TestBed.inject<MockStore<CoreState>>(MockStore);
     component = fixture.componentInstance;
-    mockCoreSelector = mockStore.overrideSelector<CoreState, Partial<CoreState>>(coreState, {});
+    mockCoreSelector = mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(coreState, {});
     spy = spyOn(mockStore, 'dispatch');
 
     component.categoriesObs = of(testData.categories.categories);

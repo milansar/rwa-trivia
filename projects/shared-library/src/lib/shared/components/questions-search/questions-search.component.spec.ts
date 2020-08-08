@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { QuestionsSearchComponent } from './questions-search.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MatCheckboxChange } from '@angular/material';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { testData } from 'test/data';
 import { Question, Category, SearchResults } from 'shared-library/shared/model';
 

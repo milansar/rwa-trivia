@@ -7,7 +7,7 @@ import { UserActions, CoreState } from 'shared-library/core/store';
 import { InviteFriendsComponent } from './invite-friends.component';
 import { CdkColumnDef, CdkRowDef, CdkHeaderRowDef } from '@angular/cdk/table';
 import { PLATFORM_ID } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { testData } from 'test/data';
 
 describe('InviteFriendsComponent', () => {
@@ -15,7 +15,6 @@ describe('InviteFriendsComponent', () => {
     let fixture: ComponentFixture<InviteFriendsComponent>;
     let spy: any;
     let mockStore: MockStore<AppState>;
-    let mockCoreSelector: MemoizedSelector<AppState, Partial<CoreState>>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -47,7 +46,7 @@ describe('InviteFriendsComponent', () => {
         // create component
         fixture = TestBed.createComponent(InviteFriendsComponent);
         // mock data
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
         spy = spyOn(mockStore, 'dispatch');
         component = fixture.debugElement.componentInstance;
     });
@@ -67,7 +66,7 @@ describe('InviteFriendsComponent', () => {
 
 
     it('loadUserFriends action should be fired after the user data is set', () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
         mockStore.refreshState();
@@ -78,7 +77,7 @@ describe('InviteFriendsComponent', () => {
     });
 
     it('userFriends list should be set after the value is emitted', () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             userFriends: testData.friendsList
         });
         mockStore.refreshState();
@@ -87,7 +86,7 @@ describe('InviteFriendsComponent', () => {
 
     it('setPaginatorAndSort should be called after the friend list value is emitted', () => {
         component.setPaginatorAndSort = jest.fn();
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             userFriends: testData.friendsList
         });
         mockStore.refreshState();
@@ -96,7 +95,7 @@ describe('InviteFriendsComponent', () => {
     });
 
     it('setPaginatorAndSort should work correctly', () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             userFriends: testData.friendsList
         });
         mockStore.refreshState();

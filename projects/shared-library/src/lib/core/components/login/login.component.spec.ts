@@ -1,26 +1,22 @@
 import { LoginComponent } from './login.component';
-import { async, ComponentFixture, TestBed, tick, fakeAsync, inject } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
-import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CoreState, UIStateActions, coreState, ActionWithPayload } from '../../store';
-import { Store, StoreModule, MemoizedSelector } from '@ngrx/store';
+import { StoreModule, MemoizedSelector } from '@ngrx/store';
 import { testData } from 'test/data';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FirebaseAuthService } from './../../auth/firebase-auth.service';
 import { WindowRef } from '../../services';
-import { AngularFireModule, FirebaseAppConfig, FirebaseApp } from '@angular/fire';
-import { AngularFireAuthModule, AngularFireAuth } from '@angular/fire/auth';
-import { CONFIG } from 'shared-library/environments/environment';
+
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let spy: any;
   let mockStore: MockStore<CoreState>;
-  let service;
-  let app: FirebaseApp;
-  let afAuth: AngularFireAuth;
+  let service: FirebaseAuthService;
 
   const dialogMock = {
     close: () => { }
@@ -75,14 +71,14 @@ describe('LoginComponent', () => {
     // create component
     fixture = TestBed.createComponent(LoginComponent);
     // mock data
-    mockStore = TestBed.get(Store);
+    mockStore = TestBed.inject<MockStore<CoreState>>(MockStore);
     // firebaseAuthService = new FirebaseAuthService();
     spy = spyOn(mockStore, 'dispatch');
     // Re-create component
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-    service = TestBed.get(FirebaseAuthService);
-    mockCoreSelector = mockStore.overrideSelector<CoreState, Partial<CoreState>>(coreState, {});
+    service = TestBed.inject(FirebaseAuthService);
+    mockCoreSelector = mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(coreState, {});
     fixture.detectChanges();
   });
 

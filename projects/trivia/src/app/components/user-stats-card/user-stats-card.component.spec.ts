@@ -6,7 +6,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
 import { Utils, WindowRef } from 'shared-library/core/services';
 import { MemoizedSelector, Store } from '@ngrx/store';
 import { CoreState } from 'shared-library/core/store';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { User } from 'shared-library/shared/model';
 import { testData } from 'test/data';
 
@@ -46,9 +46,10 @@ describe('UserStatsCardComponent', () => {
         // create component
         fixture = TestBed.createComponent(UserStatsCardComponent);
         // mock data
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
         spy = spyOn(mockStore, 'dispatch');
-        mockCoreSelector = mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {});
+        mockCoreSelector = mockStore
+        .overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {});
 
         component = fixture.debugElement.componentInstance;
 

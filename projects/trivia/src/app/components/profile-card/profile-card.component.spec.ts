@@ -7,7 +7,7 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { MemoizedSelector, Store } from '@ngrx/store';
 import { CoreState } from 'shared-library/core/store';
 import { Utils } from 'shared-library/core/services';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { User } from 'shared-library/shared/model';
 import { testData } from 'test/data';
 
@@ -46,8 +46,9 @@ describe('ProfileCardComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ProfileCardComponent);
         // mock data
-        mockStore = TestBed.get(Store);
-        mockCoreSelector = mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {});
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
+        mockCoreSelector = mockStore
+        .overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {});
         component = fixture.debugElement.componentInstance;
     });
 

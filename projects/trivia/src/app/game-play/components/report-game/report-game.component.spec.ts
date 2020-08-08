@@ -8,7 +8,8 @@ import { categoryDictionary } from 'shared-library/core/store';
 import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
 import { Utils, WindowRef } from 'shared-library/core/services';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatSnackBarModule, MAT_DIALOG_DATA } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { testData } from 'test/data';
 import * as gameplayactions from '../../store/actions';
 
@@ -54,7 +55,7 @@ describe('ReportGameComponent', () => {
         // create component
         fixture = TestBed.createComponent(ReportGameComponent);
         // mock data
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
         spy = spyOn(mockStore, 'dispatch');
         component = fixture.debugElement.componentInstance;
     });

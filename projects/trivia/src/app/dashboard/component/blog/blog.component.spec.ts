@@ -3,8 +3,8 @@ import { ComponentFixture, async, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { appState, AppState } from '../../../store';
-import { MatSnackBarModule } from '@angular/material';
-import { Store } from '@ngrx/store';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { Store, MemoizedSelector } from '@ngrx/store';
 import { testData } from 'test/data';
 import { DashboardState } from '../../store';
 
@@ -35,7 +35,7 @@ describe('BlogComponent', () => {
         // Create component
         fixture = TestBed.createComponent(BlogComponent);
         // mock data
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
         spy = spyOn(mockStore, 'dispatch');
         component = fixture.debugElement.componentInstance;
     });
@@ -59,7 +59,8 @@ describe('BlogComponent', () => {
 
     it('Verify blog data is set after the value is emitted', () => {
         blogData = testData.blogs;
-        mockStore.overrideSelector<AppState, Partial<DashboardState>>(appState.dashboardState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<DashboardState, Partial<DashboardState>>, Partial<DashboardState>>(appState.dashboardState, {
             blogs: blogData
         });
         mockStore.refreshState();

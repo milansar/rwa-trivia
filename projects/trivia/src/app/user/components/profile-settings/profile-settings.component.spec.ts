@@ -11,7 +11,11 @@ import { CoreState, UserActions, UIStateActions, coreState, getTopTopics } from 
 import { Store, MemoizedSelector } from '@ngrx/store';
 import { FormBuilder, FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
-import { MatDialogModule, MatSnackBarModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
 import { Utils, WindowRef } from 'shared-library/core/services';
 import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -110,8 +114,9 @@ describe('ProfileSettingsComponent', () => {
         // create component
         fixture = TestBed.createComponent(ProfileSettingsComponent);
         // mock data
-        mockStore = TestBed.get(Store);
-        mockCoreSelector = mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {});
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
+        mockCoreSelector = mockStore
+        .overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {});
         spy = spyOn(mockStore, 'dispatch');
         component = fixture.debugElement.componentInstance;
         fixture.detectChanges();
@@ -127,7 +132,7 @@ describe('ProfileSettingsComponent', () => {
 
         it('Verify if userProfileSaveStatus SUCCESS', () => {
             component.setNotificationMsg = jest.fn();
-            mockStore.overrideSelector<AppState, Partial<CoreState>>(coreState, {
+            mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(coreState, {
                 userProfileSaveStatus: 'SUCCESS'
             });
             mockStore.refreshState();
@@ -137,7 +142,7 @@ describe('ProfileSettingsComponent', () => {
 
     it('Verify if userProfileSaveStatus is not equal to SUCCESS && NONE && IN PROCESS && MAKE FRIEND SUCCESS', () => {
         component.setNotificationMsg = jest.fn();
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(coreState, {
             userProfileSaveStatus: 'ERROR'
         });
         mockStore.refreshState();

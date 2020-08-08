@@ -5,7 +5,7 @@ import { StoreModule, MemoizedSelector, Store } from '@ngrx/store';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { CoreState, ActionWithPayload, categoryDictionary } from 'shared-library/core/store';
 import { Utils, WindowRef } from 'shared-library/core/services';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AppState, appState } from '../../../../../../trivia/src/app/store';
 import { testData } from 'test/data';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -15,7 +15,7 @@ import { QuestionActions } from 'shared-library/core/store/actions/question.acti
 import { QuestionService } from 'shared-library/core/services';
 import { HttpClientModule } from '@angular/common/http';
 import { DbService } from 'shared-library/core/db-service';
-import { MatDialogModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Question, QuestionStatus } from 'shared-library/shared/model';
@@ -77,11 +77,12 @@ describe('QuestionAddUpdateComponent', () => {
     });
 
     fixture = TestBed.createComponent(QuestionAddUpdateComponent);
-    mockStore = TestBed.get(Store);
+    mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
     component = fixture.componentInstance;
-    mockCoreSelector = mockStore.overrideSelector<CoreState, Partial<CoreState>>(appState.coreState, {});
+    mockCoreSelector = mockStore
+    .overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {});
     spy = spyOn(mockStore, 'dispatch');
-    router = TestBed.get(Router);
+    router = TestBed.inject(Router);
 
     const question = new Question();
     const answersFA: FormArray = component.createDefaultForm(question);

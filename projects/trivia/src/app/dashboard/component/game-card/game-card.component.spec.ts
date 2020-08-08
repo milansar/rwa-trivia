@@ -8,7 +8,7 @@ import { User, Game, PlayerMode, GameStatus } from 'shared-library/shared/model'
 import { AppState, appState } from '../../../store';
 import { testData } from 'test/data';
 import { CoreState } from 'shared-library/core/store';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('GameCardComponent', () => {
 
@@ -49,7 +49,7 @@ describe('GameCardComponent', () => {
         // create component
         fixture = TestBed.createComponent(GameCardComponent);
         // mock data
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
         spy = spyOn(mockStore, 'dispatch');
 
         component = fixture.debugElement.componentInstance;
@@ -70,7 +70,7 @@ describe('GameCardComponent', () => {
 
         component.categoryDict = testData.categoryDictionary;
         user = { ...testData.userList[0] };
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user
           });
           mockStore.refreshState();
@@ -176,7 +176,7 @@ describe('GameCardComponent', () => {
 
     it('User should be set when user is logged in', () => {
         user = { ...testData.userList[0] };
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user
           });
           mockStore.refreshState();
@@ -187,7 +187,7 @@ describe('GameCardComponent', () => {
         user = { ...testData.userList[0] };
         const otherUser = { ...testData.userList[1] };
         const userDict = {'4kFa6HRvP5OhvYXsH9mEsRrXj4o2': user, 'yP7sLu5TmYRUO9YT4tWrYLAqxSz1': otherUser};
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             userDict: userDict
           });
           mockStore.refreshState();

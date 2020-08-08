@@ -1,16 +1,16 @@
-import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { GameContinueComponent } from './game-continue.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Store, MemoizedSelector } from '@ngrx/store';
+import { MemoizedSelector } from '@ngrx/store';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { Utils } from 'shared-library/core/services';
-import { User, Game, PlayerMode, GameStatus } from 'shared-library/shared/model';
+import { User, Game } from 'shared-library/shared/model';
 import { AppState, appState } from '../../../store';
 import { testData } from 'test/data';
 import { CoreState } from 'shared-library/core/store';
 import { UserActions } from 'shared-library/core/store/actions';
-import { MatSnackBarModule, MatDialog } from '@angular/material';
-import {MatDialogModule} from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatDialogModule, MatDialog } from '@angular/material/dialog';
 
 describe('GameContinueComponent', () => {
 
@@ -53,7 +53,7 @@ describe('GameContinueComponent', () => {
         // create component
         fixture = TestBed.createComponent(GameContinueComponent);
         // mock data
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
         spy = spyOn(mockStore, 'dispatch');
 
         component = fixture.debugElement.componentInstance;
@@ -72,7 +72,7 @@ describe('GameContinueComponent', () => {
 
     it('User should be set value is emitted', () => {
         user = { ...testData.userList[0] };
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user
           });
           mockStore.refreshState();
@@ -81,7 +81,7 @@ describe('GameContinueComponent', () => {
 
     it('User dictionary should be set value is emitted', () => {
         const userDict = {'4kFa6HRvP5OhvYXsH9mEsRrXj4o2': testData.userList[0], 'yP7sLu5TmYRUO9YT4tWrYLAqxSz1': testData.userList[1]};
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             userDict: userDict
           });
           mockStore.refreshState();
@@ -92,7 +92,7 @@ describe('GameContinueComponent', () => {
         const dbModel = testData.games[1];
         const userDict = {'4kFa6HRvP5OhvYXsH9mEsRrXj4o2': testData.userList[0], 'yP7sLu5TmYRUO9YT4tWrYLAqxSz1': testData.userList[1]};
         component.game = Game.getViewModel(dbModel);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user,
             userDict: userDict
           });

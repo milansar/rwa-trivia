@@ -5,7 +5,7 @@ import { StoreModule, MemoizedSelector, Store } from '@ngrx/store';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { coreState, CoreState, UserActions, categoryDictionary } from 'shared-library/core/store';
 import { Utils, WindowRef } from 'shared-library/core/services';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { testData } from 'test/data';
 import { Game } from 'shared-library/shared/model';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -39,19 +39,17 @@ describe('RecentGameCardComponent', () => {
       }),
         UserActions,
         Utils,
-        WindowRef,],
+        WindowRef],
 
     });
 
     fixture = TestBed.createComponent(RecentGameCardComponent);
-    mockStore = TestBed.get(Store);
+    mockStore = TestBed.inject<MockStore<CoreState>>(MockStore);
     component = fixture.componentInstance;
-
     component.user = testData.userList[0];
     const dbModel = testData.games[0];
     component.game = Game.getViewModel(dbModel);
-
-    mockCoreSelector = mockStore.overrideSelector<CoreState, Partial<CoreState>>(coreState, {});
+    mockCoreSelector = mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(coreState, {});
     mockCategorySelector = mockStore.overrideSelector(categoryDictionary, {});
     spy = spyOn(mockStore, 'dispatch');
     fixture.detectChanges();

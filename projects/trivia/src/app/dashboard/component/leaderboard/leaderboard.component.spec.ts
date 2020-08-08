@@ -1,14 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LeaderboardComponent } from './leaderboard.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, MemoizedSelector } from '@ngrx/store';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { Utils } from 'shared-library/core/services';
 import { User, Topic } from 'shared-library/shared/model';
 import { AppState, appState } from '../../../store';
 import { testData } from 'test/data';
 import { CoreState } from 'shared-library/core/store';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { UserActions, TagActions, TopicActions } from 'shared-library/core/store/actions';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
@@ -71,7 +71,7 @@ describe('LeaderboardComponent', () => {
         // create component
         fixture = TestBed.createComponent(LeaderboardComponent);
         // mock data
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
         spy = spyOn(mockStore, 'dispatch');
 
         component = fixture.debugElement.componentInstance;
@@ -117,7 +117,7 @@ describe('LeaderboardComponent', () => {
         testData.userList.map(data => {
             userDict[data.userId] = data;
         });
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             userDict: userDict,
             topTopics: [],
             categories: []
@@ -131,7 +131,7 @@ describe('LeaderboardComponent', () => {
         testData.topTopics.forEach(data => {
             topTopics.push({id: data.id, categoryName: data.key, type: data.key});
         });
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             topTopics: topTopics,
             categories: [],
             user: null
@@ -151,7 +151,7 @@ describe('LeaderboardComponent', () => {
     it('Logged In user should be set when values are emitted', () => {
 
         user = testData.userList[0];
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             topTopics: [],
             categories: [],
             user: user
@@ -171,7 +171,7 @@ describe('LeaderboardComponent', () => {
     it('Category dictionary should be set when values are emitted', () => {
         const categories = testData.categoryList;
 
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             topTopics: [],
             categories: categories,
             user: null
@@ -183,13 +183,14 @@ describe('LeaderboardComponent', () => {
 
     it('score board should be initially empty', () => {
             user = testData.userList[0];
-            mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+            mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
                     topTopics: [],
                     categories: [],
                     user: user
             });
 
-            mockStore.overrideSelector<AppState, Partial<DashboardState>>(appState.dashboardState, {
+            mockStore
+            .overrideSelector<MemoizedSelector<DashboardState, Partial<DashboardState>>, Partial<DashboardState>>(appState.dashboardState, {
                 scoreBoard: []
             });
 
@@ -200,13 +201,14 @@ describe('LeaderboardComponent', () => {
     it('score board should be set when values are emitted', () => {
         user = testData.userList[0];
         const categories = testData.categoryList;
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
                 topTopics: [],
                 categories: categories,
                 user: user
         });
 
-        mockStore.overrideSelector<AppState, Partial<DashboardState>>(appState.dashboardState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<DashboardState, Partial<DashboardState>>, Partial<DashboardState>>(appState.dashboardState, {
             scoreBoard: testData.leaderBoard
         });
 
@@ -223,13 +225,14 @@ describe('LeaderboardComponent', () => {
             topTopics.push({id: data.id, categoryName: data.key, type: data.key});
         });
 
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
                 user: user,
                 topTopics: topTopics,
                 categories: categories
         });
 
-        mockStore.overrideSelector<AppState, Partial<DashboardState>>(appState.dashboardState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<DashboardState, Partial<DashboardState>>, Partial<DashboardState>>(appState.dashboardState, {
             scoreBoard: testData.leaderBoard
         });
 
@@ -261,13 +264,14 @@ describe('LeaderboardComponent', () => {
             topTopics.push({id: data.id, categoryName: data.key, type: data.key});
         });
 
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
                 user: user,
                 topTopics: topTopics,
                 categories: categories
         });
 
-        mockStore.overrideSelector<AppState, Partial<DashboardState>>(appState.dashboardState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<DashboardState, Partial<DashboardState>>, Partial<DashboardState>>(appState.dashboardState, {
             scoreBoard: testData.leaderBoard
         });
 

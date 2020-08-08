@@ -1,20 +1,21 @@
-import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { GameDialogComponent } from './game-dialog.component';
-import { NO_ERRORS_SCHEMA, ChangeDetectorRef } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { Store, MemoizedSelector } from '@ngrx/store';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { Utils } from 'shared-library/core/services';
-import { User, Game, PlayerMode, GameStatus, PlayerQnA, Answer } from 'shared-library/shared/model';
+import { User, Game, PlayerQnA, Answer } from 'shared-library/shared/model';
 import { AppState, appState, categoryDictionary } from '../../../store';
 import { testData } from 'test/data';
-import { MatSnackBarModule, MAT_DIALOG_DATA } from '@angular/material';
-import { UserActions } from "shared-library/core/store/actions";
-import { Router } from "@angular/router";
-import { gamePlayState, GamePlayState } from "../../store";
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { UserActions } from 'shared-library/core/store/actions';
+import { Router } from '@angular/router';
+import { gamePlayState, GamePlayState } from '../../store';
 import { Subscription } from 'rxjs';
-import * as gameplayactions from "../../store/actions";
+import * as gameplayactions from '../../store/actions';
 import { CoreState } from 'shared-library/core/store';
-import { GameQuestionComponent } from "../game-question/game-question.component";
+import { GameQuestionComponent } from '../game-question/game-question.component';
 
 describe('GameDialogComponent', () => {
 
@@ -82,7 +83,7 @@ describe('GameDialogComponent', () => {
         // create component
         fixture = TestBed.createComponent(GameDialogComponent);
         // mock data
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
         spy = spyOn(mockStore, 'dispatch');
 
         component = fixture.debugElement.componentInstance;
@@ -97,12 +98,13 @@ describe('GameDialogComponent', () => {
 
     it('game data should be set after the data is emitted', () => {
 
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
 
         const dbModel = Game.getViewModel(testData.games[0]);
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGame: dbModel
         });
         mockStore.refreshState();
@@ -113,12 +115,13 @@ describe('GameDialogComponent', () => {
 
     it('user and other user\'s earned badges should be set after the game data is emitted', () => {
 
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
 
         const dbModel = Game.getViewModel(testData.games[0]);
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGame: dbModel
         });
         mockStore.refreshState();
@@ -130,12 +133,13 @@ describe('GameDialogComponent', () => {
 
     it('user and other user\'s earned badges should not be set if the game is old after the game data is emitted', () => {
 
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
 
         const dbModel = Game.getViewModel(testData.games[16]);
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGame: dbModel
         });
         mockStore.refreshState();
@@ -146,12 +150,13 @@ describe('GameDialogComponent', () => {
 
     it('earnedBadgesByOtherUser should not be set if the game is single player', () => {
 
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
 
         const dbModel = Game.getViewModel(testData.games[3]);
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGame: dbModel
         });
         mockStore.refreshState();
@@ -162,11 +167,12 @@ describe('GameDialogComponent', () => {
 
     it('playermode and threeConsecutiveAnswer should be set after the game data is emitted', () => {
 
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
         const dbModel = Game.getViewModel(testData.games[3]);
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGame: dbModel
         });
         mockStore.refreshState();
@@ -177,11 +183,12 @@ describe('GameDialogComponent', () => {
     it(`threeConsecutiveAnswer should be true set if the game user has given three consecutive answers in
         first turn - it applies to the first user only in a two player game - after the game data is emitted`, () => {
 
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
         const dbModel = Game.getViewModel(testData.games[17]);
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGame: dbModel
         });
         mockStore.refreshState();
@@ -190,11 +197,12 @@ describe('GameDialogComponent', () => {
 
     it(`threeConsecutiveAnswer should be false`, () => {
 
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
         const dbModel = Game.getViewModel(testData.games[18]);
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGame: dbModel
         });
         mockStore.refreshState();
@@ -203,11 +211,12 @@ describe('GameDialogComponent', () => {
 
     it(`verify if threeConsecutiveAnswer is true for game without isBadgeWithCategory is set`, () => {
 
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
         const dbModel = Game.getViewModel(testData.games[19]);
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGame: dbModel
         });
         mockStore.refreshState();
@@ -216,11 +225,12 @@ describe('GameDialogComponent', () => {
 
     it(`verify if threeConsecutiveAnswer is false for game without isBadgeWithCategory is set`, () => {
 
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
         const dbModel = Game.getViewModel(testData.games[20]);
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGame: dbModel
         });
         mockStore.refreshState();
@@ -230,11 +240,12 @@ describe('GameDialogComponent', () => {
 
     it(`verify if threeConsecutiveAnswer is false for game without isBadgeWithCategory is set`, () => {
         component.isGameLoaded = false;
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
         const dbModel = Game.getViewModel(testData.games[18]);
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGame: dbModel
         });
         mockStore.refreshState();
@@ -243,11 +254,12 @@ describe('GameDialogComponent', () => {
 
     it(`verify if turnFlag is false for game with next round as the currenct user`, () => {
         component.isGameLoaded = false;
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
         const dbModel = Game.getViewModel(testData.games[18]);
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGame: dbModel
         });
         mockStore.refreshState();
@@ -258,12 +270,13 @@ describe('GameDialogComponent', () => {
 
     it(`verify if turnFlag is true for game with next round as not the currenct user`, () => {
         component.setTurnStatusFlag = jest.fn();
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
         const dbModel = Game.getViewModel(testData.games[22]);
         dbModel.gameOver = false;
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGame: dbModel
         });
         mockStore.refreshState();
@@ -272,10 +285,11 @@ describe('GameDialogComponent', () => {
 
     it(`verify if setTurnStatusFlag() function works correctly with questionAnswered true`, () => {
         const dbModel = Game.getViewModel(testData.games[18]);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGame: dbModel
         });
         mockStore.refreshState();
@@ -288,10 +302,11 @@ describe('GameDialogComponent', () => {
 
     it(`verify if setTurnStatusFlag() function works correctly with questionAnswered false`, () => {
         const dbModel = Game.getViewModel(testData.games[18]);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGame: dbModel
         });
         mockStore.refreshState();
@@ -305,10 +320,11 @@ describe('GameDialogComponent', () => {
         component.isGameLoaded = false;
         const dbModel = Game.getViewModel(testData.games[18]);
 
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGame: dbModel
         });
         mockStore.refreshState();
@@ -364,12 +380,13 @@ describe('GameDialogComponent', () => {
 
         component.setCurrentQuestion = jest.fn();
         component.showNextBadgeToBeWon = jest.fn();
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
 
         const dbModel = Game.getViewModel(testData.games[3]);
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGame: dbModel,
             currentGameQuestion: testData.currentQuestion[0]
         });
@@ -387,12 +404,13 @@ describe('GameDialogComponent', () => {
 
         component.setCurrentQuestion = jest.fn();
         component.showNextBadgeToBeWon = jest.fn();
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
 
         const dbModel = Game.getViewModel(testData.games[20]);
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGame: dbModel,
             currentGameQuestion: testData.currentQuestion[0]
         });
@@ -410,12 +428,13 @@ describe('GameDialogComponent', () => {
         component.subscribeQuestion  = jest.fn();
         component.utils.unsubscribe = jest.fn();
         component.displayQuestionAndStartTimer = jest.fn();
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
 
         const dbModel = Game.getViewModel(testData.games[0]);
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGame: dbModel,
             currentGameQuestion: testData.currentQuestion[0]
         });
@@ -435,12 +454,13 @@ describe('GameDialogComponent', () => {
     it(`verify if showNextBadgeToBeWon() function works correctly`, (async() => {
         component.subscribeQuestion  = jest.fn();
         component.utils.unsubscribe = jest.fn();
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
 
         const dbModel = Game.getViewModel(testData.games[20]);
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGame: dbModel,
             currentGameQuestion: testData.currentQuestion[0]
         });
@@ -505,11 +525,12 @@ describe('GameDialogComponent', () => {
         component.fillTimer = jest.fn();
         const dbModel = Game.getViewModel(testData.games[0]);
         categoryDictionary.setResult(testData.categoryDictionary);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0],
             categories: testData.categoryList
         });
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGameQuestion: testData.currentQuestion[0],
             currentGame: dbModel
         });
@@ -533,11 +554,12 @@ describe('GameDialogComponent', () => {
         component.fillTimer = jest.fn();
         const dbModel = Game.getViewModel(testData.games[23]);
         categoryDictionary.setResult(testData.categoryDictionary);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0],
             categories: testData.categoryList
         });
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGameQuestion: testData.currentQuestion[0],
             currentGame: dbModel
         });
@@ -557,11 +579,12 @@ describe('GameDialogComponent', () => {
         const applicationSettings = [];
         applicationSettings.push(testData.applicationSettings);
         const dbModel = Game.getViewModel(testData.games[0]);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0],
             applicationSettings: applicationSettings
         });
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGameQuestion: testData.currentQuestion[0],
             currentGame: dbModel
         });
@@ -573,10 +596,11 @@ describe('GameDialogComponent', () => {
 
     it(`getNextQuestion() function should work correctly`, () => {
          const dbModel = Game.getViewModel(testData.games[0]);
-         mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+         mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGame: dbModel
         });
         mockStore.refreshState();
@@ -593,10 +617,11 @@ describe('GameDialogComponent', () => {
 
     it(`okClick() function should work correctly`, () => {
         const dbModel = Game.getViewModel(testData.games[0]);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGame: dbModel
         });
         mockStore.refreshState();
@@ -607,10 +632,11 @@ describe('GameDialogComponent', () => {
 
      it(`okClick() function should work correctly with questionIndex less than max question`, () => {
         const dbModel = Game.getViewModel(testData.games[0]);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGame: dbModel
         });
         mockStore.refreshState();
@@ -634,14 +660,15 @@ describe('GameDialogComponent', () => {
         const applicationSettings = [];
         applicationSettings.push(testData.applicationSettings);
         const dbModel = Game.getViewModel(testData.games[0]);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             userDict: userDict,
             user: testData.userList[0],
             categories: testData.categoryList,
             applicationSettings: applicationSettings
         });
 
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGameQuestion: testData.currentQuestion[0],
             currentGame: dbModel
         });
@@ -667,14 +694,15 @@ describe('GameDialogComponent', () => {
         const applicationSettings = [];
         applicationSettings.push(testData.applicationSettings);
         const dbModel = Game.getViewModel(testData.games[0]);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             userDict: userDict,
             user: testData.userList[0],
             categories: testData.categoryList,
             applicationSettings: applicationSettings
         });
 
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGameQuestion: testData.currentQuestion[0],
             currentGame: dbModel
         });
@@ -723,12 +751,13 @@ describe('GameDialogComponent', () => {
     });
 
     it(`continueGame() function should work correctly`, () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
 
         const dbModel = Game.getViewModel(testData.games[0]);
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGame: dbModel
         });
         mockStore.refreshState();
@@ -740,12 +769,13 @@ describe('GameDialogComponent', () => {
     });
 
     it(`continueGame() function should work correctly with turnFlag true`, () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
 
         const dbModel = Game.getViewModel(testData.games[0]);
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGame: dbModel
         });
         mockStore.refreshState();
@@ -763,12 +793,13 @@ describe('GameDialogComponent', () => {
     });
 
     it(`continueGame() function should work correctly with isMobile true`, () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
 
         const dbModel = Game.getViewModel(testData.games[0]);
-        mockStore.overrideSelector<AppState, Partial<GamePlayState>>(appState.gamePlayState, {
+        mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {
             currentGame: dbModel
         });
         mockStore.refreshState();

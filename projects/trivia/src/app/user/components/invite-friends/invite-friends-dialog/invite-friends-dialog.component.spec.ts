@@ -4,8 +4,8 @@ import { User } from 'shared-library/shared/model';
 import { TestBed, ComponentFixture, async } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
-import { MatSnackBarModule } from '@angular/material';
-import { Store } from '@ngrx/store';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { Store, MemoizedSelector } from '@ngrx/store';
 import { Utils } from 'shared-library/core/services';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
@@ -52,7 +52,7 @@ describe('InviteFriendsDialogComponent', () => {
         // create component
         fixture = TestBed.createComponent(InviteFriendsDialogComponent);
         // mock data
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
         spy = spyOn(mockStore, 'dispatch');
         component = fixture.debugElement.componentInstance;
     });
@@ -64,7 +64,7 @@ describe('InviteFriendsDialogComponent', () => {
 
     it('Verify that user information should be set successfully', () => {
         user = { ...testData.userList[0] };
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user
         });
         mockStore.refreshState();

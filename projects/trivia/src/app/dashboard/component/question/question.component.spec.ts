@@ -1,13 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { QuestionComponent } from './question.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, MemoizedSelector } from '@ngrx/store';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { Utils } from 'shared-library/core/services';
 import { Answer } from 'shared-library/shared/model';
 import { AppState, appState } from '../../../store';
 import { testData } from 'test/data';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { QuestionActions } from 'shared-library/core/store/actions';
 import { GameActions } from 'shared-library/core/store/actions';
 import { CoreState } from 'shared-library/core/store';
@@ -59,7 +59,7 @@ describe('QuestionComponent', () => {
         // create component
         fixture = TestBed.createComponent(QuestionComponent);
         // mock data
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
         spy = spyOn(mockStore, 'dispatch');
 
         component = fixture.debugElement.componentInstance;
@@ -77,7 +77,7 @@ describe('QuestionComponent', () => {
     });
 
     it('category dictionary and question of the day should be empty', () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             categories: []
           });
         mockStore.refreshState();
@@ -87,7 +87,7 @@ describe('QuestionComponent', () => {
     });
 
     it('category dictionary and question of the day should be same as emitted value', () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             categories: testData.categoryList,
             questionOfTheDay: testData.questionOfTheDay
           });
@@ -99,7 +99,7 @@ describe('QuestionComponent', () => {
 
 
     it('answer\'s order should be changed for question of the day', () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             categories: testData.categoryList,
             questionOfTheDay: testData.questionOfTheDay
           });
@@ -118,7 +118,7 @@ describe('QuestionComponent', () => {
 
 
     it('Verify Correct answer', () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             categories: testData.categoryList,
             questionOfTheDay: testData.questionOfTheDay
           });
@@ -129,7 +129,7 @@ describe('QuestionComponent', () => {
     });
 
     it('Verify category name is set from the question categories', () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             categories: testData.categoryList,
             questionOfTheDay: testData.questionOfTheDay
           });
@@ -148,7 +148,7 @@ describe('QuestionComponent', () => {
     });
 
     it('verify selectedAnswer function', () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             categories: testData.categoryList,
             questionOfTheDay: testData.questionOfTheDay
           });
@@ -160,7 +160,7 @@ describe('QuestionComponent', () => {
 
     it('verify rippleTap function works', () => {
         component.answerButtonClicked = jest.fn();
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             categories: testData.categoryList,
             questionOfTheDay: testData.questionOfTheDay
           });
@@ -171,7 +171,7 @@ describe('QuestionComponent', () => {
     });
 
     it('verify getNextQuestion function works', () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             categories: testData.categoryList,
             questionOfTheDay: testData.questionOfTheDay
           });
@@ -183,7 +183,7 @@ describe('QuestionComponent', () => {
     });
 
     it('verify get Next Question action dispatches correctly', async () => {
-      mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+      mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
           categories: testData.categoryList,
           questionOfTheDay: testData.questionOfTheDay
         });
@@ -199,7 +199,7 @@ describe('QuestionComponent', () => {
 
     it('verify answerButtonClicked function should work and  answerClicked event should emit the correct index', async () => {
       spyOn(component.answerClicked, 'emit');
-      mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+      mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
           categories: testData.categoryList,
           questionOfTheDay: testData.questionOfTheDay
         });
@@ -214,7 +214,7 @@ describe('QuestionComponent', () => {
 
     it('verify answerButtonClicked function should not work if doPlay is false', async () => {
       spyOn(component.answerClicked, 'emit');
-      mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+      mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
           categories: testData.categoryList,
           questionOfTheDay: testData.questionOfTheDay
         });
@@ -227,7 +227,7 @@ describe('QuestionComponent', () => {
 
     it('verify if the answer is correct UpdateQuestionStat action should fire with \'correct\' argument', async () => {
 
-      mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+      mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
           categories: testData.categoryList,
           questionOfTheDay: testData.questionOfTheDay
         });
@@ -241,7 +241,7 @@ describe('QuestionComponent', () => {
 
     it('verify if the answer is wrong UpdateQuestionStat action should fire with \'wrong\' argument', async () => {
 
-      mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+      mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
           categories: testData.categoryList,
           questionOfTheDay: testData.questionOfTheDay
         });

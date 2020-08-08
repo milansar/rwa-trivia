@@ -6,7 +6,7 @@ import { StoreModule, MemoizedSelector, Store } from '@ngrx/store';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { coreState, CoreState, UserActions, ActionWithPayload } from 'shared-library/core/store';
 import { Utils, WindowRef } from 'shared-library/core/services';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { testData } from 'test/data';
 
 describe('InviteMailFriendsComponent', () => {
@@ -39,9 +39,9 @@ describe('InviteMailFriendsComponent', () => {
         });
 
         fixture = TestBed.createComponent(InviteMailFriendsComponent);
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<CoreState>>(MockStore);
         component = fixture.componentInstance;
-        mockCoreSelector = mockStore.overrideSelector<CoreState, Partial<CoreState>>(coreState, {});
+        mockCoreSelector = mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(coreState, {});
         spy = spyOn(mockStore, 'dispatch');
         fixture.detectChanges();
     }));

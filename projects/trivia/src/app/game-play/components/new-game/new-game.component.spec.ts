@@ -1,14 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NewGameComponent } from './new-game.component';
 import { NO_ERRORS_SCHEMA, PLATFORM_ID } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, MemoizedSelector } from '@ngrx/store';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { Utils, WindowRef } from 'shared-library/core/services';
-import { User, Game } from 'shared-library/shared/model';
+import { User } from 'shared-library/shared/model';
 import { AppState, appState } from '../../../store';
 import { testData } from 'test/data';
 import { CoreState } from 'shared-library/core/store';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { GameActions, UserActions, TagActions } from 'shared-library/core/store/actions';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -89,7 +89,7 @@ describe('NewGameComponent', () => {
         // create component
         fixture = TestBed.createComponent(NewGameComponent);
         // mock data
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
         spy = spyOn(mockStore, 'dispatch');
         fixture = TestBed.createComponent(NewGameComponent);
         component = fixture.debugElement.componentInstance;
@@ -135,7 +135,7 @@ describe('NewGameComponent', () => {
     });
 
     it('verify set categories list after value is emitted', () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             categories: testData.categoryList
           });
           mockStore.refreshState();
@@ -145,7 +145,7 @@ describe('NewGameComponent', () => {
 
 
     it('verify tags after value is emitted', () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             tags: testData.tagList
           });
           mockStore.refreshState();
@@ -155,7 +155,7 @@ describe('NewGameComponent', () => {
 
     it('verify getTopTopics after value is emitted', () => {
         const topTagsList = cloneDeep(testData.getTopTags);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             getTopTags: topTagsList
           });
 
@@ -171,7 +171,7 @@ describe('NewGameComponent', () => {
 
 
     it('verify userDictionary after value is emitted', () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             userDict: testData.userDict
           });
           mockStore.refreshState();
@@ -180,7 +180,7 @@ describe('NewGameComponent', () => {
     });
 
     it('verify user after value is emitted', () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             getTopTags: cloneDeep(testData.getTopTags),
             user: testData.userList[0]
           });
@@ -192,7 +192,7 @@ describe('NewGameComponent', () => {
 
     it('verify if tag is selected from user tag list', () => {
         const topTagsList = cloneDeep(testData.getTopTags);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             getTopTags: topTagsList,
             user: testData.userList[0]
           });
@@ -212,7 +212,7 @@ describe('NewGameComponent', () => {
 
     it('verify if tag is selected from user lastGamePlayOption list', () => {
         const topTagsList = cloneDeep(testData.getTopTags);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             getTopTags: topTagsList,
             user: testData.userList[7]
           });
@@ -232,7 +232,7 @@ describe('NewGameComponent', () => {
     it('verify if application settings is set after the value is emitted ', () => {
         const applicationSettings = [];
         applicationSettings.push(cloneDeep(testData.applicationSettings));
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             applicationSettings: applicationSettings
           });
           mockStore.refreshState();
@@ -245,7 +245,7 @@ describe('NewGameComponent', () => {
         const applicationSettings = [];
         applicationSettings.push(cloneDeep(testData.applicationSettings));
         const account = cloneDeep(testData.accounts[0]);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             applicationSettings: applicationSettings,
             account: account
           });
@@ -258,7 +258,7 @@ describe('NewGameComponent', () => {
         const applicationSettings = [];
         applicationSettings.push(cloneDeep(testData.applicationSettings));
 
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             categories: cloneDeep(testData.categoryList),
             applicationSettings: applicationSettings,
             account: cloneDeep(testData.accounts[0]),
@@ -284,7 +284,7 @@ describe('NewGameComponent', () => {
 
 
     it('verify isCategorySelected() function should work for categoryWith requiredForGamePlay as true', () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: cloneDeep(testData.userList[0])
         });
         mockStore.refreshState();
@@ -292,7 +292,7 @@ describe('NewGameComponent', () => {
     });
 
     it('verify isCategorySelected() function should work for categoryWith requiredForGamePlay as false', () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: cloneDeep(testData.userList[0])
         });
         mockStore.refreshState();
@@ -302,7 +302,7 @@ describe('NewGameComponent', () => {
 
     it(`verify isCategorySelected() function should work for categoryWith requiredForGamePlay as false and part
         of user categorylist`, () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: cloneDeep(testData.userList[8])
         });
         mockStore.refreshState();
@@ -311,7 +311,7 @@ describe('NewGameComponent', () => {
 
     it(`verify isCategorySelected() function should work for categoryWith requiredForGamePlay as false and not part
          of user categorylist`, () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: cloneDeep(testData.userList[9])
         });
         mockStore.refreshState();
@@ -320,7 +320,7 @@ describe('NewGameComponent', () => {
 
     it(`verify isCategorySelected() function should work for categoryWith requiredForGamePlay as false and part
         of user last played games categorylist`, () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: cloneDeep(testData.userList[7])
         });
         mockStore.refreshState();
@@ -329,7 +329,7 @@ describe('NewGameComponent', () => {
 
     it(`verify isCategorySelected() function should work for categoryWith requiredForGamePlay as false and not part
         of user last played games categorylist`, () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: cloneDeep(testData.userList[10])
         });
         mockStore.refreshState();
@@ -337,7 +337,7 @@ describe('NewGameComponent', () => {
     });
 
     it('verify that selectTags() function works correctly', () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             getTopTags: cloneDeep(testData.getTopTags)
         });
         mockStore.refreshState();
@@ -347,7 +347,7 @@ describe('NewGameComponent', () => {
     });
 
     it('verify that selectTags() function works correctly if tag is selected', () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             getTopTags: cloneDeep(testData.getTopTags)
         });
         mockStore.refreshState();
@@ -359,7 +359,7 @@ describe('NewGameComponent', () => {
     });
 
     it('verify that filter() function works correctly ', () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             tags: cloneDeep(testData.tagList)
         });
         mockStore.refreshState();
@@ -395,7 +395,7 @@ describe('NewGameComponent', () => {
     it('verify that validateGameOptions() function works correctly with friendId set ', () => {
         const applicationSettings = [];
         applicationSettings.push(cloneDeep(testData.applicationSettings));
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             applicationSettings: applicationSettings
           });
           mockStore.refreshState();
@@ -427,7 +427,7 @@ describe('NewGameComponent', () => {
         redirectToDashboard() function should be called `, () => {
         const applicationSettings = [];
         applicationSettings.push(cloneDeep(testData.applicationSettings));
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             applicationSettings: applicationSettings
           });
           mockStore.refreshState();
@@ -479,7 +479,7 @@ describe('NewGameComponent', () => {
     });
 
     it('verify that removeEnteredTag() function works correctly', () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             tags: testData.tagList,
             getTopTags: cloneDeep(testData.getTopTags),
             user: testData.userList[0]
@@ -515,7 +515,7 @@ describe('NewGameComponent', () => {
         const applicationSettings = [];
         applicationSettings.push(cloneDeep(testData.applicationSettings));
 
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             categories: cloneDeep(testData.categoryList),
             applicationSettings: applicationSettings,
             account: cloneDeep(testData.accounts[0]),
@@ -621,7 +621,7 @@ describe('NewGameComponent', () => {
         applicationSettings.push(cloneDeep(testData.applicationSettings));
         const account = cloneDeep(testData.accounts[0]);
         component.startNewGame = jest.fn();
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             applicationSettings: applicationSettings,
             account: account
           });
@@ -637,7 +637,7 @@ describe('NewGameComponent', () => {
         applicationSettings.push(cloneDeep(testData.applicationSettings));
         const account = cloneDeep(testData.accounts[0]);
         component.startNewGame = jest.fn();
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             applicationSettings: applicationSettings,
             account: account
           });
@@ -734,7 +734,7 @@ describe('NewGameComponent', () => {
             'maxQuestions': 8,
             'opponentType': 1
           };
-          mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+          mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
             });
         mockStore.refreshState();

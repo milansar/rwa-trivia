@@ -4,13 +4,13 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Store, MemoizedSelector } from '@ngrx/store';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { Utils, WindowRef } from 'shared-library/core/services';
-import { User, Game, PlayerMode, GameStatus } from 'shared-library/shared/model';
+import { Game } from 'shared-library/shared/model';
 import { AppState, appState } from '../../../store';
 import { testData } from 'test/data';
 import { CoreState } from 'shared-library/core/store';
 import { UserActions } from 'shared-library/core/store/actions';
-import { MatSnackBarModule, MatDialog } from '@angular/material';
-import { MatDialogModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 import { PLATFORM_ID } from '@angular/core';
 import * as dashboardactions from '../../../dashboard/store/actions';
 import { GamePlayState } from '../../store';
@@ -72,10 +72,12 @@ describe('GameOverComponent', () => {
         // create component
         fixture = TestBed.createComponent(GameOverComponent);
         // mock data
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
         spy = spyOn(mockStore, 'dispatch');
-        mockCoreSelector = mockStore.overrideSelector<CoreState, Partial<CoreState>>(appState.coreState, {});
-        mockGamePlaySelector = mockStore.overrideSelector<GamePlayState, Partial<GamePlayState>>(appState.gamePlayState, {});
+        mockCoreSelector = mockStore
+        .overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {});
+        mockGamePlaySelector = mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {});
         fixture = TestBed.createComponent(GameOverComponent);
         component = fixture.debugElement.componentInstance;
         const dbModel = testData.games[0];

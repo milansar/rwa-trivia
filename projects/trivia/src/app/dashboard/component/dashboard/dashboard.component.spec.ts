@@ -4,7 +4,7 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { AppState, appState } from '../../../store';
 import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
 import { Utils, WindowRef } from 'shared-library/core/services';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { QuestionActions, GameActions, UserActions, CoreState, categoryDictionary, coreState } from 'shared-library/core/store';
 import { Router } from '@angular/router';
 import { Store, MemoizedSelector } from '@ngrx/store';
@@ -80,13 +80,15 @@ describe('DashboardComponent', () => {
         // create component
         fixture = TestBed.createComponent(DashboardComponent);
         // mock data
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
         spy = spyOn(mockStore, 'dispatch');
-        mockCoreSelector = mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {});
+        mockCoreSelector = mockStore
+        .overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {});
         mockCategorySelector = mockStore.overrideSelector(categoryDictionary, {});
-        mockDashboardSelector = mockStore.overrideSelector<AppState, Partial<DashboardState>>(appState.dashboardState, {});
+        mockDashboardSelector = mockStore
+        .overrideSelector<MemoizedSelector<DashboardState, Partial<DashboardState>>, Partial<DashboardState>>(appState.dashboardState, {});
         component = fixture.debugElement.componentInstance;
-        router = TestBed.get(Router);
+        router = TestBed.inject(Router);
     });
 
     it('should create', () => {
@@ -350,7 +352,7 @@ describe('DashboardComponent', () => {
         const games = testData.games.map(dbModel => {
             return Game.getViewModel(dbModel);
         });
-        mockStore.overrideSelector<CoreState, Partial<CoreState>>(coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(coreState, {
             friendInvitations, gameInvites: games
         });
         mockStore.refreshState();

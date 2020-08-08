@@ -2,11 +2,14 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { QuestionsTableComponent } from './questions-table.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { StoreModule, MemoizedSelector, Store } from '@ngrx/store';
+import { StoreModule, MemoizedSelector } from '@ngrx/store';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { coreState, CoreState, UserActions } from 'shared-library/core/store';
 import { Utils, WindowRef } from 'shared-library/core/services';
-import { MatSnackBarModule, MatSelectModule, MatPaginatorModule, MatCheckboxModule, PageEvent, MatSelectChange } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSelectModule, MatSelectChange } from '@angular/material/select';
+import { MatPaginatorModule, PageEvent, } from '@angular/material/paginator';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { testData } from 'test/data';
 import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
 import { CdkColumnDef, CdkRowDef, CdkHeaderRowDef } from '@angular/cdk/table';
@@ -43,9 +46,9 @@ describe('QuestionsTableComponent', () => {
     });
 
     fixture = TestBed.createComponent(QuestionsTableComponent);
-    mockStore = TestBed.get(Store);
+    mockStore = TestBed.inject<MockStore<CoreState>>(MockStore);
     component = fixture.componentInstance;
-    mockCoreSelector = mockStore.overrideSelector<CoreState, Partial<CoreState>>(coreState, {});
+    mockCoreSelector = mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(coreState, {});
     spy = spyOn(mockStore, 'dispatch');
     fixture.detectChanges();
   }));

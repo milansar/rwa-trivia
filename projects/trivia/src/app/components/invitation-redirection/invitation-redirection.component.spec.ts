@@ -6,7 +6,7 @@ import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { AppState, appState } from '../../store';
 import { testData } from 'test/data';
 import { CoreState } from 'shared-library/core/store';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { UserActions } from 'shared-library/core/store/actions';
 import { Router, ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
@@ -74,7 +74,7 @@ describe('InvitationRedirectionComponent', () => {
 
     it('verify if the user value is set after the value is emitted', () => {
 
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
           });
           mockStore.refreshState();
@@ -82,7 +82,7 @@ describe('InvitationRedirectionComponent', () => {
     });
 
     it('verify if the storeInvitationToken, makeFriend events are emitted', () => {
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: testData.userList[0]
         });
         mockStore.refreshState();

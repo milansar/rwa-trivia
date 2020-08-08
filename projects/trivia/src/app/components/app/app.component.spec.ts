@@ -4,7 +4,7 @@ import { User } from 'shared-library/shared/model';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { AppState, appState } from '../../store';
 import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { Store, MemoizedSelector } from '@ngrx/store';
 import { testData } from 'test/data';
 import { WindowRef } from 'shared-library/core/services';
@@ -99,9 +99,10 @@ describe('AppComponent', () => {
         // create component
         fixture = TestBed.createComponent(AppComponent);
         // mock data
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
         spy = spyOn(mockStore, 'dispatch');
-        mockCoreSelector = mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {});
+        mockCoreSelector = mockStore
+        .overrideSelector<MemoizedSelector<AppState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {});
         fixture = TestBed.createComponent(AppComponent);
         // grab the renderer
         renderer2 = fixture.componentRef.injector.get<Renderer2>(Renderer2 as Type<Renderer2>);
@@ -182,7 +183,7 @@ describe('AppComponent', () => {
         spyOn(component.authService, 'updateUserConnection').and.callThrough();
         const invitationTokenStatus = testData.invitation.status;
         mockCoreSelector.setResult({ user, invitationToken: invitationTokenStatus });
-        mockStore.overrideSelector<CoreState, Partial<CoreState>>(coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(coreState, {
             userProfileSaveStatus: 'MAKE FRIEND SUCCESS'
         });
         mockStore.refreshState();

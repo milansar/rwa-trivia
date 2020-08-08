@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { PreviewQuestionDialogComponent } from './preview-question-dialog.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MatSnackBarModule } from '@angular/material';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { testData } from 'test/data';
 
 describe('PreviewQuestionDialogComponent', () => {

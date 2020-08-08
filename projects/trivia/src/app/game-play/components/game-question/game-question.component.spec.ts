@@ -1,14 +1,12 @@
 import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { GameQuestionComponent } from './game-question.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Store, MemoizedSelector } from '@ngrx/store';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { Utils } from 'shared-library/core/services';
-import { User, Game, PlayerMode, GameStatus } from 'shared-library/shared/model';
+import { Game } from 'shared-library/shared/model';
 import { AppState, appState } from '../../../store';
 import { testData } from 'test/data';
-import { CoreState } from 'shared-library/core/store';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 describe('GameQuestionComponent', () => {
@@ -16,7 +14,6 @@ describe('GameQuestionComponent', () => {
     let component: GameQuestionComponent;
     let fixture: ComponentFixture<GameQuestionComponent>;
     let spy: any;
-    let user: User;
     let mockStore: MockStore<AppState>;
 
     beforeEach(async(() => {
@@ -50,7 +47,7 @@ describe('GameQuestionComponent', () => {
         // create component
         fixture = TestBed.createComponent(GameQuestionComponent);
         // mock data
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
         spy = spyOn(mockStore, 'dispatch');
 
         component = fixture.debugElement.componentInstance;

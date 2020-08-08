@@ -9,7 +9,7 @@ import { Utils, WindowRef } from 'shared-library/core/services';
 import { RouterTestingModule } from '@angular/router/testing';
 import { User } from 'shared-library/shared/model';
 import { testData } from 'test/data';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { projectMeta } from 'shared-library/environments/environment';
 
 describe('SideNavComponent', () => {
@@ -48,10 +48,12 @@ describe('SideNavComponent', () => {
         // create component
         fixture = TestBed.createComponent(SideNavComponent);
         // mock data
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
         spy = spyOn(mockStore, 'dispatch');
-        mockCoreSelector = mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {});
-        mockCoreStateSelector = mockStore.overrideSelector<CoreState, Partial<CoreState>>(coreState, {});
+        mockCoreSelector = mockStore
+        .overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {});
+        mockCoreStateSelector = mockStore
+        .overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(coreState, {});
 
         component = fixture.debugElement.componentInstance;
 

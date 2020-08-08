@@ -3,7 +3,7 @@ import { ComponentFixture, async, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { testData } from 'test/data';
 import { projectMeta } from 'shared-library/environments/environment';

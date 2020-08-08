@@ -1,11 +1,11 @@
 import { MyQuestionsComponent } from './my-questions.component';
 import { ComponentFixture, async, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
-import { Store } from '@ngrx/store';
+import { Store, MemoizedSelector } from '@ngrx/store';
 import { AppState, appState } from '../../../store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { QuestionActions, coreState } from 'shared-library/core/store';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CoreState } from 'shared-library/core/store';
 import { testData } from 'test/data';
 import { userState, UserState } from '../../../user/store';
@@ -48,7 +48,7 @@ describe('MyQuestionsComponent', () => {
         // Create component
         fixture = TestBed.createComponent(MyQuestionsComponent);
         // mock data
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
         spy = spyOn(mockStore, 'dispatch');
         component = fixture.debugElement.componentInstance;
     });
@@ -63,7 +63,7 @@ describe('MyQuestionsComponent', () => {
 
     it('user should be set when constructor call', () => {
         user = { ...testData.userList[0] };
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user
         });
         mockStore.refreshState();
@@ -73,7 +73,7 @@ describe('MyQuestionsComponent', () => {
 
     it('publishedQuestions should be set when constructor call', () => {
         publishedQuestions = { ...testData.questions.published };
-        mockStore.overrideSelector<AppState, Partial<UserState>>(userState, {
+        mockStore.overrideSelector<MemoizedSelector<UserState, Partial<UserState>>, Partial<UserState>>(userState, {
             userPublishedQuestions: publishedQuestions
         });
         mockStore.refreshState();
@@ -83,7 +83,7 @@ describe('MyQuestionsComponent', () => {
 
     it('unpublishedQuestions should be set when constructor call', () => {
         unpublishedQuestions = { ...testData.questions.unpublished };
-        mockStore.overrideSelector<AppState, Partial<UserState>>(userState, {
+        mockStore.overrideSelector<MemoizedSelector<UserState, Partial<UserState>>, Partial<UserState>>(userState, {
             userUnpublishedQuestions: unpublishedQuestions
         });
         mockStore.refreshState();
@@ -93,7 +93,7 @@ describe('MyQuestionsComponent', () => {
 
     it('Verify quillconfig container options should be set when constructor call', () => {
         applicationSettings.push(testData.applicationSettings);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             applicationSettings: applicationSettings
         });
         mockStore.refreshState();
@@ -103,7 +103,7 @@ describe('MyQuestionsComponent', () => {
 
     it('Verify quillconfig container list should be set when constructor call', () => {
         applicationSettings.push(testData.applicationSettings);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             applicationSettings: applicationSettings
         });
         mockStore.refreshState();
@@ -113,7 +113,7 @@ describe('MyQuestionsComponent', () => {
 
     it('Verify quillconfig mathEditor mathOptions should be set when constructor call', () => {
         applicationSettings.push(testData.applicationSettings);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             applicationSettings: applicationSettings
         });
         mockStore.refreshState();
@@ -136,7 +136,7 @@ describe('MyQuestionsComponent', () => {
 
     it('Verify updateQuestion status, it should be UPDATE', () => {
         component.snackBar.open = jest.fn();
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(coreState, {
             updateQuestion: 'UPDATE'
         });
         mockStore.refreshState();
