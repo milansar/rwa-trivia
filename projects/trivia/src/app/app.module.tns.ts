@@ -1,6 +1,6 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NativeScriptModule } from '@nativescript/angular/nativescript.module';
-import { AppRoutingModule } from '../app/routing/app-routing.module';
+import { RoutingModule } from '../app/routing/routing.module';
 import { AppComponent } from './../app/components/app/app.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -39,7 +39,7 @@ registerElement('CardView', () => CardView);
   imports: [
     CoreModule,
     NativeScriptModule,
-    AppRoutingModule,
+    RoutingModule,
     EffectsModule.forRoot([]),
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreRouterConnectingModule.forRoot(),
