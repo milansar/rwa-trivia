@@ -1,5 +1,5 @@
 const { join, parse } = require("path");
-const nsWebpack = require("nativescript-dev-webpack");
+const nsWebpack = require('@nativescript/webpack');
 const fs = require("fs");
 
 module.exports.getResolverExtended = function (platforms, project) {
