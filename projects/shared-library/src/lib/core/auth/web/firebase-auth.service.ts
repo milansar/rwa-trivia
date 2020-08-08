@@ -4,7 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
 import { Router } from '@angular/router';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { LoginComponent } from './../../components/login/login.component';
 import { WindowRef } from './../../services/windowref.service';
 import { isPlatformBrowser } from '@angular/common';
@@ -32,7 +32,7 @@ export class WebFirebaseAuthService implements FirebaseAuthService {
     }
 
     public createUserWithEmailAndPassword(email, password) {
-        return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+        return this.afAuth.createUserWithEmailAndPassword(email, password);
     }
 
     public getIdToken(user, forceRefresh: boolean) {
@@ -64,7 +64,7 @@ export class WebFirebaseAuthService implements FirebaseAuthService {
 
     public async signOut() {
         this.updateTokenStatus(this.user.userId, UserStatusConstants.OFFLINE);
-        await this.afAuth.auth.signOut();
+        await this.afAuth.signOut();
         this.router.navigate(['dashboard']);
         if (isPlatformBrowser(this.platformId)) {
             this.windowsRef.nativeWindow.location.reload();
@@ -82,30 +82,30 @@ export class WebFirebaseAuthService implements FirebaseAuthService {
     }
 
     public signInWithEmailAndPassword(email: string, password: string) {
-        return this.afAuth.auth.signInWithEmailAndPassword(email, password);
+        return this.afAuth.signInWithEmailAndPassword(email, password);
     }
 
     public firebaseAuth() {
-        return this.afAuth.auth;
+        return this.afAuth;
     }
 
     public googleLogin(): Promise<any> {
-        return this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+        return this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
     }
 
     public facebookLogin(): Promise<any> {
-        return this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
+        return this.afAuth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
     }
     public phoneLogin(phoneNumber): Promise<any> {
         return;
     }
 
     public twitterLogin(): Promise<any> {
-        return this.afAuth.auth.signInWithPopup(new firebase.auth.TwitterAuthProvider());
+        return this.afAuth.signInWithPopup(new firebase.auth.TwitterAuthProvider());
     }
 
     public githubLogin(): Promise<any> {
-        return this.afAuth.auth.signInWithPopup(new firebase.auth.GithubAuthProvider());
+        return this.afAuth.signInWithPopup(new firebase.auth.GithubAuthProvider());
     }
 
     public appleLogin(): Promise<any> {

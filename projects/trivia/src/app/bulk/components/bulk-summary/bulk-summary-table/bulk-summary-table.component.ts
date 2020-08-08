@@ -2,14 +2,15 @@ import {
   Component, Input, ViewChild, OnChanges, Output, EventEmitter,
   OnInit, SimpleChanges, ChangeDetectionStrategy, OnDestroy, Inject, PLATFORM_ID
 } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { bulkState } from '../../../store';
 import { BulkUploadFileInfo, Category, User } from 'shared-library/shared/model';
 import { AppState, appState, categoryDictionary } from '../../../../store';
-import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
-import { Sort } from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { AngularFireStorage } from '@angular/fire/storage';
 import * as bulkActions from '../../../store/actions';
 import { Router } from '@angular/router';

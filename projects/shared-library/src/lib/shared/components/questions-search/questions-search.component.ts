@@ -1,5 +1,6 @@
 import { Component, Input, Output, OnInit, OnChanges, OnDestroy, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { PageEvent, MatCheckboxChange } from '@angular/material';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { PageEvent} from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 
 import { Question, QuestionStatus, Category, SearchResults, ApplicationSettings } from '../../model';

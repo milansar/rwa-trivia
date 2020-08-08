@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, PLATFORM_ID, Inject } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';
 import { SwiperConfigInterface, SwiperDirective } from 'ngx-swiper-wrapper';
 import { Observable } from 'rxjs';
-import { flatMap, map } from 'rxjs/operators';
+import { flatMap, map, mergeMap } from 'rxjs/operators';
 import { Utils, WindowRef } from 'shared-library/core/services';
 import { GameActions, UserActions, TagActions } from 'shared-library/core/store/actions';
 import { Category, GameMode, GameOptions } from 'shared-library/shared/model';
@@ -100,7 +100,7 @@ export class NewGameComponent extends NewGame implements OnInit, OnDestroy {
           }
 
         }),
-        flatMap(() => playerModeControl.valueChanges)
+        mergeMap(() => playerModeControl.valueChanges)
       ).subscribe(v => {
         if (v === '1') {
           opponentTypeControl.enable();
@@ -151,7 +151,7 @@ export class NewGameComponent extends NewGame implements OnInit, OnDestroy {
       tagsArray: tagsFA,
       isChallenge: gameOptions.isChallenge,
       friendUserId: ''
-    } //, {validator: questionFormValidator}
+    } // , {validator: questionFormValidator}
     );
     return form;
   }

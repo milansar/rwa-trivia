@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { User } from 'shared-library/shared/model';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';
 import { CropperSettings, ImageCropperComponent } from 'ngx-img-cropper';

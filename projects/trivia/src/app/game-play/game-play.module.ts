@@ -35,14 +35,14 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     ReportGameComponent
   ],
   imports: [
-    //rwa modules
+    // rwa modules
     SharedModule,
     GamePlayRoutingModule,
     MatSnackBarModule,
-    //ngrx feature store
+    // ngrx feature store
     StoreModule.forFeature('gameplay', reducer),
 
-    //ngrx effects
+    // ngrx effects
     EffectsModule.forFeature(effects),
 
     SwiperModule

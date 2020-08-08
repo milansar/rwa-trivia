@@ -2,12 +2,12 @@ import { Component, Input, Output, OnInit, OnChanges, OnDestroy, EventEmitter, C
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { Question, QuestionStatus, Category, User, Answer, ApplicationSettings } from '../../model';
 import { QuestionService } from '../../../core/services';
-import { Observable, interval, of, Subject, merge } from 'rxjs';
-import { debounceTime, switchMap, map, multicast, take, skip, mergeMap } from 'rxjs/operators';
+import { Observable,  of,  merge } from 'rxjs';
+import { debounceTime, switchMap, map, take, mergeMap } from 'rxjs/operators';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';
 // import { QuillImageUpload } from 'ng-quill-tex/lib/models/quill-image-upload';
 import { CropImageDialogComponent } from './../crop-image-dialog/crop-image-dialog.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { Store, select } from '@ngrx/store';
 import { CoreState, coreState, QuestionActions } from './../../../core/store';
 import * as userActions from '../../../../../../trivia/src/app/user/store/actions';
@@ -24,8 +24,8 @@ export class QuestionFormComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() editQuestion: Question;
   @Input() tagsObs: Observable<string[]>;
-  @Input() tagsDictionary: any; //{ [key: number]: Category };
-  @Input() categoriesObs: any; //[[key: number]: ]; /// [key: number]: string };
+  @Input() tagsDictionary: any;
+  @Input() categoriesObs: any;
   @Output() updateStatus = new EventEmitter<boolean>();
   @Output() updateUnpublishedQuestions = new EventEmitter<Question>();
   @Input() quillConfig: any;

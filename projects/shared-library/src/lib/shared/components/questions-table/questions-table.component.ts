@@ -4,10 +4,11 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataSource } from '@angular/cdk/table';
-import { PageEvent, MatSelectChange } from '@angular/material';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Question, QuestionStatus, Category, User, BulkUploadFileInfo, ApplicationSettings } from '../../model';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSelectChange } from '@angular/material/select';
 
 
 @Component({

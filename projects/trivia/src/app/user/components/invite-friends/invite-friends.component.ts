@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, Renderer2, ViewChild, PLATFORM_ID, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+
 import { select, Store } from '@ngrx/store';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';
 import { UserActions } from 'shared-library/core/store/actions';
@@ -64,7 +67,7 @@ export class InviteFriendsComponent extends InviteFriends implements OnInit, OnD
     });
     this.dialogRef.componentInstance.ref = this.dialogRef;
     if (isPlatformBrowser(this.platformId)) {
-      this.subscriptions.push(this.dialogRef.afterOpen().subscribe(x => {
+      this.subscriptions.push(this.dialogRef.afterOpened().subscribe(x => {
         this.renderer.addClass(document.body, 'dialog-open');
       }));
       this.subscriptions.push(this.dialogRef.afterClosed().subscribe(x => {

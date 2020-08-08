@@ -1,5 +1,5 @@
 import { Component, Input, Inject, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import {
     ReportQuestion, User, Game, QuestionMetadata, Category, Question

@@ -10,7 +10,7 @@ import { coreState, UserActions } from 'shared-library/core/store';
 import { FirebaseAnalyticsKeyConstants, FirebaseAnalyticsEventConstants } from 'shared-library/shared/model';
 import { AppState } from '../../../store';
 import { ProfileSettings } from './profile-settings';
-import { MatDialogRef, MatDialog } from '@angular/material';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { LocationResetDialogComponent } from './location-reset-dialog/location-reset-dialog.component';
 import { filter } from 'rxjs/operators';
 import { AuthenticationProvider } from 'shared-library/core/auth';

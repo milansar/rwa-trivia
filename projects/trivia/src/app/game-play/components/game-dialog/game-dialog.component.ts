@@ -1,8 +1,7 @@
 import { Component, Inject, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import * as gameplayactions from '../../store/actions';
 import { GamePlayState } from '../../store';
 import { UserActions } from 'shared-library/core/store/actions';
 import { GameDialog } from './game-dialog';

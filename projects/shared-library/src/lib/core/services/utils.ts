@@ -1,7 +1,7 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { UtilsCore } from './utilsCore';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of } from 'rxjs';
 // tslint:disable-next-line:max-line-length
 import { GameOptions, Game, User, FirebaseAnalyticsKeyConstants, FirebaseAnalyticsEventConstants, OpponentType, GameConstants, GameMode, PlayerMode, GeneralConstants } from 'shared-library/shared/model';

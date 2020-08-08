@@ -1,5 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MatCheckboxChange, MatTabChangeEvent, PageEvent } from '@angular/material';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatTabChangeEvent } from '@angular/material/tabs';
+import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';

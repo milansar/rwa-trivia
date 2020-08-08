@@ -3,7 +3,8 @@ import { FormBuilder, FormArray, FormGroup, FormControl, Validators } from '@ang
 import { Store, select } from '@ngrx/store';
 import { Utils } from 'shared-library/core/services';
 import { AppState, appState } from '../../../store';
-import { MatSnackBar, MatDialog } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { QuestionActions } from 'shared-library/core/store/actions/question.actions';
 import { QuestionAddUpdate } from './question-add-update';
@@ -30,9 +31,6 @@ export class QuestionAddUpdateComponent extends QuestionAddUpdate implements OnI
   @ViewChild('cropper', { static: false }) cropper: ImageCropperComponent;
   dialogRef;
 
-  get tagsArray(): FormArray {
-    return this.questionForm.get('tagsArray') as FormArray;
-  }
 
   htmlText: any;
   jsonObject: any;
@@ -107,6 +105,9 @@ export class QuestionAddUpdateComponent extends QuestionAddUpdate implements OnI
     }));
   }
 
+  get tagsArray(): FormArray {
+    return this.questionForm.get('tagsArray') as FormArray;
+  }
 
   setValidators(isRichEditor) {
     if (isRichEditor) {

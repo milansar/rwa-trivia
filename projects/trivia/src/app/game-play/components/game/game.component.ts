@@ -1,10 +1,10 @@
 import {
-  Component, Input, OnInit, OnDestroy, Renderer2, ChangeDetectionStrategy,
+  Component, OnInit, OnDestroy, Renderer2, ChangeDetectionStrategy,
   ChangeDetectorRef, Inject, PLATFORM_ID
 } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { GameDialogComponent } from '../game-dialog/game-dialog.component';
@@ -43,13 +43,15 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscriptions.push(this.store.select(appState.coreState).pipe(take(1)).subscribe(s => { this.user = s.user; this.cd.detectChanges(); })); //logged in user
-    //use the setTimeout to avoid ExpressionChangedAfterItHasBeenCheckedError
-    //The error happens as bindings change after change detection has run. using setTimeout runs another round of CD
+    this.subscriptions.push
+    (this.store.select(appState.coreState).pipe(take(1)).subscribe(s => { this.user = s.user; this.cd.detectChanges(); }));
+    // logged in user
+    // use the setTimeout to avoid ExpressionChangedAfterItHasBeenCheckedError
+    // The error happens as bindings change after change detection has run. using setTimeout runs another round of CD
     // REF: https://github.com/angular/angular/issues/6005
     // REF: https://github.com/angular/angular/issues/17572
     // REF: https://github.com/angular/angular/issues/10131
-    //TODO: se what's causing the error and fix.
+    // TODO: se what's causing the error and fix.
     setTimeout(() => this.openDialog(), 0);
   }
 
@@ -59,7 +61,7 @@ export class GameComponent implements OnInit, OnDestroy {
       data: { 'user': this.user, 'userDict': this.userDict }
     });
     if (isPlatformBrowser(this.platformId)) {
-      this.subscriptions.push(this.dialogRef.afterOpen().subscribe(x => {
+      this.subscriptions.push(this.dialogRef.afterOpened().subscribe(x => {
         this.cd.detectChanges();
         this.renderer.addClass(document.body, 'dialog-open');
       }));

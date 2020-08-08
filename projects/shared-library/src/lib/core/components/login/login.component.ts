@@ -1,6 +1,6 @@
 import { Component, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { CoreState, UIStateActions } from '../../store';
 import { Store } from '@ngrx/store';
 import { FirebaseAuthService } from './../../auth/firebase-auth.service';

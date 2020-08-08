@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, Renderer2, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { NavigationEnd, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { CookieLawComponent } from 'angular2-cookie-law';
