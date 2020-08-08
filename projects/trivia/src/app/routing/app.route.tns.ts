@@ -15,17 +15,17 @@ export const routes: Routes = [
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     {
         path: 'dashboard',
-        loadChildren: './../dashboard/dashboard.module#DashboardModule',
+        loadChildren: () => import('./../dashboard/dashboard.module').then(m => m.DashboardModule)
     },
     {
         path: 'game-play',
-        loadChildren: './../game-play/game-play.module#GamePlayModule',
+        loadChildren: () => import('./../game-play/game-play.module').then(m => m.GamePlayModule),
         canActivate: [AuthGuard],
         resolve: { 'categories': CategoriesResolver, 'tags': TagsResolver }
     },
     {
         path: 'user',
-        loadChildren: './../user/user.module#UserModule',
+        loadChildren: () => import('./../user/user.module').then(m => m.UserModule),
         resolve: { 'categories': CategoriesResolver, 'tags': TagsResolver }
     },
     {
