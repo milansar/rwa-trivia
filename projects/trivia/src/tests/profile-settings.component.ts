@@ -27,7 +27,7 @@ import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CoreState, UserActions, UIStateActions, coreState, getTopTopics } from 'shared-library/core/store';
 import { CheckDisplayNameComponent } from 'shared-library/shared/components';
-import { ObservableArray } from '@nativescript/core/data/observable-array/observable-array';
+import { ObservableArray } from '@nativescript/core/data/observable-array';
 import { TokenModel } from 'nativescript-ui-autocomplete';
 import * as utils from '@nativescript/core/utils/utils';
 
@@ -46,7 +46,7 @@ describe('ProfileSettingsComponent', () => {
 
   const firebaseAuthService: FirebaseAuthService = null;
   let mockStore: MockStore<AppState>;
-  let mockCoreSelector: MemoizedSelector<AppState, Partial<CoreState>>;
+  let mockCoreSelector: MemoizedSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>;
 
 
   const setUserData = () => {
@@ -144,11 +144,12 @@ describe('ProfileSettingsComponent', () => {
 
   beforeEach((async () => {
     fixture = await nsTestBedRender(ProfileSettingsComponent);
-    mockStore = TestBed.get(Store);
+    mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
     component = fixture.componentInstance;
     spy = spyOn(mockStore, 'dispatch');
-    mockCoreSelector = mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {});
-    router = TestBed.get(Router);
+    mockCoreSelector = mockStore
+    .overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {});
+    router = TestBed.inject(Router);
     fixture.detectChanges();
   }));
 
@@ -162,10 +163,10 @@ describe('ProfileSettingsComponent', () => {
   });
 
   it('Verify if userProfileSaveStatus SUCCESS', () => {
-    const services = TestBed.get(Utils);
+    const services = TestBed.inject(Utils);
     const spyMessage = spyOn(services, 'showMessage');
     const spyToggleLoader = spyOn(component, 'toggleLoader');
-    mockStore.overrideSelector<AppState, Partial<CoreState>>(coreState, {
+    mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(coreState, {
       userProfileSaveStatus: 'SUCCESS'
     });
     mockStore.refreshState();
@@ -176,9 +177,9 @@ describe('ProfileSettingsComponent', () => {
   });
 
   it('Verify if userProfileSaveStatus is not equal to SUCCESS && NONE && IN PROCESS && MAKE FRIEND SUCCESS', () => {
-    const services = TestBed.get(Utils);
+    const services = TestBed.inject(Utils);
     const spyMessage = spyOn(services, 'showMessage');
-    mockStore.overrideSelector<AppState, Partial<CoreState>>(coreState, {
+    mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(coreState, {
       userProfileSaveStatus: 'ERROR'
     });
     mockStore.refreshState();
@@ -320,7 +321,7 @@ describe('ProfileSettingsComponent', () => {
   it('On call setBulkUploadRequest it show error message when form is not valid', () => {
     setUserData();
     component.userForm.get('profilePicture').setValue('/assets/images/default-avatar-small.png');
-    const services = TestBed.get(Utils);
+    const services = TestBed.inject(Utils);
     const spyMessage = spyOn(services, 'showMessage');
     component.setBulkUploadRequest();
     expect(spyMessage).toHaveBeenCalled();
@@ -341,7 +342,7 @@ describe('ProfileSettingsComponent', () => {
     component.userForm.get('profilePicture').setValue('/assets/images/default-avatar-small.png');
     const spyEditSingleField = spyOn(component, 'editSingleField');
 
-    const services = TestBed.get(Utils);
+    const services = TestBed.inject(Utils);
     const spyFocusTextField = spyOn(services, 'focusTextField');
 
     component.formEditOpen('socialProfile');
@@ -355,7 +356,7 @@ describe('ProfileSettingsComponent', () => {
     component.userForm.get('profilePicture').setValue('/assets/images/default-avatar-small.png');
     const spyEditSingleField = spyOn(component, 'editSingleField');
 
-    const services = TestBed.get(Utils);
+    const services = TestBed.inject(Utils);
     const spyFocusTextField = spyOn(services, 'focusTextField');
 
     component.formEditOpen('displayName');
@@ -369,7 +370,7 @@ describe('ProfileSettingsComponent', () => {
     component.userForm.get('profilePicture').setValue('/assets/images/default-avatar-small.png');
     const spyEditSingleField = spyOn(component, 'editSingleField');
 
-    const services = TestBed.get(Utils);
+    const services = TestBed.inject(Utils);
     const spyFocusTextField = spyOn(services, 'focusTextField');
 
     component.formEditOpen('displayName');
@@ -396,7 +397,7 @@ describe('ProfileSettingsComponent', () => {
   });
 
   it('On call hideKeyboard it should hide keyboard', () => {
-    const services = TestBed.get(Utils);
+    const services = TestBed.inject(Utils);
     const spyHideKeyboard = spyOn(services, 'hideKeyboard');
     component.hideKeyboard();
     expect(spyHideKeyboard).toHaveBeenCalledTimes(1);
@@ -903,7 +904,7 @@ describe('ProfileSettingsComponent', () => {
     } as any;
 
     const spySaveUserInformation = spyOn(component, 'saveUserInformation');
-    const services = TestBed.get(AuthenticationProvider);
+    const services = TestBed.inject(AuthenticationProvider);
     const spyUpdatePassword = spyOn(services, 'updatePassword');
     const userDict = { '4kFa6HRvP5OhvYXsH9mEsRrXj4o2': user };
     applicationSettings.push(testData.applicationSettings);

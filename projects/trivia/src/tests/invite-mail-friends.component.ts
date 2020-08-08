@@ -46,9 +46,9 @@ describe('InviteMailFriendsComponent', () => {
     ));
     beforeEach((async () => {
         fixture = await nsTestBedRender(InviteMailFriendsComponent);
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<CoreState>>(MockStore);
         component = fixture.componentInstance;
-        mockCoreSelector = mockStore.overrideSelector<CoreState, Partial<CoreState>>(coreState, {});
+        mockCoreSelector = mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(coreState, {});
         spy = spyOn(mockStore, 'dispatch');
         fixture.detectChanges();
     }));

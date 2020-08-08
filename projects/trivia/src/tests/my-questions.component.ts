@@ -6,7 +6,7 @@ import {
     nsTestBedRender,
 } from '@nativescript/angular/testing';
 import { MyQuestionsComponent } from './../app/user/components/my-questions/my-questions.component';
-import { StoreModule, Store } from '@ngrx/store';
+import { StoreModule, Store, MemoizedSelector } from '@ngrx/store';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { testData } from 'test/data';
 import { GameActions, QuestionActions, UserActions } from 'shared-library/core/store/actions';
@@ -54,10 +54,10 @@ describe('MyQuestionsComponent', () => {
 
     beforeEach((async () => {
         fixture = await nsTestBedRender(MyQuestionsComponent);
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
         component = fixture.componentInstance;
         spy = spyOn(mockStore, 'dispatch');
-        router = TestBed.get(Router);
+        router = TestBed.inject(Router);
         fixture.detectChanges();
     }));
 
@@ -124,7 +124,7 @@ describe('MyQuestionsComponent', () => {
 
     it('user should be set when constructor call', () => {
         user = { ...testData.userList[0] };
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user
         });
         mockStore.refreshState();
@@ -134,7 +134,7 @@ describe('MyQuestionsComponent', () => {
 
     it('publishedQuestions should be set when constructor call', () => {
         publishedQuestions = { ...testData.questions.published };
-        mockStore.overrideSelector<AppState, Partial<UserState>>(userState, {
+        mockStore.overrideSelector<MemoizedSelector<UserState, Partial<UserState>>, Partial<UserState>>(userState, {
             userPublishedQuestions: publishedQuestions
         });
         mockStore.refreshState();
@@ -144,7 +144,7 @@ describe('MyQuestionsComponent', () => {
 
     it('unpublishedQuestions should be set when constructor call', () => {
         unpublishedQuestions = { ...testData.questions.unpublished };
-        mockStore.overrideSelector<AppState, Partial<UserState>>(userState, {
+        mockStore.overrideSelector<MemoizedSelector<UserState, Partial<UserState>>, Partial<UserState>>(userState, {
             userUnpublishedQuestions: unpublishedQuestions
         });
         mockStore.refreshState();
@@ -154,7 +154,7 @@ describe('MyQuestionsComponent', () => {
 
     it('Verify quillconfig container options should be set when constructor call', () => {
         applicationSettings.push(testData.applicationSettings);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             applicationSettings: applicationSettings
         });
         mockStore.refreshState();
@@ -164,7 +164,7 @@ describe('MyQuestionsComponent', () => {
 
     it('Verify quillconfig container list should be set when constructor call', () => {
         applicationSettings.push(testData.applicationSettings);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             applicationSettings: applicationSettings
         });
         mockStore.refreshState();
@@ -174,7 +174,7 @@ describe('MyQuestionsComponent', () => {
 
     it('Verify quillconfig mathEditor mathOptions should be set when constructor call', () => {
         applicationSettings.push(testData.applicationSettings);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             applicationSettings: applicationSettings
         });
         mockStore.refreshState();

@@ -23,7 +23,6 @@ describe('GameOverComponent', () => {
     let mockStore: MockStore<AppState>;
     let spy: any;
     let router: Router;
-    let user: User;
     let mockCoreSelector: MemoizedSelector<CoreState, Partial<CoreState>>;
     let mockGamePlaySelector: MemoizedSelector<GamePlayState, Partial<GamePlayState>>;
 
@@ -65,13 +64,14 @@ describe('GameOverComponent', () => {
 
 
     beforeEach((async () => {
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
         spy = spyOn(mockStore, 'dispatch');
         fixture = await nsTestBedRender(GameOverComponent);
         component = fixture.componentInstance;
-        router = TestBed.get(Router);
-        mockCoreSelector = mockStore.overrideSelector<CoreState, Partial<CoreState>>(coreState, {});
-        mockGamePlaySelector = mockStore.overrideSelector<GamePlayState, Partial<GamePlayState>>(appState.gamePlayState, {});
+        router = TestBed.inject(Router);
+        mockCoreSelector = mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(coreState, {});
+        mockGamePlaySelector = mockStore
+        .overrideSelector<MemoizedSelector<GamePlayState, Partial<GamePlayState>>, Partial<GamePlayState>>(appState.gamePlayState, {});
         const dbModel = testData.games[0];
         component.game = Game.getViewModel(dbModel);
     }));
@@ -83,7 +83,7 @@ describe('GameOverComponent', () => {
 
     it('verify if userProfileSaveStatus value is set', (async () => {
 
-        const services = TestBed.get(Utils);
+        const services = TestBed.inject(Utils);
         const spyMessage = spyOn(services, 'showMessage');
 
         const userDict = { '4kFa6HRvP5OhvYXsH9mEsRrXj4o2': testData.userList[0], 'yP7sLu5TmYRUO9YT4tWrYLAqxSz1': testData.userList[1] };
@@ -178,7 +178,7 @@ describe('GameOverComponent', () => {
             account: testData.account[1], user: testData.userList[0]
         });
         mockStore.refreshState();
-        const services = TestBed.get(Utils);
+        const services = TestBed.inject(Utils);
         const spyMessage = spyOn(services, 'showMessage');
         component.reMatchGame();
         expect(spyMessage).toHaveBeenCalled();
@@ -292,7 +292,7 @@ describe('GameOverComponent', () => {
 
 
     it('verify if getImageUrl function works correctly', () => {
-        const services = TestBed.get(Utils);
+        const services = TestBed.inject(Utils);
         const spyGetImageUrl = spyOn(services, 'getImageUrl');
         component.getImageUrl(testData.userList[0]);
         expect(component.utils.getImageUrl).toHaveBeenCalledTimes(1);

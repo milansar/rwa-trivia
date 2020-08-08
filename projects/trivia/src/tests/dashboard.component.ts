@@ -97,14 +97,16 @@ describe('DashboardComponent', () => {
     ));
     beforeEach((async () => {
         fixture = await nsTestBedRender(DashboardComponent);
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
         component = fixture.componentInstance;
-        mockCoreSelector = mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {});
+        mockCoreSelector = mockStore
+        .overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {});
         mockCategorySelector = mockStore.overrideSelector(categoryDictionary, {});
-        mockDashboardSelector = mockStore.overrideSelector<AppState, Partial<DashboardState>>(appState.dashboardState, {});
+        mockDashboardSelector = mockStore
+        .overrideSelector<MemoizedSelector<DashboardState, Partial<DashboardState>>, Partial<DashboardState>>(appState.dashboardState, {});
 
         spy = spyOn(mockStore, 'dispatch');
-        router = TestBed.get(Router);
+        router = TestBed.inject(Router);
         fixture.detectChanges();
     }));
 
@@ -432,7 +434,7 @@ describe('DashboardComponent', () => {
         const games = testData.games.map(dbModel => {
             return Game.getViewModel(dbModel);
         });
-        mockStore.overrideSelector<CoreState, Partial<CoreState>>(coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(coreState, {
             friendInvitations, gameInvites: games
         });
         mockStore.refreshState();

@@ -48,11 +48,12 @@ describe('GameComponent', () => {
     ));
     beforeEach((async () => {
         fixture = await nsTestBedRender(GameComponent);
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
         component = fixture.componentInstance;
-        mockCoreSelector = mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {});
+        mockCoreSelector = mockStore
+        .overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {});
         spy = spyOn(mockStore, 'dispatch');
-        router = TestBed.get(Router);
+        router = TestBed.inject(Router);
         fixture.detectChanges();
     }));
 
@@ -89,7 +90,7 @@ describe('GameComponent', () => {
         user = { ...testData.userList[1] };
         const userDict = testData.userDict;
         // mock data
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user,
             userDict: userDict
         });

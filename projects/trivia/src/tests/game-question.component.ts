@@ -50,10 +50,10 @@ describe('GameQuestionComponent', () => {
     beforeEach((async () => {
         fixture = await nsTestBedRender(GameQuestionComponent);
         component = fixture.componentInstance;
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
         spy = spyOn(mockStore, 'dispatch');
-        router = TestBed.get(Router);
-        mockCoreSelector = mockStore.overrideSelector<CoreState, Partial<CoreState>>(coreState, {});
+        router = TestBed.inject(Router);
+        mockCoreSelector = mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(coreState, {});
     }));
 
     afterEach(nsTestBedAfterEach(true));

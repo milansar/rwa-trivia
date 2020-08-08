@@ -39,9 +39,9 @@ describe('RecentGamesComponent', () => {
   ));
   beforeEach((async () => {
     fixture = await nsTestBedRender(RecentGamesComponent);
-    mockStore = TestBed.get(Store);
+    mockStore = TestBed.inject<MockStore<CoreState>>(MockStore);
     component = fixture.componentInstance;
-    mockCoreSelector = mockStore.overrideSelector<CoreState, Partial<CoreState>>(coreState, {});
+    mockCoreSelector = mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(coreState, {});
     spy = spyOn(mockStore, 'dispatch');
     fixture.detectChanges();
   }));

@@ -6,7 +6,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NativeScriptRouterModule } from '@nativescript/angular/router';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Store, MemoizedSelector } from '@ngrx/store';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import * as utils from '@nativescript/core/utils/utils';
 import { AppState, appState, categoryDictionary } from './../app/store';
@@ -71,9 +71,9 @@ describe('GameProfileComponent', () => {
     beforeEach((async () => {
         fixture = await nsTestBedRender(GameProfileComponent);
         component = fixture.componentInstance;
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
         spy = spyOn(mockStore, 'dispatch');
-        router = TestBed.get(Router);
+        router = TestBed.inject(Router);
         // fixture.detectChanges();
 
     }));
@@ -128,7 +128,7 @@ describe('GameProfileComponent', () => {
     it('Verify topicsArray for different user login profile', () => {
         user = { ...testData.userList[0] };
         categoryDictionary.setResult(testData.categoryDictionary);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user
         });
         mockStore.refreshState();
@@ -142,7 +142,7 @@ describe('GameProfileComponent', () => {
     it('Verify topicsArray for same user login profile', () => {
         user = { ...testData.userList[1] };
         categoryDictionary.setResult(testData.categoryDictionary);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user
         });
         mockStore.refreshState();
@@ -156,7 +156,7 @@ describe('GameProfileComponent', () => {
     it('Verify tagsArray for different user login profile', () => {
         user = { ...testData.userList[0] };
         categoryDictionary.setResult(testData.categoryDictionary);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user
         });
         mockStore.refreshState();
@@ -170,7 +170,7 @@ describe('GameProfileComponent', () => {
     it('Verify tagsArray for loggedIn user profile', () => {
         user = { ...testData.userList[1] };
         categoryDictionary.setResult(testData.categoryDictionary);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user
         });
         mockStore.refreshState();
@@ -179,14 +179,14 @@ describe('GameProfileComponent', () => {
             userTags: user && user.tags && user.tags.length > 0 ? user.tags : undefined
         };
         expect(component.tagsArray.userTags).toEqual(expectedTopics.userTags);
-    }); 
+    });
 
 
     //  this case is non required
     it('Verify topics for different user login profile', () => {
         user = { ...testData.userList[0] };
         component.categoryDictionary = testData.categoryDictionary;
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user
         });
         mockStore.refreshState();
@@ -209,7 +209,7 @@ describe('GameProfileComponent', () => {
     it('Verify topics for same user login profile', () => {
         user = { ...testData.userList[1] };
         categoryDictionary.setResult(testData.categoryDictionary);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user
         });
         mockStore.refreshState();
@@ -235,7 +235,7 @@ describe('GameProfileComponent', () => {
             'yP7sLu5TmYRUO9YT4tWrYLAqxSz1': user
         };
         // mock data
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user,
             userDict: userDict
         });
@@ -252,7 +252,7 @@ describe('GameProfileComponent', () => {
         const applicationSetting: any[] = [];
         applicationSetting.push(testData.applicationSettings);
         categoryDictionary.setResult(testData.categoryDictionary);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user,
             applicationSettings: applicationSetting
         });
@@ -281,7 +281,7 @@ describe('GameProfileComponent', () => {
         };
         categoryDictionary.setResult(testData.categoryDictionary);
         // mock data
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user,
             userDict: userDict
         });
@@ -298,7 +298,7 @@ describe('GameProfileComponent', () => {
         };
         categoryDictionary.setResult(testData.categoryDictionary);
         // mock data
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user,
             userDict: userDict
         });
@@ -320,7 +320,7 @@ describe('GameProfileComponent', () => {
         };
         categoryDictionary.setResult(testData.categoryDictionary);
         // mock data
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user,
             userDict: userDict
         });
@@ -338,7 +338,7 @@ describe('GameProfileComponent', () => {
         };
         categoryDictionary.setResult(testData.categoryDictionary);
         // mock data
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user,
             userDict: userDict
         });
@@ -349,7 +349,6 @@ describe('GameProfileComponent', () => {
         const expectedOtherUserTopics = [...user.tags, user.categoryIds.map((data) => testData.categoryDictionary[data].categoryName)];
         expect(component.otherUserTopics).toEqual(expectedOtherUserTopics);
     });
-    
 
     it('Verify otherUserTopicList from initializeProfile function', () => {
         user = { ...testData.userList[1] };
@@ -358,7 +357,7 @@ describe('GameProfileComponent', () => {
         };
         categoryDictionary.setResult(testData.categoryDictionary);
         // mock data
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user,
             userDict: userDict
         });
@@ -378,7 +377,7 @@ describe('GameProfileComponent', () => {
         };
         categoryDictionary.setResult(testData.categoryDictionary);
         // mock data
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user,
             userDict: userDict
         });
@@ -399,7 +398,7 @@ describe('GameProfileComponent', () => {
         const applicationSetting: any[] = [];
         applicationSetting.push(testData.applicationSettings);
         // mock data
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user,
             userDict: userDict,
             applicationSettings: applicationSetting
@@ -422,7 +421,7 @@ describe('GameProfileComponent', () => {
         applicationSetting.push(testData.applicationSettings);
         // mock data
         categoryDictionary.setResult(testData.categoryDictionary);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user,
             userDict: userDict,
             userFriendInvitations: invitation,
@@ -438,7 +437,7 @@ describe('GameProfileComponent', () => {
     it('Check loggedInUserAccount info set properly or not', () => {
         user = { ...testData.userList[0] };
         categoryDictionary.setResult(testData.categoryDictionary);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user,
             account: user.account
         });
@@ -457,7 +456,7 @@ describe('GameProfileComponent', () => {
         user = { ...testData.userList[1] };
         const navigateSpy = spyOn(router, 'navigate');
         // mock data
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user
         });
         mockStore.refreshState();
@@ -474,7 +473,7 @@ describe('GameProfileComponent', () => {
         };
         categoryDictionary.setResult(testData.categoryDictionary);
         const applicationSetting: any[] = [testData.applicationSettings];
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user,
             account: user.account,
             userDict: userDict,
@@ -494,7 +493,7 @@ describe('GameProfileComponent', () => {
         categoryDictionary.setResult(testData.categoryDictionary);
         const applicationSetting: any[] = [];
         applicationSetting.push(testData.applicationSettings);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user,
             account: user.account,
             userDict: userDict,
@@ -508,7 +507,7 @@ describe('GameProfileComponent', () => {
 
     it('Check userInfo function return value', () => {
         user = { ...testData.userList[0] };
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user
         });
         mockStore.refreshState();

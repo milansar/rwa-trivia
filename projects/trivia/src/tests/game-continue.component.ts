@@ -48,11 +48,12 @@ describe('GameContinueComponent', () => {
     ));
     beforeEach((async () => {
         fixture = await nsTestBedRender(GameContinueComponent);
-        mockStore = TestBed.get(Store);
+        mockStore = TestBed.inject<MockStore<AppState>>(MockStore);
         component = fixture.componentInstance;
-        mockCoreSelector = mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {});
+        mockCoreSelector = mockStore
+        .overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {});
         spy = spyOn(mockStore, 'dispatch');
-        router = TestBed.get(Router);
+        router = TestBed.inject(Router);
         fixture.detectChanges();
     }));
 
@@ -62,7 +63,7 @@ describe('GameContinueComponent', () => {
 
     it('User should be set value is emitted', () => {
         user = { ...testData.userList[0] };
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user
         });
         mockStore.refreshState();
@@ -74,7 +75,7 @@ describe('GameContinueComponent', () => {
         user = { ...testData.userList[0] };
         const userDict = { '4kFa6HRvP5OhvYXsH9mEsRrXj4o2': testData.userList[0], 'yP7sLu5TmYRUO9YT4tWrYLAqxSz1': testData.userList[1] };
         component.game = Game.getViewModel(dbModel);
-        mockStore.overrideSelector<AppState, Partial<CoreState>>(appState.coreState, {
+        mockStore.overrideSelector<MemoizedSelector<CoreState, Partial<CoreState>>, Partial<CoreState>>(appState.coreState, {
             user: user,
             userDict: userDict
         });
