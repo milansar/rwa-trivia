@@ -4,8 +4,14 @@ import { QuestionActions } from 'shared-library/core/store';
 import { Category, Question, User, ApplicationSettings } from 'shared-library/shared/model';
 import { AppState, appState } from '../../../store';
 import { userState } from '../../../user/store';
-import { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ChangeDetectionStrategy } from '@angular/core';
 
+@Component({
+  selector: 'my-questions',
+  templateUrl: './my-questions.component.html',
+  styleUrls: ['./my-questions.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
 export class MyQuestions {
 
   publishedQuestions: Question[];

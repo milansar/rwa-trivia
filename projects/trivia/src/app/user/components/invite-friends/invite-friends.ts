@@ -1,10 +1,15 @@
-import { OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { OnDestroy, ChangeDetectorRef, Component } from '@angular/core';
 import { userCardType } from 'shared-library/shared/model';
 import { AppState, appState } from '../../../store';
 import { Store, select } from '@ngrx/store';
 import { UserActions } from 'shared-library/core/store/actions';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';
 
+@Component({
+  selector: 'app-invite-friends',
+  templateUrl: './invite-friends.component.html',
+  styleUrls: ['./invite-friends.component.scss']
+})
 @AutoUnsubscribe({ 'arrayName': 'subscriptions' })
 export class InviteFriends implements OnDestroy {
 

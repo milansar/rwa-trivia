@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, EventEmitter, Input, OnInit, Output, SimpleChanges, OnChanges } from '@angular/core';
+import { ChangeDetectorRef, EventEmitter, Input, OnInit, Output, Component, ChangeDetectionStrategy } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Utils } from 'shared-library/core/services';
@@ -6,6 +6,12 @@ import { UserActions } from 'shared-library/core/store/actions';
 import { Game, PlayerMode, User, userCardType, ApplicationSettings } from 'shared-library/shared/model';
 import { AppState, appState } from '../../../store';
 
+@Component({
+  selector: 'game-continue',
+  templateUrl: './game-continue.component.html',
+  styleUrls: ['./game-continue.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
 export class GameContinue implements OnInit {
 
   @Output() continueButtonClicked = new EventEmitter();

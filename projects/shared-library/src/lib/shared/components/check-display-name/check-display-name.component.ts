@@ -18,7 +18,7 @@ import { Utils } from 'shared-library/core/services';
 
 export class CheckDisplayNameComponent extends CheckDisplayName {
 
-  constructor(public utils:Utils) {
+  constructor(public utils: Utils) {
     super(utils);
   }
 

@@ -1,9 +1,14 @@
-import { OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
+import { OnDestroy, ChangeDetectorRef, Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { AchievementRule, User } from 'shared-library/shared/model';
 import { dashboardState } from '../../dashboard/store';
 import * as dashboardAction from '../../dashboard/store/actions';
 import { AppState, appState } from '../../store';
+@Component({
+    selector: 'achievements',
+    templateUrl: './achievements.component.html',
+    styleUrls: ['./achievements.component.scss']
+  })
 export class Achievements implements OnDestroy {
 
     user: User;

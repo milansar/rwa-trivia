@@ -1,9 +1,9 @@
-import { ChangeDetectorRef, ViewChild } from "@angular/core";
-import { select, Store } from "@ngrx/store";
-import { Observable, Subscription, timer } from "rxjs";
-import { filter, take, skipWhile } from "rxjs/operators";
-import { Utils } from "shared-library/core/services";
-import { UserActions } from "shared-library/core/store/actions";
+import { ChangeDetectorRef, ViewChild, Component, ChangeDetectionStrategy } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { Observable, Subscription, timer } from 'rxjs';
+import { filter, take, skipWhile } from 'rxjs/operators';
+import { Utils } from 'shared-library/core/services';
+import { UserActions } from 'shared-library/core/store/actions';
 import {
   Answer,
   ApplicationSettings,
@@ -16,13 +16,19 @@ import {
   PlayerQnA,
   Question,
   User
-} from "shared-library/shared/model";
-import { appState, categoryDictionary } from "../../../store";
-import { gamePlayState, GamePlayState } from "../../store";
-import * as gameplayactions from "../../store/actions";
-import { GameQuestionComponent } from "../game-question/game-question.component";
-import { Router } from "@angular/router";
+} from 'shared-library/shared/model';
+import { appState, categoryDictionary } from '../../../store';
+import { gamePlayState, GamePlayState } from '../../store';
+import * as gameplayactions from '../../store/actions';
+import { GameQuestionComponent } from '../game-question/game-question.component';
+import { Router } from '@angular/router';
 
+@Component({
+  selector: 'game-dialog',
+  templateUrl: './game-dialog.component.html',
+  styleUrls: ['./game-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
 export class GameDialog {
   user: User;
   gameObs: Observable<Game>;
@@ -50,7 +56,7 @@ export class GameDialog {
   userDict: { [key: string]: User } = {};
   otherPlayer: User;
   otherPlayerUserId: string;
-  RANDOM_PLAYER = "Random Player";
+  RANDOM_PLAYER = 'Random Player';
   showBadge = false;
   MAX_TIME_IN_SECONDS_LOADER = 2;
   MAX_TIME_IN_SECONDS_BADGE = 2;
@@ -235,14 +241,14 @@ export class GameDialog {
           const otherPlayerObj = this.userDict[this.otherPlayerUserId];
           if (otherPlayerObj) {
             this.otherPlayer = otherPlayerObj;
-            this.otherPlayer["score"] = this.game.stats[
+            this.otherPlayer['score'] = this.game.stats[
               this.otherPlayer.userId
             ].score;
           } else {
             this.initializeOtherUser();
           }
           this.otherPlayer.displayName =
-            this.otherPlayer.displayName && this.otherPlayer.displayName !== ""
+            this.otherPlayer.displayName && this.otherPlayer.displayName !== ''
               ? this.otherPlayer.displayName
               : this.RANDOM_PLAYER;
         } else {
@@ -434,7 +440,7 @@ export class GameDialog {
           .map(category => {
             return this.categoryDictionary && this.categoryDictionary[category] ? this.categoryDictionary[category].categoryName : '';
           })
-          .join(",");
+          .join(',');
 
         let remainSecond = this.MAX_TIME_IN_SECONDS;
         if (this.game && this.game.playerQnAs.length > 0) {
@@ -681,7 +687,7 @@ export class GameDialog {
       );
       this.showContinueScreen = true;
       if (!this.isMobile) {
-      this.router.navigate(["/dashboard"]);
+      this.router.navigate(['/dashboard']);
       }
     } else {
       this.questionAnswered = false;

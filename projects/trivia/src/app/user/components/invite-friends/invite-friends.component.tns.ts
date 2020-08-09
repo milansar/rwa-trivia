@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { AppState } from '../../../store';
 import { Store } from '@ngrx/store';
 import { UserActions } from 'shared-library/core/store/actions';
+import { AutoUnsubscribe } from 'shared-library/shared/decorators';
 import { InviteFriends } from './invite-friends';
 import { Page } from '@nativescript/core/ui/page';
 
@@ -10,6 +11,7 @@ import { Page } from '@nativescript/core/ui/page';
   templateUrl: './invite-friends.component.html',
   styleUrls: ['./invite-friends.component.scss']
 })
+@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
 export class InviteFriendsComponent extends InviteFriends implements OnInit, OnDestroy {
 
   // This is magic variable

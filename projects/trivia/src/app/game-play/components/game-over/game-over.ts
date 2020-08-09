@@ -1,4 +1,4 @@
-import { Input, Output, EventEmitter, OnInit, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
+import { Input, Output, EventEmitter, OnInit, ChangeDetectorRef, OnChanges, SimpleChanges, Component, ChangeDetectionStrategy } from '@angular/core';
 import { User, Game, PlayerMode, OpponentType, Account, ApplicationSettings, Invitation, userCardType } from 'shared-library/shared/model';
 import { Utils } from 'shared-library/core/services';
 import { AppState, appState } from '../../../store';
@@ -17,7 +17,12 @@ export enum GameStatus {
   DRAW,
   START
 }
-
+@Component({
+  selector: 'game-over',
+  templateUrl: './game-over.component.html',
+  styleUrls: ['./game-over.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
 export class GameOver implements OnInit, OnChanges {
 
   @Input() correctCount: number;

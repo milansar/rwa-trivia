@@ -5,6 +5,13 @@ import { coreState, CoreState } from 'shared-library/core/store';
 import { Observable } from 'rxjs';
 import { UserActions } from 'shared-library/core/store/actions';
 
+
+@Component({
+  selector: 'recent-games',
+  templateUrl: './recent-games.component.html',
+  styleUrls: ['./recent-games.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
 export class RecentGames {
 
   @Input() hideActionbar;

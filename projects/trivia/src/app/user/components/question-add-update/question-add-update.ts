@@ -8,9 +8,14 @@ import { AppState, appState } from '../../../store';
 import * as userActions from '../../store/actions';
 import { QuestionActions } from 'shared-library/core/store/actions/question.actions';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';
-import { OnDestroy } from '@angular/core';
+import { OnDestroy, Component, ChangeDetectionStrategy } from '@angular/core';
 import { isEmpty } from 'lodash';
-
+@Component({
+  selector: 'app-question-add-update',
+  templateUrl: './question-add-update.component.html',
+  styleUrls: ['./question-add-update.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
 @AutoUnsubscribe({ arrayName: 'subscriptions' })
 export class QuestionAddUpdate implements OnDestroy {
 

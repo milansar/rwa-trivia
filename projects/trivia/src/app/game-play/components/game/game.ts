@@ -4,8 +4,12 @@ import { Store, select } from '@ngrx/store';
 import { User } from 'shared-library/shared/model';
 import { AppState, appState } from '../../../store';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';
-import { OnDestroy } from '@angular/core';
-
+import { OnDestroy, Component } from '@angular/core';
+@Component({
+  selector: 'game',
+  templateUrl: './game.component.html',
+  styleUrls: ['./game.component.scss']
+})
 @AutoUnsubscribe({ 'arrayName': 'subscriptions' })
 export class Game implements OnDestroy {
   user: User;

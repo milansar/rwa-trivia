@@ -3,7 +3,13 @@ import { CoreState, coreState } from '../../store';
 import { Store, select } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { ApplicationSettings } from 'shared-library/shared/model';
-import { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ChangeDetectionStrategy } from '@angular/core';
+@Component({
+  selector: 'login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
 export class Login {
   mode: SignInMode;
   loginForm: FormGroup;

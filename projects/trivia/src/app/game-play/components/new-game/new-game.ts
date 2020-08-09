@@ -1,4 +1,4 @@
-import { Observable, Subscription, empty } from 'rxjs';
+import { Observable } from 'rxjs';
 import { take, switchMap, map, flatMap, skipWhile } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import * as gameplayactions from '../../store/actions';
@@ -6,12 +6,17 @@ import { GameActions, UserActions, TagActions } from 'shared-library/core/store/
 import { Category, GameOptions, User, ApplicationSettings, PlayerMode, OpponentType, userCardType } from 'shared-library/shared/model';
 import { Utils, WindowRef } from 'shared-library/core/services';
 import { AppState, appState } from '../../../store';
-import { OnDestroy, ChangeDetectorRef, PLATFORM_ID, Inject } from '@angular/core';
+import { ChangeDetectorRef, PLATFORM_ID, Inject, Component, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import cloneDeep from 'lodash/cloneDeep';
 
-
+@Component({
+  selector: 'new-game',
+  templateUrl: './new-game.component.html',
+  styleUrls: ['./new-game.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
 export class NewGame {
   categoriesObs: Observable<Category[]>;
   categories: Category[];

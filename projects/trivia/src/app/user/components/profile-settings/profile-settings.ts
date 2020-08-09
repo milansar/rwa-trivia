@@ -3,7 +3,9 @@ import {
   QueryList,
   ViewChildren,
   Inject,
-  PLATFORM_ID
+  PLATFORM_ID,
+  Component,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import {
   AbstractControl,
@@ -53,6 +55,12 @@ export enum UserType {
   OtherUserProfile
 }
 
+@Component({
+  selector: 'profile-settings',
+  templateUrl: './profile-settings.component.html',
+  styleUrls: ['./profile-settings.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
 export class ProfileSettings {
   gamePlayedChangeSubject = new Subject();
   gamePlayedChangeObservable = this.gamePlayedChangeSubject.asObservable();

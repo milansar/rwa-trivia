@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, OnDestroy, NgZone } from "@angular/core";
+import { ChangeDetectorRef, OnDestroy, NgZone, Component, ChangeDetectionStrategy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { select, Store } from "@ngrx/store";
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';
@@ -25,6 +25,12 @@ import {
 } from "shared-library/shared/model";
 import { switchMap, map } from "rxjs/operators";
 
+@Component({
+  selector: 'leaderboard',
+  templateUrl: './leaderboard.component.html',
+  styleUrls: ['./leaderboard.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
 @AutoUnsubscribe({ arrayName: "subscriptions" })
 export class Leaderboard implements OnDestroy {
   userDict$: Observable<{ [key: string]: User }>;

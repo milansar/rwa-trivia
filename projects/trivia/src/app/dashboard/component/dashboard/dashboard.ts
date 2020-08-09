@@ -1,5 +1,5 @@
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
-import { ChangeDetectorRef, Inject, NgZone, OnDestroy, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectorRef, Inject, NgZone, OnDestroy, PLATFORM_ID, Component, ChangeDetectionStrategy } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';
 import { Observable, Subscription, timer, combineLatest } from 'rxjs';
@@ -10,10 +10,15 @@ import {
   OpponentType, PlayerMode, User, userCardType, Category
 } from 'shared-library/shared/model';
 import { AppState, appState } from '../../../store';
-import { map, flatMap, filter } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { coreState, categoryDictionary } from 'shared-library/core/store';
 import * as lodash from 'lodash';
-
+@Component({
+  selector: 'dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
 @AutoUnsubscribe({ arrayName: 'subscriptions' })
 export class Dashboard implements OnDestroy {
   START_A_NEW_GAME = 'Start New Game';
