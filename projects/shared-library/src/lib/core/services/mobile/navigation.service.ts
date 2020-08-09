@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { RouterExtensions } from '@nativescript/angular/router';
+import { RouterExtensions } from '@nativescript/angular';
 import { pushNotificationRouteConstants } from './../../../../lib/shared/model';
 
 @Injectable()

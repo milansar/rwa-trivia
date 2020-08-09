@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
-import { RouterExtensions } from '@nativescript/angular/router';
+import { RouterExtensions } from '@nativescript/angular';
 import { Utils } from 'shared-library/core/services';
 import { AppState, appState } from '../../../store';
 import { QuestionActions } from 'shared-library/core/store/actions/question.actions';

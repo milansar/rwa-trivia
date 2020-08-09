@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output, ViewContainerRef, OnDestroy, ElementRef, ViewChild } from '@angular/core';
-import { RouterExtensions } from '@nativescript/angular/router';
+import { RouterExtensions } from '@nativescript/angular';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import * as app from '@nativescript/core/application';
 import * as firebase from 'nativescript-plugin-firebase';

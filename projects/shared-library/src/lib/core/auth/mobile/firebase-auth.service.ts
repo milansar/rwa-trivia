@@ -3,7 +3,7 @@ import { FirebaseAuthService } from './../firebase-auth.service';
 import * as firebaseApp from 'nativescript-plugin-firebase/app';
 import * as firebase from 'nativescript-plugin-firebase';
 import { Subject, Observable } from 'rxjs';
-import { RouterExtensions } from '@nativescript/angular/router';
+import { RouterExtensions } from '@nativescript/angular';
 import { User, CollectionConstants, UserStatusConstants, TriggerConstants } from 'shared-library/shared/model';
 import { isAndroid } from '@nativescript/core/platform';
 

@@ -6,7 +6,7 @@ import {
     nsTestBedRender,
 } from '@nativescript/angular/testing';
 import { InviteMailFriendsComponent } from 'shared-library/shared/components/invite-mail-friends/invite-mail-friends.component';
-import { NativeScriptFormsModule } from '@nativescript/angular/forms';
+import { NativeScriptFormsModule } from '@nativescript/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule, MemoizedSelector, Store } from '@ngrx/store';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';

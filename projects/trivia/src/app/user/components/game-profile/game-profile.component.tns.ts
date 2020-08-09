@@ -8,7 +8,7 @@ import { UserActions } from 'shared-library/core/store';
 import * as utils from '@nativescript/core/utils/utils';
 import { Utils } from 'shared-library/core/services';
 import { Page } from '@nativescript/core/ui/page';
-import { RouterExtensions } from '@nativescript/angular/router';
+import { RouterExtensions } from '@nativescript/angular';
 @Component({
     selector: 'game-profile',
     templateUrl: './game-profile.component.html',

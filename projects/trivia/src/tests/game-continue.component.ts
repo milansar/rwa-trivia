@@ -11,7 +11,7 @@ import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { CoreState } from 'shared-library/core/store';
 import { testData } from 'test/data';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NativeScriptRouterModule } from '@nativescript/angular/router';
+import { NativeScriptRouterModule } from '@nativescript/angular';
 import { User, Game } from 'shared-library/shared/model';
 import { AppState, appState } from './../app/store';
 import { Router } from '@angular/router';

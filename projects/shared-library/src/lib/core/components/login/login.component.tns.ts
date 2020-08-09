@@ -4,7 +4,7 @@ import { FormBuilder, NgModel } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as application from '@nativescript/core/application';
 import { ModalDialogOptions, ModalDialogService } from '@nativescript/angular';
-import { RouterExtensions } from '@nativescript/angular/router';
+import { RouterExtensions } from '@nativescript/angular';
 import { setString } from 'nativescript-plugin-firebase/crashlytics/crashlytics';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';
 import { Subject } from 'rxjs';

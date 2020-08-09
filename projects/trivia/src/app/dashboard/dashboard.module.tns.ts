@@ -11,7 +11,7 @@ import { effects, reducer } from './store';
 import { LeaderboardComponent } from './component/leaderboard/leaderboard.component';
 import { RealtimeStatsComponent } from './component/realtime-stats/realtime-stats.component';
 import { QuestionComponent } from './component/question/question.component';
-import { NativeScriptRouterModule } from '@nativescript/angular/router';
+import { NativeScriptRouterModule } from '@nativescript/angular';
 import { DropDownModule } from "nativescript-drop-down/angular";
 import { InviteToPlayComponent } from './component/invite-to-play/invite-to-play.component';
 @NgModule({

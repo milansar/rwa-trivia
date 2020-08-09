@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
-import { ModalDialogParams } from '@nativescript/angular/directives/dialogs';
+import { ModalDialogParams } from '@nativescript/angular';
 @Component({
   selector: 'app-welcome-screen',
   templateUrl: './welcome-screen.component.html',

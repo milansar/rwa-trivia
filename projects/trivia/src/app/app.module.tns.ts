@@ -1,5 +1,5 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
-import { NativeScriptModule } from '@nativescript/angular/nativescript.module';
+import { NativeScriptModule } from '@nativescript/angular';
 import { RoutingModule } from '../app/routing/routing.module';
 import { AppComponent } from './../app/components/app/app.component';
 import { StoreModule } from '@ngrx/store';
@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import * as TNSFirebase from 'nativescript-plugin-firebase';
 import { PlatformFirebaseToken } from 'shared-library/core/db-service/tokens';
 import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angular';
-import { registerElement } from '@nativescript/angular/element-registry';
+import { registerElement } from '@nativescript/angular';
 import { RouterModule } from '@angular/router';
 import { PrivacyPolicyComponent, AchievementsComponent } from './components';
 import { UserFeedbackComponent } from './components/index.tns';

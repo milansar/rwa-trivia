@@ -2,7 +2,7 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { SharedModule } from 'shared-library/shared/shared.module';
-import { NativeScriptRouterModule } from '@nativescript/angular/router';
+import { NativeScriptRouterModule } from '@nativescript/angular';
 import { effects, reducer } from './store';
 import { UserRoutingModule } from './routing/user-routing.module';
 import {

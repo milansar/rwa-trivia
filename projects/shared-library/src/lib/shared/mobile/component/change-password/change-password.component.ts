@@ -1,5 +1,5 @@
 import { Component, OnDestroy, ChangeDetectorRef, OnInit } from "@angular/core";
-import { RouterExtensions } from "@nativescript/angular/router";
+import { RouterExtensions } from "@nativescript/angular";
 import { select, Store } from "@ngrx/store";
 import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
 import { CoreState, coreState } from "../../../../core/store";
