@@ -1,6 +1,7 @@
-import { ViewChild } from "@angular/core";
+import { ViewChild, Directive } from "@angular/core";
 import { RadSideDrawerComponent } from "nativescript-ui-sidedrawer/angular";
 
+@Directive()
 export class DrawerPage {
     @ViewChild(RadSideDrawerComponent, { static: false }) protected drawerComponent: RadSideDrawerComponent;
 

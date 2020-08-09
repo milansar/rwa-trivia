@@ -4,9 +4,12 @@
   "license": "MIT",
   "angular-cli": {},
   "nativescript": {
-    "id": "${packageName}",
+    "id": "io.bitwiser.trivia.dev",
     "tns-ios": {
       "version": "6.5.1"
+    },
+    "tns-android": {
+      "version": "6.5.3"
     }
   },
   "scripts": {
@@ -17,7 +20,8 @@
     "test:watch": "ng test --watch",
     "pree2e": "webdriver-manager update --standalone false --gecko false",
     "e2e": "protractor",
-    "ngcc": "ngcc --properties es2015 module main --first-only",
+    "clean": "npx rimraf hooks node_modules package-lock.json platforms",
+    "ngcc": "ngcc --properties es2015 module main --first-only --create-ivy-entry-points",
     "postinstall": "npm run ngcc"
   },
   "private": true,
@@ -89,7 +93,6 @@
     "reflect-metadata": "~0.1.12",
     "rxjs": "^6.5.0",
     "string-hash": "^1.1.3",
-    "time-ago-pipe": "^1.3.2",
     "zone.js": "~0.10.3"
   },
   "devDependencies": {

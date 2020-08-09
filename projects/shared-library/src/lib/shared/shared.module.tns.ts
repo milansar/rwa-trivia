@@ -33,7 +33,7 @@ import {
 import { ShowHintWhenFocusOutDirective, OpenUserProfileDirective, RippleEffectDirective } from './directive';
 import { PhoneNumberValidationProvider } from './mobile/component/countryList/phone-number-validation.provider';
 import { SafeHtmlPipe } from './pipe/safe-html.pipe';
-import {TimeAgoPipe} from 'time-ago-pipe';
+import { TimeAgoPipe } from './pipe';
 @NgModule({
   declarations: [
     ActionBarComponent,
