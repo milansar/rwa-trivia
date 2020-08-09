@@ -105,6 +105,11 @@ module.exports = env => {
   const copyTargets = [
     { from: 'assets/**', noErrorOnMissing: true, globOptions: { dot: false, ...copyIgnore } },
     { from: 'fonts/**', noErrorOnMissing: true, globOptions: { dot: false, ...copyIgnore } },
+    // Copy native app resources to out dir.
+    {
+      from: `${appResourcesFullPath}/projects-assets/${env.project}/${platform}`,
+      to: `${join(projectRoot, "App_Resources", platform === 'android' ? 'Android': 'iOS', platform === 'android' ? "src/main/res" : '')}` 
+    }
   ];
 
   if (!production) {
