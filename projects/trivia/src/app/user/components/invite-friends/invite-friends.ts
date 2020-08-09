@@ -7,8 +7,7 @@ import { AutoUnsubscribe } from 'shared-library/shared/decorators';
 
 @Component({
   selector: 'app-invite-friends',
-  templateUrl: './invite-friends.component.html',
-  styleUrls: ['./invite-friends.component.scss']
+  template: '',
 })
 @AutoUnsubscribe({ 'arrayName': 'subscriptions' })
 export class InviteFriends implements OnDestroy {

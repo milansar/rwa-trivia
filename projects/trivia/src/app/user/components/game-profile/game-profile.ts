@@ -5,7 +5,7 @@ import { AppState, appState } from '../../../store';
 import { User, userCardType, Account, Invitation } from 'shared-library/shared/model';
 import { Observable, Subject } from 'rxjs';
 import { UserActions, categoryDictionary } from 'shared-library/core/store';
-import { ChangeDetectorRef, Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Utils } from 'shared-library/core/services';
 import * as lodash from 'lodash';
 
@@ -16,9 +16,7 @@ export enum UserType {
 }
 @Component({
     selector: 'game-profile',
-    templateUrl: './game-profile.component.html',
-    styleUrls: ['./game-profile.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    template: '',
 })
 export class GameProfile {
     gamePlayedChangeSubject = new Subject();

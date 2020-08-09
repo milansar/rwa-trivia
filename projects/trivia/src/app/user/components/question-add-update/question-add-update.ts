@@ -1,20 +1,18 @@
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
-import { Observable, of, Subject, merge } from 'rxjs';
-import { debounceTime, take, map, switchMap, multicast, skip, filter } from 'rxjs/operators';
+import { Observable, of, merge } from 'rxjs';
+import { debounceTime, take, switchMap, filter } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
-import { User, Category, Question, QuestionStatus, Answer, ApplicationSettings } from 'shared-library/shared/model';
+import { User, Category, Question, QuestionStatus, ApplicationSettings } from 'shared-library/shared/model';
 import { Utils } from 'shared-library/core/services';
 import { AppState, appState } from '../../../store';
 import * as userActions from '../../store/actions';
 import { QuestionActions } from 'shared-library/core/store/actions/question.actions';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';
-import { OnDestroy, Component, ChangeDetectionStrategy } from '@angular/core';
+import { OnDestroy, Component } from '@angular/core';
 import { isEmpty } from 'lodash';
 @Component({
   selector: 'app-question-add-update',
-  templateUrl: './question-add-update.component.html',
-  styleUrls: ['./question-add-update.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  template: '',
 })
 @AutoUnsubscribe({ arrayName: 'subscriptions' })
 export class QuestionAddUpdate implements OnDestroy {

@@ -2,22 +2,13 @@ import {
   Input,
   OnInit,
   Component,
-  forwardRef,
 } from "@angular/core";
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { ControlValueAccessor } from "@angular/forms";
 import { Utils } from "shared-library/core/services";
 
 @Component({
-  selector: "app-check-display-name",
-  templateUrl: "./check-display-name.component.html",
-  styleUrls: ["./check-display-name.component.scss"],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => CheckDisplayName),
-      multi: true
-    }
-  ]
+  selector: 'app-check-display-name',
+  template: '',
 })
 export class CheckDisplayName implements OnInit, ControlValueAccessor {
   @Input() placeholder;

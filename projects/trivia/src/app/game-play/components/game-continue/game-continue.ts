@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, EventEmitter, Input, OnInit, Output, Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef, EventEmitter, Input, OnInit, Output, Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Utils } from 'shared-library/core/services';
@@ -7,10 +7,8 @@ import { Game, PlayerMode, User, userCardType, ApplicationSettings } from 'share
 import { AppState, appState } from '../../../store';
 
 @Component({
-  selector: 'game-continue',
-  templateUrl: './game-continue.component.html',
-  styleUrls: ['./game-continue.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'game-continue' ,
+  template: '',
 })
 export class GameContinue implements OnInit {
 

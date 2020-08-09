@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, ViewChild, Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef, ViewChild, Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription, timer } from 'rxjs';
 import { filter, take, skipWhile } from 'rxjs/operators';
@@ -25,9 +25,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'game-dialog',
-  templateUrl: './game-dialog.component.html',
-  styleUrls: ['./game-dialog.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  template: '',
 })
 export class GameDialog {
   user: User;

@@ -1,5 +1,5 @@
 import {
-  Component, ChangeDetectionStrategy, ChangeDetectorRef, ViewChildren, QueryList, ElementRef
+  Component, ChangeDetectorRef, ViewChildren, QueryList, ElementRef
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
@@ -11,9 +11,7 @@ const EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+
 
 @Component({
   selector: 'app-invite-mail-friends',
-  templateUrl: './invite-mail-friends.component.html',
-  styleUrls: ['./invite-mail-friends.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  template: '',
 })
 export class InviteMailFriends {
   user: User;

@@ -1,4 +1,4 @@
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { User } from 'shared-library/shared/model';
@@ -7,8 +7,7 @@ import { AutoUnsubscribe } from 'shared-library/shared/decorators';
 import { OnDestroy, Component } from '@angular/core';
 @Component({
   selector: 'game',
-  templateUrl: './game.component.html',
-  styleUrls: ['./game.component.scss']
+  template: '',
 })
 @AutoUnsubscribe({ 'arrayName': 'subscriptions' })
 export class Game implements OnDestroy {

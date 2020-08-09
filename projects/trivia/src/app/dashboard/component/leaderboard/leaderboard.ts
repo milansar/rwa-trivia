@@ -1,19 +1,18 @@
-import { ChangeDetectorRef, OnDestroy, NgZone, Component, ChangeDetectionStrategy } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { select, Store } from "@ngrx/store";
+import { ChangeDetectorRef, OnDestroy, NgZone, Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { select, Store } from '@ngrx/store';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';
-import { Observable } from "rxjs";
-import { Utils } from "shared-library/core/services";
+import { Observable } from 'rxjs';
+import { Utils } from 'shared-library/core/services';
 import {
   AppState,
   appState,
-  categoryDictionary,
-  getCategories
-} from "../../../store";
-import { dashboardState } from "../../store";
-import * as leaderBoardActions from "../../store/actions";
-import { UserActions, TagActions, TopicActions } from "shared-library/core/store/actions";
-import { getTopTopics } from "shared-library/core/store";
+  categoryDictionary
+} from '../../../store';
+import { dashboardState } from '../../store';
+import * as leaderBoardActions from '../../store/actions';
+import { UserActions, TagActions, TopicActions } from 'shared-library/core/store/actions';
+import { getTopTopics } from 'shared-library/core/store';
 import {
   Category,
   LeaderBoardConstants,
@@ -22,16 +21,14 @@ import {
   User,
   userCardType,
   Topic
-} from "shared-library/shared/model";
-import { switchMap, map } from "rxjs/operators";
+} from 'shared-library/shared/model';
+import { switchMap, map } from 'rxjs/operators';
 
 @Component({
-  selector: 'leaderboard',
-  templateUrl: './leaderboard.component.html',
-  styleUrls: ['./leaderboard.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'leaderboard' ,
+  template: '',
 })
-@AutoUnsubscribe({ arrayName: "subscriptions" })
+@AutoUnsubscribe({ arrayName: 'subscriptions' })
 export class Leaderboard implements OnDestroy {
   userDict$: Observable<{ [key: string]: User }>;
   userDict: { [key: string]: User };
@@ -49,7 +46,7 @@ export class Leaderboard implements OnDestroy {
   platformIds: any;
   isbrowser: any;
   isServer: any;
-  defaultAvatar = "assets/images/default-avatar-small.png";
+  defaultAvatar = 'assets/images/default-avatar-small.png';
   unknown = LeaderBoardConstants.UNKNOWN;
   category: string;
   subscriptions = [];
@@ -71,9 +68,9 @@ export class Leaderboard implements OnDestroy {
     protected topic: TopicActions
   ) {
     this.route.params.subscribe(params => {
-      this.category = params["category"];
+      this.category = params['category'];
     });
-    this.loggedInUserId = "";
+    this.loggedInUserId = '';
     // this.store.dispatch(this.topic.loadTopTopics());
     this.userDict$ = this.store
       .select(appState.coreState)

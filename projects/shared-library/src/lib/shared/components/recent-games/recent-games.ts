@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef, Input } from '@angular/core';
+import { Component, ChangeDetectorRef, Input } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { User, GameStatus, Game } from 'shared-library/shared/model';
 import { coreState, CoreState } from 'shared-library/core/store';
@@ -8,9 +8,7 @@ import { UserActions } from 'shared-library/core/store/actions';
 
 @Component({
   selector: 'recent-games',
-  templateUrl: './recent-games.component.html',
-  styleUrls: ['./recent-games.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  template: '',
 })
 export class RecentGames {
 

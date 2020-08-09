@@ -1,11 +1,9 @@
-import { Input, Output, EventEmitter, Component, ChangeDetectionStrategy } from '@angular/core';
+import { Input, Output, EventEmitter, Component } from '@angular/core';
 import { Question, Answer, User, ApplicationSettings, userCardType, PlayerMode, Game } from 'shared-library/shared/model';
 
 @Component({
   selector: 'game-question',
-  templateUrl: './game-question.component.html',
-  styleUrls: ['./game-question.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  template: '',
 })
 export class GameQuestion {
   @Input() questionIndex: number;

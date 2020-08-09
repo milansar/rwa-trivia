@@ -1,5 +1,5 @@
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
-import { ChangeDetectorRef, Inject, NgZone, OnDestroy, PLATFORM_ID, Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef, Inject, NgZone, OnDestroy, PLATFORM_ID, Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { AutoUnsubscribe } from 'shared-library/shared/decorators';
 import { Observable, Subscription, timer, combineLatest } from 'rxjs';
@@ -15,9 +15,7 @@ import { coreState, categoryDictionary } from 'shared-library/core/store';
 import * as lodash from 'lodash';
 @Component({
   selector: 'dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  template: '',
 })
 @AutoUnsubscribe({ arrayName: 'subscriptions' })
 export class Dashboard implements OnDestroy {

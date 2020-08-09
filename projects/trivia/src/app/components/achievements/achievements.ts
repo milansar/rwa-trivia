@@ -5,9 +5,8 @@ import { dashboardState } from '../../dashboard/store';
 import * as dashboardAction from '../../dashboard/store/actions';
 import { AppState, appState } from '../../store';
 @Component({
-    selector: 'achievements',
-    templateUrl: './achievements.component.html',
-    styleUrls: ['./achievements.component.scss']
+    selector: 'achievements' ,
+    template: '',
   })
 export class Achievements implements OnDestroy {
 

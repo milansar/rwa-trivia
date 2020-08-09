@@ -3,12 +3,10 @@ import { CoreState, coreState } from '../../store';
 import { Store, select } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { ApplicationSettings } from 'shared-library/shared/model';
-import { ChangeDetectorRef, Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef, Component} from '@angular/core';
 @Component({
   selector: 'login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  template: '',
 })
 export class Login {
   mode: SignInMode;
