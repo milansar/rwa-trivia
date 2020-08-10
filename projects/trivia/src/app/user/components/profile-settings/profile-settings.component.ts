@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, ViewC
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { CropperSettings, ImageCropperComponent } from 'ngx-img-cropper';
 import { Subscription, Subject } from 'rxjs';
 import { Utils, WindowRef } from 'shared-library/core/services';
@@ -24,7 +24,7 @@ import * as firebase from 'firebase/app';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class ProfileSettingsComponent extends ProfileSettings implements OnInit, OnDestroy {
 
   dialogRef: MatDialogRef<LocationResetDialogComponent>;

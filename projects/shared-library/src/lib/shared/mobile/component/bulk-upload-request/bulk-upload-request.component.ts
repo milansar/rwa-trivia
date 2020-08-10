@@ -3,7 +3,7 @@ import * as app from '@nativescript/core/application';
 import { RouterExtensions } from '@nativescript/angular';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import { select, Store } from '@ngrx/store';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { CoreState, coreState, UserActions } from '../../../../core/store';
 import { User, profileSettingsConstants } from 'shared-library/shared/model';
 import { Utils } from '../../../../core/services';
@@ -17,7 +17,7 @@ import { NavigationService } from 'shared-library/core/services/mobile';
     styleUrls: ['bulk-upload-request.component.scss']
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class BulkUploadRequestComponent implements OnDestroy, OnInit {
 
     user: User;

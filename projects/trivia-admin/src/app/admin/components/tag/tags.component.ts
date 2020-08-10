@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
 import { AppState, appState } from '../../../store';
 
@@ -11,7 +11,7 @@ import { AppState, appState } from '../../../store';
   templateUrl: './tags.component.html',
   styleUrls: ['./tags.component.scss']
 })
-@AutoUnsubscribe()
+@UntilDestroy()
 export class TagsComponent implements OnInit, OnDestroy {
   tagsObs: Observable<string[]>;
   tags: string[];

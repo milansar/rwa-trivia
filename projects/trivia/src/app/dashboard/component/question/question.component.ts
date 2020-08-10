@@ -4,7 +4,7 @@ import { AppState, appState, categoryDictionary } from '../../../store';
 import { Store, select } from '@ngrx/store';
 import { QuestionActions } from 'shared-library/core/store/actions';
 import { Utils } from 'shared-library/core/services';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { GameActions } from 'shared-library/core/store/actions';
 import { skipWhile, map, switchMap } from 'rxjs/operators';
 
@@ -14,7 +14,7 @@ import { skipWhile, map, switchMap } from 'rxjs/operators';
   styleUrls: ['./question.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-@AutoUnsubscribe({ arrayName: 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class QuestionComponent implements OnDestroy {
   question: Question;
   categoryName: string;

@@ -9,7 +9,7 @@ import { SelectedIndexChangedEventData, DropDown } from 'nativescript-drop-down'
 import { ValueList } from 'nativescript-drop-down';
 import { AppState } from '../../../store';
 import { RadListViewComponent } from 'nativescript-ui-listview/angular';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 
 @Component({
   selector: 'leaderboard',
@@ -17,7 +17,7 @@ import { AutoUnsubscribe } from 'shared-library/shared/decorators';
   styleUrls: ['./leaderboard.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-@AutoUnsubscribe({ arrayName: 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class LeaderboardComponent extends Leaderboard
   implements OnDestroy, OnInit {
   @ViewChild("dropdown", { static: false }) dropdown: ElementRef;

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { ModalDialogParams } from '@nativescript/angular';
 import { Country } from './model/country.model';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { UserActions, coreState, CoreState } from 'shared-library/core/store';
@@ -13,7 +13,7 @@ import { UserActions, coreState, CoreState } from 'shared-library/core/store';
   styleUrls: ['countryList.component.css']
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class CountryListComponent implements OnInit, OnDestroy {
 
   country;

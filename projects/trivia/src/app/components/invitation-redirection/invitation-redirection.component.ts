@@ -6,7 +6,7 @@ import { User } from 'shared-library/shared/model';
 import { AuthenticationProvider } from 'shared-library/core/auth';
 import { AppState, appState } from '../../store';
 import { UserActions } from 'shared-library/core/store/actions';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 
 @Component({
     selector: 'invitation-redirection',
@@ -15,7 +15,7 @@ import { AutoUnsubscribe } from 'shared-library/shared/decorators';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class InvitationRedirectionComponent implements OnInit, OnDestroy {
 
     @Input() user: User;

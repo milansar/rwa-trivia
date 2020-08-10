@@ -7,7 +7,7 @@ import { User, Question, QuestionStatus } from 'shared-library/shared/model';
 import { AppState, appState } from '../../../store';
 import { MyQuestions } from './my-questions';
 import { Page } from '@nativescript/core/ui/page';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { FirebaseScreenNameConstants } from 'shared-library/shared/model';
 import { Utils } from 'shared-library/core/services';
 import * as Platform from "@nativescript/core/platform";
@@ -19,7 +19,7 @@ import * as Platform from "@nativescript/core/platform";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class MyQuestionsComponent extends MyQuestions implements OnDestroy, OnInit {
 
   userDict$: Observable<{ [key: string]: User }>;

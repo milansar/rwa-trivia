@@ -9,7 +9,7 @@ import * as gameplayactions from '../../store/actions';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { Utils } from 'shared-library/core/services';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 
 @Component({
     selector: 'report-game',
@@ -18,7 +18,7 @@ import { AutoUnsubscribe } from 'shared-library/shared/decorators';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class ReportGameComponent implements OnInit, OnDestroy {
 
     question: Question;

@@ -6,7 +6,7 @@ import { User, Game, Category, PlayerMode, GameStatus, CalenderConstants, userCa
 import { Utils } from 'shared-library/core/services';
 import { AppState, appState, categoryDictionary } from '../../../store';
 import { take } from 'rxjs/operators';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 
 @Component({
   selector: 'game-card',
@@ -15,7 +15,7 @@ import { AutoUnsubscribe } from 'shared-library/shared/decorators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class GameCardComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() game: Game;

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { RouterExtensions } from '@nativescript/angular';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { Utils } from 'shared-library/core/services';
 import { UserActions } from 'shared-library/core/store/actions';
 import { AppState } from '../../../store';
@@ -15,7 +15,7 @@ import { FirebaseScreenNameConstants } from 'shared-library/shared/model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class GameContinueComponent extends GameContinue implements OnInit, OnDestroy {
   stackLayout;
   showQuesAndAnswer: Boolean = true;

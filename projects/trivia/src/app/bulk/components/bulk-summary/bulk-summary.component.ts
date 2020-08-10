@@ -6,7 +6,7 @@ import { AppState } from '../../../store';
 import * as bulkActions from '../../store/actions';
 import { bulkState } from '../../store';
 import { Utils } from 'shared-library/core/services';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 
 @Component({
   selector: 'app-bulk-summary',
@@ -15,7 +15,7 @@ import { AutoUnsubscribe } from 'shared-library/shared/decorators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class BulkSummaryComponent implements OnInit, OnChanges, OnDestroy {
 
   public bulkSummaryDetailPath = '/';

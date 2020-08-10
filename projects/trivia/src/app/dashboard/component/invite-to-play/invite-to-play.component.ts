@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, Input, OnChanges, ChangeDetectorRef } from '@angular/core';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { select, Store } from '@ngrx/store';
 import { UserActions } from 'shared-library/core/store';
 import { userCardType } from 'shared-library/shared/model';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./invite-to-play.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class InviteToPlayComponent implements OnChanges, OnDestroy {
   @Input() userId;
   userCardType = userCardType;

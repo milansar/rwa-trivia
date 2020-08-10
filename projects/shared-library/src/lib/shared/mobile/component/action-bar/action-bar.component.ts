@@ -3,7 +3,7 @@ import * as app from '@nativescript/core/application';
 import { RouterExtensions } from '@nativescript/angular';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import { select, Store } from '@ngrx/store';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { CoreState, coreState } from '../../../../core/store';
 import { User } from 'shared-library/shared/model';
 import { Utils } from './../../../../core/services';
@@ -17,7 +17,7 @@ import { NavigationService } from 'shared-library/core/services/mobile';
     styleUrls: ['action-bar.component.css']
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class ActionBarComponent implements OnDestroy, OnInit {
 
     user: User;

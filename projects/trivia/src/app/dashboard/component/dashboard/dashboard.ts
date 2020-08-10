@@ -1,7 +1,7 @@
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { ChangeDetectorRef, Inject, NgZone, OnDestroy, PLATFORM_ID, Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { Observable, Subscription, timer, combineLatest } from 'rxjs';
 import { Utils, WindowRef } from 'shared-library/core/services';
 import { GameActions, QuestionActions, UserActions } from 'shared-library/core/store/actions';
@@ -17,7 +17,7 @@ import * as lodash from 'lodash';
   selector: 'dashboard',
   template: '',
 })
-@AutoUnsubscribe({ arrayName: 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class Dashboard implements OnDestroy {
   START_A_NEW_GAME = 'Start New Game';
   NEW_GAME_IN = 'New Game In';

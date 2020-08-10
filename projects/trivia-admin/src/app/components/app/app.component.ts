@@ -5,7 +5,7 @@ import { skip, take } from 'rxjs/operators';
 import { AppState, appState } from '../../store';
 import { AuthenticationProvider } from 'shared-library/core/auth';
 import { User } from 'shared-library/shared/model';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { ApplicationSettingsActions } from 'shared-library/core/store/actions';
 import { CategoryActions } from 'shared-library/core/store/actions';
 
@@ -15,7 +15,7 @@ import { CategoryActions } from 'shared-library/core/store/actions';
   styleUrls: ['./app.component.scss']
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'trivia!';
   user: User;

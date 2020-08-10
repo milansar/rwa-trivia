@@ -3,13 +3,13 @@ import { userCardType } from 'shared-library/shared/model';
 import { AppState, appState } from '../../../store';
 import { Store, select } from '@ngrx/store';
 import { UserActions } from 'shared-library/core/store/actions';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 
 @Component({
   selector: 'app-invite-friends',
   template: '',
 })
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class InviteFriends implements OnDestroy {
 
   uFriends: Array<any>;

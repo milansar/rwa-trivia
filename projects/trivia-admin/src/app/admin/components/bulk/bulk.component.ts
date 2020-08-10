@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { Subscription } from 'rxjs';
 import { bulkState } from '../../../bulk/store';
 import * as bulkActions from '../../../bulk/store/actions';
@@ -12,7 +12,7 @@ import { AppState } from '../../../store';
   styleUrls: ['./bulk.component.scss']
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class BulkComponent implements OnInit, OnDestroy {
 
   public bulkSummaryDetailPath = 'admin/';

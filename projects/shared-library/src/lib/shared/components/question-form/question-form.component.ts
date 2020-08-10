@@ -4,7 +4,7 @@ import { Question, QuestionStatus, Category, User, Answer, ApplicationSettings }
 import { QuestionService } from '../../../core/services';
 import { Observable,  of,  merge } from 'rxjs';
 import { debounceTime, switchMap, map, take, mergeMap } from 'rxjs/operators';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 // import { QuillImageUpload } from 'ng-quill-tex/lib/models/quill-image-upload';
 import { CropImageDialogComponent } from './../crop-image-dialog/crop-image-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -19,7 +19,7 @@ import { Utils } from 'shared-library/core/services';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class QuestionFormComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() editQuestion: Question;

@@ -7,7 +7,7 @@ import { User, Category } from 'shared-library/shared/model';
 import { Observable } from 'rxjs';
 import { map, flatMap, filter } from 'rxjs/operators';
 import { Utils } from './../../../../core/services/utils';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 
 
 @Component({
@@ -16,7 +16,7 @@ import { AutoUnsubscribe } from 'shared-library/shared/decorators';
   styleUrls: ['./update-category-tag.component.scss']
 })
 
-@AutoUnsubscribe({ arrayName: 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class UpdateCategoryTagComponent implements OnInit, OnDestroy {
   user: User;
   subscriptions = [];

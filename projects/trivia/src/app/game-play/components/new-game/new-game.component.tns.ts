@@ -6,7 +6,7 @@ import { RouterExtensions } from '@nativescript/angular';
 import { TokenModel } from 'nativescript-ui-autocomplete';
 import { RadAutoCompleteTextViewComponent } from 'nativescript-ui-autocomplete/angular';
 import { RadListViewComponent } from 'nativescript-ui-listview/angular';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { Utils, WindowRef } from 'shared-library/core/services';
 import { GameActions, UserActions, TagActions } from 'shared-library/core/store/actions';
 import { Category, PlayerMode } from 'shared-library/shared/model';
@@ -24,7 +24,7 @@ import { NavigationService } from 'shared-library/core/services/mobile';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class NewGameComponent extends NewGame implements OnInit, OnDestroy {
 
 

@@ -7,7 +7,7 @@ import { bulkState } from '../../store';
 import { User, Category, Question, BulkUploadFileInfo } from 'shared-library/shared/model';
 import { AppState, appState, categoryDictionary, getCategories, getTags } from '../../../store';
 import * as bulkActions from '../../store/actions';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 
 @Component({
   selector: 'bulk-details',
@@ -16,7 +16,7 @@ import { AutoUnsubscribe } from 'shared-library/shared/decorators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class BulkDetailsComponent implements OnChanges, OnInit, OnDestroy {
 
   categoryDictObs: Observable<{ [key: number]: Category }>;

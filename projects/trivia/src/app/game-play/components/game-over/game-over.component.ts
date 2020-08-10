@@ -5,7 +5,7 @@ import {
 import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import * as domtoimage from 'dom-to-image';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { Utils, WindowRef } from 'shared-library/core/services';
 import { coreState } from 'shared-library/core/store';
 import { UserActions } from 'shared-library/core/store/actions';
@@ -24,7 +24,7 @@ import { isPlatformBrowser } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class GameOverComponent extends GameOver implements OnInit, OnDestroy {
 
   dialogRef: MatDialogRef<ReportGameComponent>;

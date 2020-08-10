@@ -6,7 +6,7 @@ import { GamePlayState } from '../../store';
 import { GameActions, UserActions } from 'shared-library/core/store/actions';
 import { Utils } from 'shared-library/core/services';
 import { GameDialog } from './game-dialog';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { FirebaseScreenNameConstants } from 'shared-library/shared/model';
 
 import {
@@ -22,7 +22,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class GameDialogComponent extends GameDialog implements OnDestroy {
 
   suspendTime: number;

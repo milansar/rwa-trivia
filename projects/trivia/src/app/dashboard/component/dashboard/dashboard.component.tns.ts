@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, NgZone, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { RouterExtensions } from '@nativescript/angular';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { Utils, WindowRef } from 'shared-library/core/services';
 import { GameActions, QuestionActions, UserActions } from 'shared-library/core/store/actions';
 import { GameStatus } from 'shared-library/shared/model';
@@ -16,7 +16,7 @@ import { Dashboard } from './dashboard';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class DashboardComponent extends Dashboard implements OnInit, OnDestroy {
 
   gameStatus: any;

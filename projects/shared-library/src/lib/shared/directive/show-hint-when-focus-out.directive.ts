@@ -1,13 +1,13 @@
 import { Directive, Input, Renderer2, HostListener, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 
 @Directive({
   selector: '[stlShowHintWhenFocusOut]'
 })
 
 
-@AutoUnsubscribe({'arrayName': 'subscriptions'})
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class ShowHintWhenFocusOutDirective implements AfterViewInit, OnDestroy {
 
   controlRef: FormControl;

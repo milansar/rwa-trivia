@@ -1,7 +1,7 @@
 import { Component, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { Question, User } from 'shared-library/shared/model';
 import { Store, select } from '@ngrx/store';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { Subscription } from 'rxjs';
 import { CoreState, coreState } from 'shared-library/core/store';
 import { GameActions } from 'shared-library/core/store/actions';
@@ -14,7 +14,7 @@ import { AuthenticationProvider } from 'shared-library/core/auth';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class UserReactionComponent implements OnChanges, OnDestroy {
   @Input() question: Question;
   @Input() user: User;

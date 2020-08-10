@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { User } from 'shared-library/shared/model';
 import { AppState, appState } from '../../../../store';
 import { Subscription } from 'rxjs';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -14,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class InviteFriendsDialogComponent implements OnInit, OnDestroy {
   user: User;
   navLinks = [];

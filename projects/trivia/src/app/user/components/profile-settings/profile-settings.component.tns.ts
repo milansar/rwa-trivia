@@ -27,7 +27,7 @@ import { ImageCropper } from 'nativescript-imagecropper';
 import * as imagepicker from 'nativescript-imagepicker';
 import { TokenModel } from 'nativescript-ui-autocomplete';
 import { RadAutoCompleteTextViewComponent } from 'nativescript-ui-autocomplete/angular';
-import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { filter } from 'rxjs/operators';
 import { Utils } from 'shared-library/core/services';
 import { coreState, UserActions } from 'shared-library/core/store';
@@ -57,7 +57,7 @@ declare var IQKeyboardManager;
   styleUrls: ['./profile-settings.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-@AutoUnsubscribe({ arrayName: 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class ProfileSettingsComponent extends ProfileSettings
   implements OnDestroy, AfterViewInit, OnInit {
   // Properties

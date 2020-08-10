@@ -5,7 +5,7 @@ import { User, Game, Category, PlayerMode, GameStatus, userCardType } from 'shar
 import { Utils } from 'shared-library/core/services';
 import { coreState, CoreState, categoryDictionary } from 'shared-library/core/store';
 import { UserActions } from 'shared-library/core/store/actions';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 
 @Component({
     selector: 'recent-game-card',
@@ -14,7 +14,7 @@ import { AutoUnsubscribe } from 'shared-library/shared/decorators';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class RecentGameCardComponent implements OnInit, OnDestroy {
     @Input() game: Game;
     // @Input() userDict: { [key: string]: User };

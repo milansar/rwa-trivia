@@ -5,7 +5,7 @@ import { Utils } from 'shared-library/core/services';
 import { CoreState, UserActions } from 'shared-library/core/store';
 import { isIOS } from '@nativescript/core/platform';
 import { InviteMailFriends } from './invite-mail-friends';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 
 declare var IQKeyboardManager;
 
@@ -16,7 +16,7 @@ declare var IQKeyboardManager;
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class InviteMailFriendsComponent extends InviteMailFriends implements OnDestroy {
     iqKeyboard: any;
     constructor(fb: FormBuilder, store: Store<CoreState>, userAction: UserActions, cd: ChangeDetectorRef,

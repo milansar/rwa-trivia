@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef } from
 import { User, Question } from 'shared-library/shared/model';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 
 @Component({
   selector: 'app-preview-question-dialog',
@@ -11,7 +11,7 @@ import { AutoUnsubscribe } from 'shared-library/shared/decorators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class PreviewQuestionDialogComponent implements OnDestroy {
   question: Question;
   user: User;

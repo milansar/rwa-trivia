@@ -3,7 +3,7 @@ import {
     OnDestroy, OnInit, QueryList, ViewChildren, Input, Output, EventEmitter
 } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
 import { Utils } from 'shared-library/core/services';
 import { Category, Game, Question, QuestionMetadata, ReportQuestion, User } from 'shared-library/shared/model';
@@ -18,7 +18,7 @@ declare var IQKeyboardManager;
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class ReportGameComponent implements OnInit, OnDestroy {
     iqKeyboard: any;
     @Input() question: Question;

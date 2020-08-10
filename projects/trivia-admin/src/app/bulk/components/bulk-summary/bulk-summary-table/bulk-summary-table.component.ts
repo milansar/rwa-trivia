@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { BulkUploadFileInfo, Category, User } from 'shared-library/shared/model';
@@ -19,7 +19,7 @@ import * as bulkActions from '../../../store/actions';
   styleUrls: ['./bulk-summary-table.component.scss']
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class BulkSummaryTableComponent implements OnInit, OnChanges, OnDestroy {
 
   categoryDictObs: Observable<{ [key: number]: Category }>;

@@ -6,7 +6,7 @@ import * as application from '@nativescript/core/application';
 import { ModalDialogOptions, ModalDialogService } from '@nativescript/angular';
 import { RouterExtensions } from '@nativescript/angular';
 import { setString } from 'nativescript-plugin-firebase/crashlytics/crashlytics';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { Subject } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 import { android, AndroidActivityBackPressedEventData, AndroidApplication } from '@nativescript/core/application';
@@ -25,7 +25,7 @@ declare var IQKeyboardManager;
   styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-@AutoUnsubscribe({ arrayName: 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class LoginComponent extends Login implements OnInit, OnDestroy {
   iqKeyboard: any;
   @ViewChildren('textField') textField: QueryList<ElementRef>;

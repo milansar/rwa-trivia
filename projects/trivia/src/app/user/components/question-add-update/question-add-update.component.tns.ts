@@ -23,7 +23,7 @@ import { QuestionAddUpdate } from './question-add-update';
 import { ObservableArray } from '@nativescript/core/data/observable-array';
 import { TokenModel } from 'nativescript-ui-autocomplete';
 import { isIOS } from '@nativescript/core/platform';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import * as webViewInterfaceModule from 'nativescript-webview-interface';
 import * as imagepicker from 'nativescript-imagepicker';
 import * as dialogs from '@nativescript/core/ui/dialogs';
@@ -52,7 +52,7 @@ declare var IQKeyboardManager;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class QuestionAddUpdateComponent extends QuestionAddUpdate
   implements OnDestroy, OnChanges, AfterViewInit, OnInit {
   iqKeyboard: any;

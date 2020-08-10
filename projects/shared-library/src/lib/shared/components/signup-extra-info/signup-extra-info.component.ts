@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { User } from 'shared-library/shared/model/user';
 import { Store, select } from '@ngrx/store';
 import { CoreState, coreState } from './../../../core/store';
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
   templateUrl: './signup-extra-info.component.html',
   styleUrls: ['./signup-extra-info.component.scss']
 })
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class SignupExtraInfoComponent implements OnInit, OnDestroy {
   user: User;
   phoneEditable: Boolean = true;

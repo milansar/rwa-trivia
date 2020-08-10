@@ -3,13 +3,13 @@ import { take } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { User } from 'shared-library/shared/model';
 import { AppState, appState } from '../../../store';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { OnDestroy, Component } from '@angular/core';
 @Component({
   selector: 'game',
   template: '',
 })
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class Game implements OnDestroy {
   user: User;
 

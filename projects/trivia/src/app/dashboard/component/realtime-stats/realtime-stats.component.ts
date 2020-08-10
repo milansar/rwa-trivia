@@ -5,7 +5,7 @@ import { dashboardState } from '../../store';
 import * as StatActions from '../../store/actions';
 import { SystemStats } from 'shared-library/shared/model';
 import { AppState } from '../../../store';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 
 
 @Component({
@@ -14,7 +14,7 @@ import { AutoUnsubscribe } from 'shared-library/shared/decorators';
   styleUrls: ['./realtime-stats.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class RealtimeStatsComponent implements OnDestroy {
 
   systemStats: SystemStats;

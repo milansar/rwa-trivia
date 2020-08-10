@@ -6,7 +6,7 @@ import { Store, select } from '@ngrx/store';
 
 import { AppState, appState } from '../../../store';
 import { Category } from 'shared-library/shared/model';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 
 @Component({
   selector: 'category-list',
@@ -14,7 +14,7 @@ import { AutoUnsubscribe } from 'shared-library/shared/decorators';
   styleUrls: ['./categories.component.scss']
 })
 
-@AutoUnsubscribe()
+@UntilDestroy()
 export class CategoriesComponent implements OnInit, OnDestroy {
   categoriesObs: Observable<Category[]>;
   categories: Category[];

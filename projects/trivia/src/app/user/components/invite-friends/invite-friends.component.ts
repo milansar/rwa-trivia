@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { select, Store } from '@ngrx/store';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { UserActions } from 'shared-library/core/store/actions';
 import { AppState, appState } from '../../../store';
 import { InviteFriends } from './invite-friends';
@@ -18,7 +18,7 @@ import { isPlatformBrowser } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class InviteFriendsComponent extends InviteFriends implements OnInit, OnDestroy {
 
   dialogRef: MatDialogRef<InviteFriendsDialogComponent>;

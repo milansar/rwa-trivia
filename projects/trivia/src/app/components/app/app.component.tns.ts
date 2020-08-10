@@ -16,7 +16,7 @@ import { ApplicationSettings } from 'shared-library/shared/model';
 import { on as applicationOn, resumeEvent, ApplicationEventData } from '@nativescript/core/application';
 import { FirebaseAuthService } from 'shared-library/core/auth/firebase-auth.service';
 import { ApplicationSettingsActions, CategoryActions } from 'shared-library/core/store/actions';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import * as util from '@nativescript/core/utils/utils';
 import { alert } from '@nativescript/core/ui/dialogs';
 import { projectMeta } from 'shared-library/environments/environment';
@@ -43,7 +43,7 @@ registerElement('CarouselItem', () => CarouselItem);
   templateUrl: './app.component.html',
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   user: User;
   subscriptions = [];

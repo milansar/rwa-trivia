@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, NgZone, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { AppState, appState, } from './../store';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { ApplicationSettings, Question, Answer, Category, QuestionStatus } from 'shared-library/shared/model';
 import { Subscription, Observable } from 'rxjs';
 import { FormGroup, FormArray, FormControl, Validators, FormBuilder } from '@angular/forms';
@@ -15,7 +15,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./add-question.component.scss']
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class AddQuestionComponent implements OnInit, OnDestroy, AfterViewInit {
 
   editorContent = [{ insert: '' }];

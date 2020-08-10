@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef } from
 import { Store } from '@ngrx/store';
 import { CoreState } from 'shared-library/core/store';
 import { UserActions } from 'shared-library/core/store/actions';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { RecentGames } from './recent-games';
 
 @Component({
@@ -11,7 +11,7 @@ import { RecentGames } from './recent-games';
   styleUrls: ['./recent-games.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-@AutoUnsubscribe({ arrayName: "subscriptions" })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class RecentGamesComponent extends RecentGames implements OnDestroy {
   constructor(
     store: Store<CoreState>,

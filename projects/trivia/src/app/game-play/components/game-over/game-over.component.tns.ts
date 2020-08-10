@@ -4,7 +4,7 @@ import { ModalDialogService } from '@nativescript/angular';
 import { RouterExtensions } from '@nativescript/angular';
 import { getImage } from 'nativescript-screenshot';
 import * as SocialShare from 'nativescript-social-share';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { WindowRef, Utils } from 'shared-library/core/services';
 import { coreState } from 'shared-library/core/store';
 import { UserActions } from 'shared-library/core/store/actions';
@@ -22,7 +22,7 @@ import { Page } from '@nativescript/core/ui/page';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class GameOverComponent extends GameOver implements OnInit, OnDestroy {
 
   actionBarStatus: String = 'Game Result';

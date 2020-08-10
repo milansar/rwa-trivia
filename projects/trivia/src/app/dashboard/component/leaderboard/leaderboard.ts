@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, OnDestroy, NgZone, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
 import { Utils } from 'shared-library/core/services';
 import {
@@ -28,7 +28,7 @@ import { switchMap, map } from 'rxjs/operators';
   selector: 'leaderboard' ,
   template: '',
 })
-@AutoUnsubscribe({ arrayName: 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class Leaderboard implements OnDestroy {
   userDict$: Observable<{ [key: string]: User }>;
   userDict: { [key: string]: User };

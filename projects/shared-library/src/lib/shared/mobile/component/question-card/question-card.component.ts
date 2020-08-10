@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { Question } from './../../../model/question';
 import { select, Store } from '@ngrx/store';
 import { CoreState, coreState } from '../../../../core/store';
@@ -12,7 +12,7 @@ import { ApplicationSettings, Answer, User } from 'shared-library/shared/model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class QuestionCardComponent implements OnInit, OnDestroy, OnChanges {
   @Input() user: User;
   @Input() question: Question;

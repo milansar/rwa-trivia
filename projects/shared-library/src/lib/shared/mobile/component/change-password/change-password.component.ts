@@ -1,21 +1,21 @@
-import { Component, OnDestroy, ChangeDetectorRef, OnInit } from "@angular/core";
-import { RouterExtensions } from "@nativescript/angular";
-import { select, Store } from "@ngrx/store";
-import { AutoUnsubscribe } from "ngx-auto-unsubscribe";
-import { CoreState, coreState } from "../../../../core/store";
-import { User } from "shared-library/shared/model";
-import { Utils } from "../../../../core/services";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Page } from "@nativescript/core/ui/page";
-import { AuthenticationProvider } from "shared-library/core/auth";
+import { Component, OnDestroy, ChangeDetectorRef, OnInit } from '@angular/core';
+import { RouterExtensions } from '@nativescript/angular';
+import { select, Store } from '@ngrx/store';
+import { UntilDestroy } from '@ngneat/until-destroy';
+import { CoreState, coreState } from '../../../../core/store';
+import { User } from 'shared-library/shared/model';
+import { Utils } from '../../../../core/services';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Page } from '@nativescript/core/ui/page';
+import { AuthenticationProvider } from 'shared-library/core/auth';
 
 @Component({
   selector: "ns-change-password",
   moduleId: module.id,
-  templateUrl: "change-password.component.html",
-  styleUrls: ["change-password.component.css"]
+  templateUrl: 'change-password.component.html',
+  styleUrls: ['change-password.component.css']
 })
-@AutoUnsubscribe({ arrayName: "subscriptions" })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class ChangePasswordComponent implements OnDestroy, OnInit {
   user: User;
   subscriptions = [];
@@ -32,9 +32,9 @@ export class ChangePasswordComponent implements OnDestroy, OnInit {
     this.page.actionBarHidden = true;
     this.passwordForm = this.fb.group(
       {
-        oldPassword: ["", Validators.minLength(6)],
-        password: ["", Validators.minLength(6)],
-        confirmPassword: ["", Validators.minLength(6)]
+        oldPassword: ['', Validators.minLength(6)],
+        password: ['', Validators.minLength(6)],
+        confirmPassword: ['', Validators.minLength(6)]
       },
       { validator: profileUpdateFormValidator }
     );
@@ -58,8 +58,8 @@ export class ChangePasswordComponent implements OnDestroy, OnInit {
   ngOnDestroy() {}
 
   async saveUser() {
-    const currentPassword = this.passwordForm.get("oldPassword").value;
-    const newPassword = this.passwordForm.get("password").value;
+    const currentPassword = this.passwordForm.get('oldPassword').value;
+    const newPassword = this.passwordForm.get('password').value;
     if (
       currentPassword &&
       currentPassword !== null &&
@@ -75,13 +75,13 @@ export class ChangePasswordComponent implements OnDestroy, OnInit {
           newPassword
         );
         this.utils.showMessage(
-          "success",
-          "Your password has been changed successfully."
+          'success',
+          'Your password has been changed successfully.'
         );
         this.back();
       } catch (error) {
         if (error && error != {}) {
-          this.utils.showMessage("error", "The password is invalid or the user does not have a password.");
+          this.utils.showMessage('error', 'The password is invalid or the user does not have a password.');
         }
       }
     }
@@ -91,16 +91,16 @@ export class ChangePasswordComponent implements OnDestroy, OnInit {
 function profileUpdateFormValidator(fg: FormGroup): { [key: string]: boolean } {
   // Password match validation for password update only
   if (
-    fg.get("password") &&
-    fg.get("confirmPassword") &&
-    fg.get("password").value &&
-    fg.get("confirmPassword").value
+    fg.get('password') &&
+    fg.get('confirmPassword') &&
+    fg.get('password').value &&
+    fg.get('confirmPassword').value
   ) {
-    if (fg.get("password").value !== fg.get("confirmPassword").value) {
+    if (fg.get('password').value !== fg.get('confirmPassword').value) {
       return { passwordmismatch: true };
     }
 
-    if (!fg.get("oldPassword") || !fg.get("oldPassword").value) {
+    if (!fg.get('oldPassword') || !fg.get('oldPassword').value) {
       return { requiredoldpassword: true };
     }
     return null;

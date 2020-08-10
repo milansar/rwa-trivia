@@ -6,7 +6,7 @@ import { Store, select } from '@ngrx/store';
 import { User, ApplicationSettings } from 'shared-library/shared/model';
 import { Utils } from 'shared-library/core/services';
 import { AppState, appState } from '../../store';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { coreState } from 'shared-library/core/store';
 import { projectMeta } from 'shared-library/environments/environment';
 
@@ -17,7 +17,7 @@ import { projectMeta } from 'shared-library/environments/environment';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class SideNavComponent implements OnDestroy {
   @Input() user: User;
   userDict$: Observable<{ [key: string]: User }>;

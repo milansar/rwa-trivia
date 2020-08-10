@@ -11,7 +11,7 @@ import { GameDialogComponent } from '../game-dialog/game-dialog.component';
 import { User } from 'shared-library/shared/model';
 import { AppState, appState } from '../../../store';
 import * as gameplayactions from '../../store/actions';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
@@ -21,7 +21,7 @@ import { isPlatformBrowser } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class GameComponent implements OnInit, OnDestroy {
   user: User;
   dialogRef: MatDialogRef<GameDialogComponent>;

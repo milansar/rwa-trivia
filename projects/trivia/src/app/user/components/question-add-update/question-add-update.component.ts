@@ -10,7 +10,7 @@ import { QuestionActions } from 'shared-library/core/store/actions/question.acti
 import { QuestionAddUpdate } from './question-add-update';
 import { Question, Answer } from 'shared-library/shared/model';
 import { debounceTime, map, concatMap, mergeMap, take } from 'rxjs/operators';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { QuestionService } from 'shared-library/core/services';
 import { ImageCropperComponent } from 'ngx-img-cropper';
 import { QuillImageUpload } from 'ng-quill-tex/lib/models/quill-image-upload';
@@ -25,7 +25,7 @@ import { of } from 'rxjs';
 })
 
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class QuestionAddUpdateComponent extends QuestionAddUpdate implements OnInit, OnDestroy {
 
   @ViewChild('cropper', { static: false }) cropper: ImageCropperComponent;

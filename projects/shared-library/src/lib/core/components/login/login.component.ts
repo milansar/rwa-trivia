@@ -5,7 +5,7 @@ import { CoreState, UIStateActions } from '../../store';
 import { Store } from '@ngrx/store';
 import { FirebaseAuthService } from './../../auth/firebase-auth.service';
 import { Login } from './login';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import * as firebase from 'firebase/app';
 import * as firebaseui from 'firebaseui';
 import { WindowRef } from 'shared-library/core/services';
@@ -17,7 +17,7 @@ import { CONFIG } from 'shared-library/environments/environment';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class LoginComponent extends Login implements OnDestroy {
   ui: any;
   uiConfig: any;

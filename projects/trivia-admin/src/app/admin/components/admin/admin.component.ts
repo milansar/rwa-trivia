@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { User } from 'shared-library/shared/model';
 import { AppState, appState } from '../../../store';
 
@@ -12,7 +12,7 @@ import { AppState, appState } from '../../../store';
   styleUrls: ['./admin.component.scss']
 })
 
-@AutoUnsubscribe()
+@UntilDestroy()
 export class AdminComponent implements OnInit, OnDestroy {
   user: User;
   sub: any;

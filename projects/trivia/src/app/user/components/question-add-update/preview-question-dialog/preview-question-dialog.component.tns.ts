@@ -1,6 +1,6 @@
 import { Component, OnDestroy, ChangeDetectorRef, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { User, Question, Category } from 'shared-library/shared/model';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 
 @Component({
   selector: 'app-preview-question-dialog',
@@ -9,7 +9,7 @@ import { AutoUnsubscribe } from 'shared-library/shared/decorators';
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class PreviewQuestionDialogComponent implements OnChanges, OnDestroy {
 
   user: User;

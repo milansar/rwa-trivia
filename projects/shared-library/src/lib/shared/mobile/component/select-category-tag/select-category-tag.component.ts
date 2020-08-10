@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { RouterExtensions } from '@nativescript/angular';
 import { UserActions, CategoryActions, TagActions } from 'shared-library/core/store';
 import { select, Store } from '@ngrx/store';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { coreState } from '../../../../core/store';
 import { User } from 'shared-library/shared/model/user';
 import { Category } from 'shared-library/shared/model';
@@ -14,7 +14,7 @@ import { Page } from '@nativescript/core/ui/page';
   templateUrl: './select-category-tag.component.html',
   styleUrls: ['./select-category-tag.component.scss']
 })
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class SelectCategoryTagComponent implements OnInit, OnDestroy {
   user: User;
   subscriptions = [];

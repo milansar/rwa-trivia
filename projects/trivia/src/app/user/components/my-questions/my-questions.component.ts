@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { select, Store } from '@ngrx/store';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { coreState, QuestionActions } from 'shared-library/core/store';
 import { Question } from 'shared-library/shared/model';
 import { AppState } from '../../../store';
@@ -14,7 +14,7 @@ import { MyQuestions } from './my-questions';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class MyQuestionsComponent extends MyQuestions implements OnDestroy {
 
   constructor(public store: Store<AppState>,

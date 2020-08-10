@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ViewChild, Chang
 import { User } from 'shared-library/shared/model';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { CropperSettings, ImageCropperComponent } from 'ngx-img-cropper';
 
 @Component({
@@ -12,7 +12,7 @@ import { CropperSettings, ImageCropperComponent } from 'ngx-img-cropper';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class CropImageDialogComponent implements OnInit, OnDestroy {
 
   user: User;

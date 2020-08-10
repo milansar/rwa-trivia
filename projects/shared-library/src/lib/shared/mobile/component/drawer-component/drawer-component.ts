@@ -14,7 +14,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Category } from './../../../model';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { projectMeta } from 'shared-library/environments/environment';
 import { FirebaseAuthService } from 'shared-library/core/auth';
 
@@ -26,7 +26,7 @@ import { FirebaseAuthService } from 'shared-library/core/auth';
 
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class DrawerComponent implements OnInit, OnDestroy {
 
     @ViewChild('ScrollList', { static: false }) scrollList: ElementRef;

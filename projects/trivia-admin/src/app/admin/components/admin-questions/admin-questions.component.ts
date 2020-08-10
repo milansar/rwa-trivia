@@ -4,7 +4,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { Observable, Subscription } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { UserActions } from 'shared-library/core/store';
@@ -20,7 +20,7 @@ import * as adminActions from '../../store/actions';
   styleUrls: ['./admin-questions.component.scss']
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class AdminQuestionsComponent implements OnInit, OnDestroy {
   questionsSearchResultsObs: Observable<SearchResults>;
   unpublishedQuestionsObs: Observable<Question[]>;

@@ -3,7 +3,7 @@ import * as app from '@nativescript/core/application';
 import { RouterExtensions } from '@nativescript/angular';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import { select, Store } from '@ngrx/store';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { CoreState, coreState } from '../../../../core/store';
 import { User } from 'shared-library/shared/model';
 import { Router, NavigationEnd } from '@angular/router';
@@ -16,7 +16,7 @@ import { PlatformLocation } from '@angular/common';
     styleUrls: ['bottom-bar.component.scss']
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class BottomBarComponent implements OnChanges, OnDestroy, OnInit {
 
     user: User;

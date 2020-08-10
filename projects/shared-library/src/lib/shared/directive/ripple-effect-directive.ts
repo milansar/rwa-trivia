@@ -1,13 +1,13 @@
 import { Directive, Input, Renderer2, HostListener, OnDestroy, ElementRef, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { Color } from '@nativescript/core/color';
 import * as enums from '@nativescript/core/ui/enums';
 @Directive({
   selector: '[stlRippleEffect]',
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class RippleEffectDirective implements OnDestroy {
 
 

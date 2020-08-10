@@ -3,7 +3,7 @@ import { Store, select } from '@ngrx/store';
 import { Account } from 'shared-library/shared/model';
 import { AppState, appState } from '../../store';
 import { Utils } from 'shared-library/core/services';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 @Component({
   selector: 'user-stats-card',
   templateUrl: './user-stats-card.component.html',
@@ -11,7 +11,7 @@ import { AutoUnsubscribe } from 'shared-library/shared/decorators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class UserStatsCardComponent implements OnDestroy {
 
   account: Account;

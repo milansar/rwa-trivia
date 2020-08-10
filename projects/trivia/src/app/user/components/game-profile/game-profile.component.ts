@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { GameProfile } from './game-profile';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../store';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -13,7 +13,7 @@ import { Utils } from 'shared-library/core/services';
     styleUrls: ['./game-profile.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 
 export class GameProfileComponent extends GameProfile implements OnDestroy {
 

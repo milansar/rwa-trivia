@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { UserActions, coreState } from 'shared-library/core/store';
 import { AppState, appState } from './../../../../../../../trivia/src/app/store';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { isIOS } from '@nativescript/core/platform';
 import { Utils } from 'shared-library/core/services';
 declare var IQKeyboardManager;
@@ -15,7 +15,7 @@ declare var IQKeyboardManager;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class UserFeedbackComponent implements OnDestroy, OnInit {
   iqKeyboard: any;
   subscriptions = [];

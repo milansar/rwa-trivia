@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { Utils } from 'shared-library/core/services';
@@ -19,7 +19,7 @@ import * as bulkActions from '../../../store/actions';
   styleUrls: ['./bulk-summary-question.component.scss']
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class BulkSummaryQuestionComponent implements OnInit, OnDestroy {
 
   unPublishedQuestions: Question[];

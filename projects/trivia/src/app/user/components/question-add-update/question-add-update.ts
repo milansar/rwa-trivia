@@ -7,14 +7,14 @@ import { Utils } from 'shared-library/core/services';
 import { AppState, appState } from '../../../store';
 import * as userActions from '../../store/actions';
 import { QuestionActions } from 'shared-library/core/store/actions/question.actions';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { OnDestroy, Component } from '@angular/core';
 import { isEmpty } from 'lodash';
 @Component({
   selector: 'app-question-add-update',
   template: '',
 })
-@AutoUnsubscribe({ arrayName: 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class QuestionAddUpdate implements OnDestroy {
 
 

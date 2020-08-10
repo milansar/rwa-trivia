@@ -3,7 +3,7 @@ import { Invitation, Category, userCardType, User } from 'shared-library/shared/
 import { Store, select } from '@ngrx/store';
 import { CoreState, coreState, categoryDictionary } from './../../../../core/store';
 import { Observable, combineLatest } from 'rxjs';
-import { AutoUnsubscribe } from 'shared-library/shared/decorators';
+import { UntilDestroy } from '@ngneat/until-destroy';
 
 @Component({
   selector: 'app-notification',
@@ -11,7 +11,7 @@ import { AutoUnsubscribe } from 'shared-library/shared/decorators';
   styleUrls: ['./notification.component.scss']
 })
 
-@AutoUnsubscribe({ 'arrayName': 'subscriptions' })
+@UntilDestroy({ arrayName: 'subscriptions' })
 export class NotificationComponent implements OnInit, OnDestroy {
 
   user: User;
