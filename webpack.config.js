@@ -221,8 +221,19 @@ module.exports = env => {
       ],
       alias: {
         '~': appFullPath,
+        "tns-core-modules/application/application$": "@nativescript/core/application",
+        "tns-core-modules/color/color$": "@nativescript/core/color",
+        "tns-core-modules/data/observable-array/observable-array": "@nativescript/core/data/observable-array",
+        "tns-core-modules/image-asset/image-asset$": "@nativescript/core/image-asset",
+        "tns-core-modules/platform/platform$": "@nativescript/core/platform",
+        "tns-core-modules/trace/trace$":"@nativescript/core/trace",
+        "tns-core-modules/ui/core/weak-event-listener/weak-event-listener": "@nativescript/core/ui/core/weak-event-listener",
+        "ui/editable-text-base/editable-text-base$": "@nativescript/core/ui",
         "tns-core-modules": "@nativescript/core",
-        "nativescript-angular": "@nativescript/angular"
+        "nativescript-angular/element-registry$": "@nativescript/angular",
+        "nativescript-angular/forms/value-accessors/base-value-accessor$": "@nativescript/angular",
+        "nativescript-angular/lang-facade$": "@nativescript/angular",
+        "nativescript-angular": "@nativescript/angular",        
       },
       symlinks: true
     },

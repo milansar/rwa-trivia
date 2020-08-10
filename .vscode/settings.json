@@ -8,5 +8,6 @@
         "firestore",
         "leaderboard",
         "middlewares"
-    ]
+    ],
+    "javascript.implicitProjectConfig.experimentalDecorators": true,
 }

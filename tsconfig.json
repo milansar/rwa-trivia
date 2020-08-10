@@ -22,9 +22,9 @@
     ],
     "lib": [
       "es2018",
+      "es2017",
       "dom",
       "es6",
-      "es2015.iterable"
     ],
     "paths": {
       "shared-library/*": [

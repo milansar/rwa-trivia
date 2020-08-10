@@ -73,3 +73,4 @@ release/*
 /**/*.ipa
 
 ng-quill-tex-0.0.1.tgz
+.update_backup/package-lock.json
