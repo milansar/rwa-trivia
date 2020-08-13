@@ -24,7 +24,7 @@ export function firebaseFactory() {
   return TNSFirebase;
 }
 
-registerElement('PreviousNextView', () => require('nativescript-iqkeyboardmanager').PreviousNextView);
+registerElement('PreviousNextView', () => require('@nativescript/iqkeyboardmanager').PreviousNextView);
 registerElement('CardView', () => CardView);
 
 
