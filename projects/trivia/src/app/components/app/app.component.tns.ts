@@ -1,6 +1,6 @@
 import { Component, OnInit, NgZone, OnDestroy, ChangeDetectorRef, ViewContainerRef, ViewChild, AfterViewInit } from '@angular/core';
 
-import * as firebase from 'nativescript-plugin-firebase';
+import { firebase } from '@nativescript/firebase';
 import { Store, select } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
 import { AppState, appState } from '../../store';

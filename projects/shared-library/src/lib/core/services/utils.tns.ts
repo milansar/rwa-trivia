@@ -4,7 +4,9 @@ import {
   FeedbackPosition,
   FeedbackType
 } from 'nativescript-feedback';
-import * as firebase from 'nativescript-plugin-firebase';
+import { analytics } from '@nativescript/firebase/analytics';
+import { crashlytics } from '@nativescript/firebase/crashlytics';
+
 import {
   Parameter,
   User,
@@ -55,8 +57,8 @@ export class Utils extends UtilsCore {
   }
 
   sendErrorToCrashlytics(type: any, error: any) {
-    firebase.crashlytics.log(type, error);
-    firebase.crashlytics.sendCrashLog(error);
+    crashlytics.log(type, error);
+    crashlytics.sendCrashLog(error);
   }
 
   setAnalyticsParameter(
@@ -72,7 +74,7 @@ export class Utils extends UtilsCore {
     eventName: string,
     analyticsParameter: Array<Parameter>
   ) {
-    firebase.analytics
+    analytics
       .logEvent({
         key: eventName,
         parameters: analyticsParameter
@@ -83,7 +85,7 @@ export class Utils extends UtilsCore {
   }
 
   setScreenNameInFirebaseAnalytics(screenName: string) {
-    firebase.analytics
+    analytics
       .setScreenName({
         screenName: screenName
       })

@@ -96,10 +96,10 @@ module.exports = {
         if (fs.existsSync(npfInfoPath)) {
 
             try { npfInfo = JSON.parse(fs.readFileSync(npfInfoPath, 'utf8')); }
-            catch (e) { logger.info('nativescript-plugin-firebase: error reading ' + npfInfoPath); }
+            catch (e) { logger.info('error reading ' + npfInfoPath); }
 
-        } else { logger.info('nativescript-plugin-firebase: 119' + npfInfoPath + ' not found, forcing prepare!'); }
-        logger.info('nativescript-plugin-firebase: running release build or change in environment detected, forcing prepare!');
+        } else { logger.info('119' + npfInfoPath + ' not found, forcing prepare!'); }
+        logger.info('running release build or change in environment detected, forcing prepare!');
 
         if (fs.existsSync(npfInfoPath)) { fs.unlinkSync(npfInfoPath); }
         if (fs.existsSync(nsPrepareInfoPath)) { fs.unlinkSync(nsPrepareInfoPath); }
@@ -124,16 +124,16 @@ var copyPlist = function (copyPlistOpts) {
 
         if (fs.existsSync(sourceGooglePlistProd) && fs.existsSync(sourceGooglePlistDev)) {
             if (copyPlistOpts.isProdEnv) { // use prod version
-                copyPlistOpts.logger.info("nativescript-plugin-firebase: copy " + sourceGooglePlistProd + " to " + destinationGooglePlist + ".");
+                copyPlistOpts.logger.info("copy " + sourceGooglePlistProd + " to " + destinationGooglePlist + ".");
                 fs.writeFileSync(destinationGooglePlist, fs.readFileSync(sourceGooglePlistProd));
                 return true;
             } else { // use dev version
-                copyPlistOpts.logger.info("nativescript-plugin-firebase: copy " + sourceGooglePlistDev + " to " + destinationGooglePlist + ".");
+                copyPlistOpts.logger.info("copy " + sourceGooglePlistDev + " to " + destinationGooglePlist + ".");
                 fs.writeFileSync(destinationGooglePlist, fs.readFileSync(sourceGooglePlistDev));
                 return true;
             }
         } else if (!fs.existsSync(destinationGooglePlist)) { // single GoogleService-Info.plist modus but missing
-            copyPlistOpts.logger.warn("nativescript-plugin-firebase: 175" + destinationGooglePlist + " does not exist. Please follow the installation instructions from the documentation");
+            copyPlistOpts.logger.warn("175" + destinationGooglePlist + " does not exist. Please follow the installation instructions from the documentation");
             return false;
         } else {
             return true; // single GoogleService-Info.plist modus
@@ -155,16 +155,16 @@ var copyInfoPlist = function (copyPlistOpts) {
         // if we have both dev/prod versions, we copy (or overwrite) Info.plist in destination dir
         if (fs.existsSync(sourceInfoPlistProd) && fs.existsSync(sourceInfoPlistDev)) {
             if (copyPlistOpts.isProdEnv) { // use prod version
-                copyPlistOpts.logger.info("nativescript-plugin-firebase: copy " + sourceInfoPlistProd + " to " + destinationInfoPlist + ".");
+                copyPlistOpts.logger.info("copy " + sourceInfoPlistProd + " to " + destinationInfoPlist + ".");
                 fs.writeFileSync(destinationInfoPlist, fs.readFileSync(sourceInfoPlistProd));
                 return true;
             } else { // use dev version
-                copyPlistOpts.logger.info("nativescript-plugin-firebase: copy " + sourceInfoPlistDev + " to " + destinationInfoPlist + ".");
+                copyPlistOpts.logger.info("copy " + sourceInfoPlistDev + " to " + destinationInfoPlist + ".");
                 fs.writeFileSync(destinationInfoPlist, fs.readFileSync(sourceInfoPlistDev));
                 return true;
             }
         } else if (!fs.existsSync(destinationInfoPlist)) { // single Info.plist modus but missing
-            copyPlistOpts.logger.warn("nativescript-plugin-firebase: 206 " + destinationInfoPlist + " does not exist. Please follow the installation instructions from the documentation");
+            copyPlistOpts.logger.warn("206 " + destinationInfoPlist + " does not exist. Please follow the installation instructions from the documentation");
             return false;
         } else {
             return true; // single Info.plist modus

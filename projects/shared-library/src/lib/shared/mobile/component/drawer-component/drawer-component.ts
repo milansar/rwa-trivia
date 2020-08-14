@@ -2,7 +2,8 @@ import { Component, EventEmitter, OnInit, Output, ViewContainerRef, OnDestroy, E
 import { RouterExtensions } from '@nativescript/angular';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import * as app from '@nativescript/core/application';
-import * as firebase from 'nativescript-plugin-firebase';
+import { firebase } from '@nativescript/firebase';
+import { analytics } from '@nativescript/firebase/analytics';
 import { isAndroid } from '@nativescript/core/platform';
 import { Store, select } from '@ngrx/store';
 import { User, ApplicationSettings, Parameter, DeviceToken, DrawerConstants } from './../../../../shared/model';
@@ -222,7 +223,7 @@ export class DrawerComponent implements OnInit, OnDestroy {
         };
         analyticsParameter.push(userId);
 
-        firebase.analytics.logEvent({
+        analytics.logEvent({
             key: 'user_logout',
             parameters: analyticsParameter
         }).then(() => {

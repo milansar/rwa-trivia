@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import * as application from '@nativescript/core/application';
 import { ModalDialogOptions, ModalDialogService } from '@nativescript/angular';
 import { RouterExtensions } from '@nativescript/angular';
-import { setString } from 'nativescript-plugin-firebase/crashlytics/crashlytics';
+import { setString } from '@nativescript/firebase/crashlytics/crashlytics';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { Subject } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';

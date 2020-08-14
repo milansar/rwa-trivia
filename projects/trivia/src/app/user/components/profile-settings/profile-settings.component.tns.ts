@@ -47,7 +47,8 @@ import { ProfileSettings } from './profile-settings';
 import { AuthenticationProvider } from 'shared-library/core/auth';
 import * as Platform from '@nativescript/core/platform';
 import { RouterExtensions } from '@nativescript/angular';
-const firebase = require('nativescript-plugin-firebase/app');
+import * as firebase from 'firebase/app';
+
 
 declare var IQKeyboardManager;
 

@@ -2,7 +2,9 @@ import { Injectable, NgZone } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { DbService } from './../db.service';
-const firebaseApp = require('nativescript-plugin-firebase/app');
+import { firestore } from '@nativescript/firebase/app';
+import { firebase } from '@nativescript/firebase';
+
 
 @Injectable()
 export class TNSDbService extends DbService {
@@ -14,7 +16,7 @@ export class TNSDbService extends DbService {
     }
 
     public createDoc(collectionName: string, document: any) {
-        const collectionRef = firebaseApp.firestore().collection(collectionName);
+        const collectionRef = firebase.firestore.collection(collectionName);
         return collectionRef.add(document).then((documentRef) => {
             document.id = documentRef.id;
             return this.setDoc(collectionName, documentRef.id, document);
@@ -22,48 +24,51 @@ export class TNSDbService extends DbService {
     }
 
     public CreateDocWithoutDocID(collectionName: string, document: any) {
-        const collectionRef = firebaseApp.firestore().collection(collectionName);
+        const collectionRef = firebase.firestore.collection(collectionName);
         return collectionRef.add(document);
     }
 
     public setDoc(collectionName: string, docId: any, document: any, timeStamp = null) {
         if (timeStamp !== null && timeStamp) {
             if (timeStamp.createdOn) {
-                document = { ...document, createdOn: firebaseApp.firestore().FieldValue().serverTimestamp() };
+                document = { ...document, createdOn: firebase.firestore.FieldValue.serverTimestamp()};
             }
             if (timeStamp.updatedOn) {
-                document = { ...document, updatedOn: firebaseApp.firestore().FieldValue().serverTimestamp() };
+                document = { ...document, updatedOn: firebase.firestore.FieldValue.serverTimestamp() };
             }
         }
-        const userCollection = firebaseApp.firestore().collection(collectionName);
+        const userCollection = firebase.firestore.collection(collectionName);
         return userCollection.doc(docId).set(document, { merge: true });
     }
 
     public updateDoc(collectionName, docId, document) {
-        const userCollection = firebaseApp.firestore().collection(collectionName);
+        const userCollection = firebase.firestore.collection(collectionName);
         userCollection.doc(docId).set(document, { merge: true });
     }
 
     public valueChanges(collectionName: string, path?: any, queryParams?: any): Observable<any> {
-        let query = firebaseApp.firestore().collection(collectionName);
-
-        if (queryParams) {
-            for (const param of queryParams.condition) {
-                query = query.where(param.name, param.comparator, param.value);
-            }
-            if (queryParams.orderBy) {
-                for (const param of queryParams.orderBy) {
-                    query = query.orderBy(param.name, param.value);
+        let query;
+        const collectionRef = firebase.firestore.collection(collectionName);
+        if (path) {
+            query = collectionRef.doc(path);
+        } else {
+            query =  collectionRef.where;
+            if (queryParams) {
+                for (const param of queryParams.condition) {
+                    query = query.where(param.name, param.comparator, param.value);
+                }
+                if (queryParams.orderBy) {
+                    for (const param of queryParams.orderBy) {
+                        query = query.orderBy(param.name, param.value);
+                    }
+                }
+                if (queryParams.limit) {
+                    query = query.limit(queryParams.limit);
                 }
             }
-            if (queryParams.limit) {
-                query = query.limit(queryParams.limit);
-            }
+
         }
-        if (path) {
-            query = query.doc(path);
-        }
-        return Observable.create(observer => {
+        return new Observable(observer => {
             const unsubscribe = query.onSnapshot((snapshot: any) => {
 
                 let results = [];
@@ -83,11 +88,11 @@ export class TNSDbService extends DbService {
                     }
                 });
             });
-            return () => unsubscribe(); 
+            return () => unsubscribe();
         });
     }
     public createId() {
-        return firebaseApp.createId;
+        return firebase.firestore.collection('_').doc().id;
     }
 
     public getFireStorageReference(filePath: string) {
@@ -103,7 +108,7 @@ export class TNSDbService extends DbService {
     }
 
     public getDoc(collectionName: string, docId: any): any {
-        const collectionRef = firebaseApp.firestore().collection(collectionName);
+        const collectionRef = firebase.firestore.collection(collectionName);
         return collectionRef.doc(docId);
     }
 
@@ -112,7 +117,7 @@ export class TNSDbService extends DbService {
     }
 
     public deleteDoc(collectionName: string, docId: any): any {
-        const collectionRef = firebaseApp.firestore().collection(collectionName);
+        const collectionRef = firebase.firestore.collection(collectionName);
         return collectionRef.doc(docId).delete();
     }
 

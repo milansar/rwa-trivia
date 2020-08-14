@@ -9,8 +9,6 @@ import { reducers, metaReducers } from './store';
 import { CoreModule } from 'shared-library/core/core.module';
 import { SharedModule } from 'shared-library/shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
-import * as TNSFirebase from 'nativescript-plugin-firebase';
-import { PlatformFirebaseToken } from 'shared-library/core/db-service/tokens';
 import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angular';
 import { registerElement } from '@nativescript/angular';
 import { RouterModule } from '@angular/router';
@@ -19,10 +17,6 @@ import { UserFeedbackComponent } from './components/index.tns';
 import { WelcomeScreenComponent } from '../../../shared-library/src/lib/shared/mobile/component';
 import { ModalDialogService } from '@nativescript/angular';
 import { CardView } from '@nstudio/nativescript-cardview';
-// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-export function firebaseFactory() {
-  return TNSFirebase;
-}
 
 registerElement('PreviousNextView', () => require('@nativescript/iqkeyboardmanager').PreviousNextView);
 registerElement('CardView', () => CardView);
@@ -50,10 +44,6 @@ registerElement('CardView', () => CardView);
     // BrowserAnimationsModule
   ],
   providers: [
-    {
-      provide: PlatformFirebaseToken,
-      useFactory: firebaseFactory
-    },
     ModalDialogService
   ],
   entryComponents: [

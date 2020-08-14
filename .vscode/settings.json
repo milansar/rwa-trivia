@@ -1,13 +1,14 @@
   {
     "cSpell.words": [
-        "Millis",
-        "aggs",
-        "apikey",
-        "bulkupload",
-        "devconfig",
-        "firestore",
-        "leaderboard",
-        "middlewares"
+      "Millis",
+      "aggs",
+      "apikey",
+      "bulkupload",
+      "crashlytics",
+      "devconfig",
+      "firestore",
+      "leaderboard",
+      "middlewares"
     ],
     "javascript.implicitProjectConfig.experimentalDecorators": true,
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FirebaseAuthService } from './../firebase-auth.service';
-import * as firebaseApp from 'nativescript-plugin-firebase/app';
-import * as firebase from 'nativescript-plugin-firebase';
+import {  firebase } from '@nativescript/firebase';
+import * as firebaseApp from '@nativescript/firebase/app';
 import { Subject, Observable } from 'rxjs';
 import { RouterExtensions } from '@nativescript/angular';
 import { User, CollectionConstants, UserStatusConstants, TriggerConstants } from 'shared-library/shared/model';
