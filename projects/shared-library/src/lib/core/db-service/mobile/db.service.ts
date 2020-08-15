@@ -52,7 +52,7 @@ export class TNSDbService extends DbService {
         if (path) {
             query = collectionRef.doc(path);
         } else {
-            query =  collectionRef.where;
+            query =  collectionRef;
             if (queryParams) {
                 for (const param of queryParams.condition) {
                     query = query.where(param.name, param.comparator, param.value);
