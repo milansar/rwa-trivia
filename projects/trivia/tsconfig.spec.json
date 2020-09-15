@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
     "sourceMap": true,
+    "baseUrl": "",
     "allowJs": true,
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "esModuleInterop": true,
     "allowJs": true,
     "lib": [
       "es2018",
@@ -16,12 +18,12 @@
     "paths": {
       "shared-library/*": [
           "../../projects/shared-library/src/lib/*"
-      ]
+      ],
+      "test/*": ["../../test/*"]
     },
     "outDir": "../out-tsc/spec",
     "module": "commonjs",
     "target": "es2015",
-    "baseUrl": "",
     "types": [
       "jest",
       "jquery",
@@ -34,7 +36,8 @@
   ],
   "include": [
     "**/*.spec.ts",
-    "**/*.d.ts"
+    "**/*.d.ts",
+    "**/*.tns.ts"
   ],
   "exclude": [
     "node_modules",

@@ -5,7 +5,7 @@ import { CoreState, UIStateActions } from '../../store';
 import { Store } from '@ngrx/store';
 import { FirebaseAuthService } from './../../auth/firebase-auth.service';
 import { Login } from './login';
-import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { AutoUnsubscribe } from 'shared-library/shared/decorators';
 import * as firebase from 'firebase/app';
 import * as firebaseui from 'firebaseui';
 import { WindowRef } from 'shared-library/core/services';
@@ -47,7 +47,7 @@ export class LoginComponent extends Login implements OnDestroy {
   }
 
   phoneSignIn() {
-    super.phoneSignIn();
+    this.setPhoneSignIn();
     if (!this.ui) {
       this.ui = new firebaseui.auth.AuthUI(firebase.auth());
     }
@@ -58,7 +58,7 @@ export class LoginComponent extends Login implements OnDestroy {
     if (this.ui && this.signInMethod === 'phone') {
       this.ui.reset();
     }
-    super.emailSignIn();
+    this.setEmailSignIn();
   }
   async onSubmit() {
     let user;
@@ -106,7 +106,6 @@ export class LoginComponent extends Login implements OnDestroy {
       }
 
     } catch (error) {
-      console.error(error);
       this.notificationMsg = error.message;
       this.errorStatus = true;
       this.cd.markForCheck();

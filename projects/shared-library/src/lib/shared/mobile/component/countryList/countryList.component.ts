@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { ModalDialogParams } from 'nativescript-angular/modal-dialog';
 import { Country } from './model/country.model';
-import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { AutoUnsubscribe } from 'shared-library/shared/decorators';
 import { Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { UserActions, coreState, CoreState } from 'shared-library/core/store';
@@ -29,8 +29,10 @@ export class CountryListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscriptions.push(this.store.select(coreState).pipe(select(s => s.countries)).subscribe(countries => {
       this.cd.markForCheck();
-      if (countries.length > 0) {
-        this.allCountries = countries.sort((prev, next) => prev.name.localeCompare(next.name));
+      if (countries) {
+        if (countries.length > 0) {
+          this.allCountries = countries.sort((prev, next) => prev.name.localeCompare(next.name));
+        }
       }
     }));
     this.country = this._modalDialogParams.context.Country;

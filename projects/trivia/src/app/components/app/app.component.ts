@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material';
 import { NavigationEnd, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { CookieLawComponent } from 'angular2-cookie-law';
-import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { AutoUnsubscribe } from 'shared-library/shared/decorators';
 import { filter, skip, take } from 'rxjs/operators';
 import { AuthenticationProvider } from 'shared-library/core/auth';
 import { Utils, WindowRef } from 'shared-library/core/services';
@@ -30,20 +30,19 @@ export class AppComponent implements OnInit, OnDestroy {
   intervalSubscription: Subscription;
 
   @ViewChild('cookieLaw', { static: true })
-  private cookieLawEl: CookieLawComponent;
+  public cookieLawEl: CookieLawComponent;
 
   constructor(private renderer: Renderer2,
-    private authService: AuthenticationProvider,
+    public authService: AuthenticationProvider,
     private store: Store<AppState>,
     public router: Router,
     public snackBar: MatSnackBar,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private windowRef: WindowRef,
+    public windowRef: WindowRef,
     private userAction: UserActions,
     private applicationSettingsAction: ApplicationSettingsActions,
     private categoryActions: CategoryActions,
     private topicsActions: TopicActions) {
-
     this.store.dispatch(this.applicationSettingsAction.loadApplicationSettings());
     this.store.dispatch(this.categoryActions.loadCategories());
     this.store.dispatch(this.topicsActions.loadTopTopics());
@@ -62,8 +61,8 @@ export class AppComponent implements OnInit, OnDestroy {
           this.router.navigate([url]);
         }
 
-        // it is required to ensure when computer recover from hibernation
-        // previous interval is clear
+        // it is required to ensure when user is updated in store
+        // we do not want to create another interval
         if (this.intervalSubscription) {
           this.intervalSubscription.unsubscribe();
         }
@@ -91,8 +90,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(this.store.select(appState.coreState)
       .pipe(select(s => s.newGameId), filter(g => g !== '')).subscribe(gameObj => {
-        this.router.navigate(['/game-play', gameObj['gameId']]);
-        this.store.dispatch(new gamePlayActions.ResetCurrentQuestion());
+        if (gameObj) {
+          this.router.navigate(['/game-play', gameObj['gameId']]);
+          this.store.dispatch(new gamePlayActions.ResetCurrentQuestion());
+        }
       }));
 
     this.subscriptions.push(this.store.select(coreState).pipe(select(s => s.userProfileSaveStatus)).subscribe(status => {

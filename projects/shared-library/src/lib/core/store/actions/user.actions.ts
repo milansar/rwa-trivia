@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { ActionWithPayload } from './action-with-payload';
-import { User, Game, Friends, Invitation } from '../../../shared/model';
+import { User, Game, Friend, Invitation } from '../../../shared/model';
 import { Country } from 'shared-library/shared/mobile/component/countryList/model/country.model';
 
 @Injectable()
@@ -204,13 +204,14 @@ export class UserActions {
       payload: userId
     };
   }
-  loadUserFriendsSuccess(friends: Friends): ActionWithPayload<Friends> {
+  loadUserFriendsSuccess(friends: Friend[]): ActionWithPayload<Friend[]> {
     return {
       type: UserActions.LOAD_USER_FRIENDS_SUCCESS,
       payload: friends
     };
   }
   loadUserInvitationsSuccess(invitation: Invitation[]): ActionWithPayload<Invitation[]> {
+    
     return {
       type: UserActions.LOAD_FRIEND_INVITATION_SUCCESS,
       payload: invitation

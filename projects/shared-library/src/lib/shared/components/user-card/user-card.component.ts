@@ -3,7 +3,7 @@ import { User, userCardType, Invitation } from 'shared-library/shared/model';
 import { Utils } from 'shared-library/core/services';
 import { CoreState, coreState } from './../../../core/store';
 import { Store, select } from '@ngrx/store';
-import { AutoUnsubscribe } from 'ngx-auto-unsubscribe';
+import { AutoUnsubscribe } from 'shared-library/shared/decorators';
 import { UserActions } from '../../../core/store/actions';
 import { Observable } from 'rxjs';
 import * as lodash from 'lodash';
@@ -35,7 +35,7 @@ export class UserCardComponent implements OnInit, OnDestroy, OnChanges {
   userDict: { [key: string]: User };
 
 
-  constructor(private utils: Utils,
+  constructor(public utils: Utils,
     private store: Store<CoreState>,
     private userActions: UserActions,
     protected cd: ChangeDetectorRef,
@@ -99,7 +99,7 @@ export class UserCardComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   setUser() {
-    if (this.userDict[this.userId]) {
+    if (this.userDict && this.userDict[this.userId]) {
       this.user = this.userDict[this.userId];
       this.cd.markForCheck();
     }
